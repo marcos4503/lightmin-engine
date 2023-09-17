@@ -6,7 +6,9 @@
 
 Lightmin Engine (a combination of the words Light and Minimalistic) is an Engine aimed for creating Websites. It aims to provide a simple, fast, easy and powerful way to create dynamic websites, that is, websites that behave like applications! Dynamic websites are responsive websites, which often behave like applications, having a loading screen when the user accesses that website, and then the user no longer leaves that same page and only its content, as well as the interface, changes as the user navigates and uses the website, exactly how an application behaves.
 
-The Lightmin Engine aims to be an alternative for people who do not want or cannot use much more complex Frameworks that require a greater learning curve, such as Flutter, React, Angular, among others. Lightmin is written in pure PHP, HTML, CSS and JavaScript! This means that to use this Engine and develop your website, all you will need is a server that runs PHP and a program to edit HTML, CSS, JavaScript and PHP codes! You won't need anything more than that and you'll be able to create your dynamic website in a matter of minutes after understanding the basics of this Engine!
+The Lightmin Engine aims to be an alternative for people who do not want or cannot use much more complex Frameworks that require a greater learning curve, such as Flutter, React, Angular, among others.
+
+The Engine is written in pure PHP, HTML, CSS and JavaScript! This means that to use this Engine and develop your website, all you will need is a server that runs PHP and a program to edit HTML, CSS, JavaScript and PHP codes! You won't need anything more than that and you'll be able to create your dynamic website in a matter of minutes after understanding the basics of this Engine!
 
 # Support projects like this
 
