@@ -1,5 +1,5 @@
-<p align="center" style="font-size: 2px;">
-    <img src="Documentation-Template/DocumentationFiles/images/screenshot.png" />
+<p align="center">
+    <img src="This-Repository/Lightmin-Repo.png" />
 </p>
 
 # What is Lightmin Engine?
