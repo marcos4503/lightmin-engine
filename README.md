@@ -2,7 +2,7 @@
     <img src="Documentation-Template/DocumentationFiles/images/screenshot.png" />
 </p>
 
-# What Is Lightmin Engine
+# What is Lightmin Engine?
 
 Lightmin Engine (a combination of the words Light and Minimalistic) is an Engine aimed for creating Websites. It aims to provide a simple, fast, easy and powerful way to create dynamic websites, that is, websites that behave like applications! Dynamic websites are responsive websites, which often behave like applications, having a loading screen when the user accesses that website, and then the user no longer leaves that same page and only its content, as well as the interface, changes as the user navigates and uses the website, exactly how an application behaves.
 
