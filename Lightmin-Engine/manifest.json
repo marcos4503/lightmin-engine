@@ -1,0 +1,14 @@
+{
+    "cssLibraries": [
+        "libraries/css/client-css.php"
+    ],
+    "javascriptLibraries": [
+        "libraries/js/client-js.php"
+    ],
+    "websitePieces": [
+        "pieces/Example.htm"
+    ],
+    "websiteScreens": [
+        "screens/Example.htm"
+    ]
+}

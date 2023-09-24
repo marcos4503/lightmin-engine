@@ -92,8 +92,20 @@
                     <ul>
                         <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="5da">A</a></li>
                     </ul>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="5ea">Medias: Where to place Website Media files</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="5eb">Libaries: Where to place Website CSS & JS code</a></li>
                     <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="6">Manifest File</a></li>
                     <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="7">Settings File</a></li>
+                    <li class="summarySubItem">Lightmin JS API</li>
+                    <ul>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8">Settings.Get()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8a">Common.SendLog()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8ba">Utils.RemoveAllListeners()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8bb">Utils.GetCurrentFaviconSrc()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8bc">Utils.ChangeFavicon()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8b">HttpRequest</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8c">InputValidator</a></li>
+                    </ul>
                 </ul>
                 <!-- -------------------------------------------------------------------------- END OF SUMMARY CONTENT -------------------------------------------------------------------------- -->
             </div>
@@ -162,7 +174,7 @@
                     The Lightmin Engine was developed to enable developers to create their dynamic websites (or web applications) in the most enjoyable, quick and easy way possible. It was developed so that you don't need to have compiler
                     programs or anything similar on your PC, all you need is your standard code editor. But there are some requirements necessary for you to use Lightmin, some are optional. See below.
                     <doc.list>
-                        <doc.listr>Prior knowledge of HTML, CSS, JavaScript, PHP and how to create/host Websites.</doc.listr>
+                        <doc.listr>Prior knowledge of HTML, CSS, JavaScript, JSON, PHP and how to create/host Websites.</doc.listr>
                         <doc.listr>A server that runs PHP.</doc.listr>
                         <doc.listr>Everyone who will access your website will need Browsers that support JavaScript.</doc.listr>
                         <doc.listr>An HTML, JavaScript, CSS and PHP code editor. (I highly recommend "VS Code" because of its level of customization and extensions)</doc.listr>
@@ -199,12 +211,302 @@
                         <doc.tabler>libraries=>Folder=>Inside this folder you must place your Website CSS and JS files. I <b>STRONGLY</b> recommend that ALL of your Website CSS be inside this folder (except the "Pieces" CSS) so that organization is maintained, and to avoid clutter.</doc.tabler>
                         <doc.tabler>medias=>Folder=>Inside this folder you must place ALL the media files from your Website. Be it a pure text file, image or even video. Files present here can also be easily accessed via JavaScript using the Lightmin Engine JS API!</doc.tabler>
                         <doc.tabler>pages=>Folder=>In this folder you must place ALL the "Pages" files from your Lightmin Website. Any "Page" file that you intend to render within the Client must be present here. The "Page" files can contain JavaScript within them, without any problems, but it is recommended that they only be small scripts. Any large script should go to the "libraries" folder for greater organization of the Website.</doc.tabler>
-                        <doc.tabler>pieces=>Folder=>In this folder you must place all the XML files of the "Pieces" that you created for your Website. When downloading the base website from the Github repository, some standard "Pieces" will come so that you have at least the basics to get started! The "Pieces" must contain their JavaScript code within the XML file, regardless of the size of the script, along with the HTML and CSS code of the "Piece", for greater organization. Additionally, this makes it easier to share "Pieces" between different Lightmin websites.</doc.tabler>
+                        <doc.tabler>pieces=>Folder=>In this folder you must place all the HTM files of the "Pieces" that you created for your Website. When downloading the base website from the Github repository, some standard "Pieces" will come so that you have at least the basics to get started! The "Pieces" must contain their JavaScript code within the HTM file, regardless of the size of the script, along with the HTML and CSS code of the "Piece", for greater organization. Additionally, this makes it easier to share "Pieces" between different Lightmin websites.</doc.tabler>
                         <doc.tabler>screens=>Folder=>In this folder, you must place all the "Screen" files for your Website. These files works as additional screens that cover your Website Client when called by JavaScript code, and this way you can use them to extend the base interface beyond just the Client interface, creating additional screens with different layouts and interfaces to perform smaller tasks on your Website, such as Login screens, Preferences screens, etc.</doc.tabler>
                         <doc.tabler>client.php=>File=>This is your Website "Client" file, this is your Website central file. This is where you will program the layout and base interface of your Website, and it is where you will display "Pages" and other things.</doc.tabler>
                         <doc.tabler>manifest.json=>File=>This is the Manifest of your Lightmin Website. Here in this file you must declare all the "Pieces", "Screens" and "Libraries (CSS and JS)" files present on your Lightmin Website. Only then will these files work and be compiled at runtime on the Client.</doc.tabler>
                         <doc.tabler>settings.php=>File=>In this file you can configure any type of configurable thing for your Lightmin Website, which can range from colors of Engine elements, to transition animations between "Pages" in the Client.</doc.tabler>
                     </doc.table>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+
+                <!-- #region Medias: Where to place Website Media files -->
+                <doc.topic topicid="5ea">
+                    <doc.topictitle>Medias - Where to place Website Media files</doc.topictitle>
+
+                    On websites created using Lightmin Engine, all media files such as Images, Videos, Icons and others must go to the <doc.detach>medias</doc.detach> folder. This is to ensure greater organization on Lightmin-based
+                    websites. Image files should go to <doc.detach>medias/images</doc.detach>, icon files should go to <doc.detach>medias/icons</doc.detach>, sound or music files should go to <doc.detach>medias/sounds</doc.detach>, plain
+                    text files should go to <doc.detach>medias/others</doc.detach>.
+                    <br>
+                    <br>
+                    This organization will also allow you to be able to find resources (like images) easily using Lightmin Engine JavaScript API, whether in your <doc.detach>Pages</doc.detach>, <doc.detach>Pieces</doc.detach> or whatever
+                    you want!
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Libaries: Where to place Website CSS & JS code -->
+                <doc.topic topicid="5eb">
+                    <doc.topictitle>Libaries - Where to place Website CSS & JS code</doc.topictitle>
+
+                    Any website worth its salt needs CSS and JavaScript codes to function. With websites made in Lightmin, it's the same thing. Although Lightmin provides a platform for you to create your own dynamic websites, you still
+                    need to program the JavaScript that will make your website come to life and the CSS that will make your website look however you want.
+                    <br>
+                    <br>
+                    <b>This is a rule that I strongly recommend you follow while developing websites with Lightmin:</b> All CSS and JavaScript code of your ENTIRE website MUST be inside your website <doc.detach>libraries</doc.detach>
+                    folder. Following this rule will allow for MUCH greater organization of your Website, not to mention that this will facilitate future maintenance that is carried out on your Lightmin website.
+                    <br>
+                    <br>
+                    JavaScript files should look like this, and must have the PHP extension...
+
+                    <doc.code language="PHP"><code>
+&lt;?php /* This is a example JavaScript file for the Lightmin website */ ?&gt;
+
+&lt;script&gt;
+
+function exampleFunction() {
+
+}
+
+&lt;/script&gt;
+</code></doc.code>
+
+                    <doc.info>
+                        The events <doc.detach>window.onload</doc.detach> and <doc.detach>document.onload</doc.detach> will not work for your JavaScript libraries because they are loaded at runtime on the loading screen, so if you need to
+                        run some code right after your library script is loaded by the Engine, just include a method called <doc.detach>LE_OnLoad_YourJsLibFileName()</doc.detach> in your script. So, if you have a JavaScript library called
+                        <doc.detach>MyJsLibrary.php</doc.detach>, just include the <doc.detach>function LE_OnLoad_MyJsLibrary()</doc.detach> method in your script and it will be executed as soon as your script is loaded by the Engine.
+                    </doc.info>
+                    <doc.info>
+                        If you want to run code once the Engine has COMPLETELY finished initial loading the Website, you can add <doc.detach>function LE_OnLoadEngineFinished()</doc.detach> to one of your library JavaScript files. But add
+                        this function ONLY ONCE throughout your website. Only ONE of this function can exist PER Website, to avoid conflicts when receiving the callback.
+                    </doc.info>
+
+                    CSS files should look like this, and must have the PHP extension too...
+
+                    <doc.code language="PHP"><code>
+&lt;?php /* This is a example CSS file for the Lightmin website */ ?&gt;
+
+&lt;style&gt;
+
+.exampleCssClass {
+        
+}
+
+&lt;/style&gt;
+</code></doc.code>
+
+                    These files must have the PHP extension as this will allow code editors (like VS Code) to provide auto-completion while you write your CSS and JavaScript code, as well as allowing PHP code to be merged with your CSS and
+                    JavaScript code, if you so desire.
+                    <br>
+                    <br>
+                    Either way, every file that contains CSS should go in directory <doc.detach>libraries/css</doc.detach> on your Website, while every file that contains JavaScript code should go in directory
+                    <doc.detach>libraries/js</doc.detach> on your Website. And of course, both type of files must comply with the examples mentioned above, otherwise the Engine will not be able to compile them at the time of initial
+                    loading, which could result in problems running your Website.
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Manifest File -->
+                <doc.topic topicid="6">
+                    <doc.topictitle>Manifest File</doc.topictitle>
+
+                    As you already know, websites created with Lightmin Engine can have multiple <doc.detach>Pieces</doc.detach>, <doc.detach>Screens</doc.detach> and <doc.detach>Libraries</doc.detach>. All of these items help to create
+                    your website and make your work easier when developing it. However, upon initial loading of your website, the Engine loads all these items and then compiles them in the <doc.detach>Client</doc.detach>, at runtime. Once
+                    compiled, they will be available for use across your website. However, for the Engine to know that these items exist, you need to inform it. And that's where the <doc.detach>manifest.json</doc.detach> file comes in.
+                    <br>
+                    <br>
+                    The <doc.detach>manifest.json</doc.detach> file is a JSON file and contains some arrays in which you must enter the path to the <doc.detach>Libraries</doc.detach> (CSS and JavaScript), <doc.detach>Pieces</doc.detach> and
+                    <doc.detach>Screens</doc.detach> files. A <doc.detach>manifest.json</doc.detach> file should look like this...
+
+                    <doc.code language="json"><code>
+{
+    "cssLibraries": [
+        "libraries/css/example.php"
+    ],
+    "javascriptLibraries": [
+        "libraries/js/example.php"
+    ],
+    "websitePieces": [
+        "pieces/TextField.htm",
+        "pieces/ImageDisplay.htm"
+    ],
+    "websiteScreens": [
+        "screens/Preferences.htm"
+    ]
+}
+</code></doc.code>
+
+                    Now, let's see what each variable (array) in <doc.detach>manifest.json</doc.detach> means.
+                    <doc.list>
+                        <doc.listr><b>cssLibraries</b>: In this variable you must enter the path to each CSS file within the <doc.detach>libraries</doc.detach> folder on your Website.</doc.listr>
+                        <doc.listr><b>javascriptLibraries</b>: In this variable you must enter the path to each JavaScript file within the <doc.detach>libraries</doc.detach> folder on your Website.</doc.listr>
+                        <doc.listr><b>websitePieces</b>: In this variable you must enter the path to each <doc.detach>Piece</doc.detach> file within the <doc.detach>pieces</doc.detach> folder on your Website.</doc.listr>
+                        <doc.listr><b>websiteScreens</b>: In this variable you must enter the path to each <doc.detach>Screens</doc.detach> file within the <doc.detach>screens</doc.detach> folder on your Website.</doc.listr>
+                    </doc.list>
+                    Remember that you must provide the paths to the files, taking into account that the root folder is the same folder where file <doc.detach>client.php</doc.detach> is located.
+
+                    <doc.warn>
+                        Be careful to not save file <doc.detach>manifest.json</doc.detach> containing syntax errors. If the file does not comply with the correct JSON syntax, the Lightmin Engine will not be able to load it correctly and
+                        your Website may be interrupted. Also, never remove any existing variables (array) from file <doc.detach>manifest.json</doc.detach>, even if the array is empty.
+                    </doc.warn>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Settings File -->
+                <doc.topic topicid="7">
+                    <doc.topictitle>Settings File</doc.topictitle>
+
+                    The Engine, in its background, performs a lot of functions to abstract as much as possible for you, so that you don't need to worry about the foundation or code base for building your Dynamic Website. However, several
+                    things regarding the Engine operation can be configured, such as the background colors of the loading screen, the Website icon, the Client language and MANY other things.
+                    <br>
+                    <br>
+                    The <doc.detach>settings.php</doc.detach> file allows you to easily configure settings. The Engine has several variables that have values with default settings. If you define an existing variable in
+                    <doc.detach>settings.php</doc.detach> by defining a new value for the variable, you will be defining a new configuration as desired. You can use the PHP code below to set new values for variables.
+                    <doc.code language="php"><code>
+    $settings->SetVariablePrimitiveValue("variableName", "The New Value");
+</code></doc.code>
+                    If you want to set the default Engine value for the variable, just delete the line where you are setting a value for it and you're done! That variable will now use the Engine default value! This also means that if you
+                    don't define any variables in the <doc.detach>settings.php</doc.detach> file, then all existing variables will be using Engine default values!
+                    <br>
+                    <br>
+                    In the table below, you can see all the variables that exist in the Engine, which you can configure to define any value you want, as long as the value you define respects the value type of that variable. For example, you
+                    cannot define a value of type <doc.detach>INT</doc.detach> for a variable of type <doc.detach>STRING</doc.detach>.
+
+                    <doc.table>
+                        <doc.tablecw>44%=>6%=>auto</doc.tablecw>
+                        <doc.tablec>Variable=>Type=>Description</doc.tablec>
+                        <doc.tabler>websiteBaseTitle=>STRING=>Sets the base title for your Website. This title will be displayed in the Browser tab and will come before the title of the Page currently loaded and being displayed. Generally you will want to set the main title of the website itself. For example, if the website is for Honda, you will want to set the value "Honda" for this variable.</doc.tabler>
+                        <doc.tabler>websiteFaviconNoNotificationsUri=>STRING=>Sets the image (in ICO format) to be used as the website Favicon while there are no Notifications being displayed using the Lightmin Engine Notifications API. You must provide the path, taking into account that the root is the folder where "client.php" is located.</doc.tabler>
+                        <doc.tabler>websiteFaviconWithNotificationsUri=>STRING=>Sets the image (in ICO format) to be used as the website Favicon while THERE ARE notifications being displayed using the Lightmin Engine Notifications API. You must provide the path, taking into account that the root is the folder where "client.php" is located.</doc.tabler>
+                        <doc.tabler>websiteLang=>STRING=>Defines the language of your Client page. It must be defined in accordance with the ISO-8859-1 format. For example "pt-BR" or "en-US".</doc.tabler>
+                        <doc.tabler>websiteCharSet=>STRING=>Defines the charset to be used by your website Client. The default is "UTF-8".</doc.tabler>
+                        <doc.tabler>websitePrimaryFontFamily=>STRING=>Defines the primary Font Family for your website text.</doc.tabler>
+                        <doc.tabler>websiteSecondaryFontFamily=>STRING=>Defines the secondary Font Family for your website text.</doc.tabler>
+                        <doc.tabler>websiteFontSizePx=>INT=>Sets the default Font size for your website.</doc.tabler>
+                        <doc.tabler>browserColor=>STRING=>Defines the color that your Website will have in the Browser Tab. Generally this will only work for Google Chrome on mobile devices. Must be set in Hexadecimal color format.</doc.tabler>
+                        <doc.tabler>loadScreenLogoUri=>STRING=>Defines the image that will be used as your website loading logo when the user enters. You must provide the path, taking into account that the root is the folder where "client.php" is located.</doc.tabler>
+                        <doc.tabler>loadScreenMessage=>STRING=>Defines the message that will appear below the logo on the loading screen.</doc.tabler>
+                        <doc.tabler>loadScreenBackgroundColorHexGradientStart=>STRING=>Sets the starting color of the gradient on the background of your website initial loading screen. Must be set in Hexadecimal color format.</doc.tabler>
+                        <doc.tabler>loadScreenBackgroundColorHexGradientEnd=>STRING=>Sets the ending color of the gradient on the background of your website initial loading screen. Must be set in Hexadecimal color format.</doc.tabler>
+                        <doc.tabler>loadScreenStyledBackgroundColorHex=>STRING=>Sets the background color that will be present behind the initial loading screen, as a drop shadow in the exit transition. Must be set in Hexadecimal color format.</doc.tabler>
+                        <doc.tabler>loadScreenForegroundColorHex=>STRING=>Sets the filling color of the loading bar on the Engine initial loading screen. Must be set in Hexadecimal color format.</doc.tabler>
+                        <doc.tabler>loadScreenBackgroundColorHex=>STRING=>Sets the background color of the loading bar on the Engine initial loading screen. Must be set in Hexadecimal color format.</doc.tabler>
+                        <doc.tabler>showTextSelectionHighlight=>BOOL=>Defines whether the text selected on your website should be highlighted or not.</doc.tabler>
+                    </doc.table>
+
+                    <doc.warn>
+                        Note: If you try to define a variable that does not exist in the Engine, in the <doc.detach>settings.php</doc.detach> file, it will generate runtime errors on your Website when it tries to read the settings. This can
+                        cause problems and even stop your website from running, resulting in errors. Therefore, only define existing variables, that is, variables that are listed in the table above.
+                    </doc.warn>
+                    <doc.warn>
+                        Be careful when saving file <doc.detach>settings.php</doc.detach> not to save the file with PHP syntax errors or similar things as well. If there is any error of this type in the <doc.detach>settings.php</doc.detach>
+                        file, the Engine will not be able to load the settings and the execution of your website will be affected.
+                    </doc.warn>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Lightmin JS API: Settings.Get() -->
+                <doc.topic topicid="8">
+                    <doc.topictitle>Lightmin JS API: Settings.Get()</doc.topictitle>
+
+                    This method allows you to get the value of ANY settings variable defined on your website through <doc.detach>settings.php</doc.detach> and also allows you to get the value of settings variables that are not defined
+                    in <doc.detach>settings.php</doc.detach>, getting the default value of Engine for that variable.
+
+                    <doc.code language="javascript"><code>
+//- Settings.Get(settingName);
+//  STRING settingName - The name of settings variable that you want to get the value.
+var value = Settings.Get("websiteBaseTitle");
+</code></doc.code>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Lightmin JS API: Common.SendLog() -->
+                <doc.topic topicid="8a">
+                    <doc.topictitle>Lightmin JS API: Common.SendLog()</doc.topictitle>
+
+                    This method allows you to send logs (message only) to the browser console, in the context of the Engine.
+
+                    <doc.code language="javascript"><code>
+//- Common.SendLog(logType, message);
+//  STRING logType - The type of log that will be sent. "E" for errors, "W" for warnings, and "L" for simple logs.
+//  STRING message - The log message.
+Common.SendLog("L", "Hello World!");
+</code></doc.code>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Lightmin JS API: Utils.RemoveAllListeners() -->
+                <doc.topic topicid="8ba">
+                    <doc.topictitle>Lightmin JS API: Utils.RemoveAllListeners()</doc.topictitle>
+
+                    This method removes all Listeners registered in a DOM element. Note that if you have a reference to an element in some variable, and then you use this method on the element, the variable will lose reference to the
+                    element on which you used this method. So if you were storing a reference to that element in a variable, you will need to reference it again after using this method on it.
+
+                    <doc.code language="javascript"><code>
+//- Utils.RemoveAllListeners(domElement);
+//  ELEMENT domElement - The element that will have all listeners removed.
+Utils.RemoveAllListeners(document.getElementById("someElementId"));
+</code></doc.code>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Lightmin JS API: Utils.GetCurrentFaviconSrc() -->
+                <doc.topic topicid="8bb">
+                    <doc.topictitle>Lightmin JS API: Utils.GetCurrentFaviconSrc()</doc.topictitle>
+
+                    This method returns the HREF attribute value of the current Favicon. It is useful for checking which Favicon is currently displayed on the Website, and can be called frequently without problems, as it has a Cache system
+                    for future checks.
+
+                    <doc.code language="javascript"><code>
+//- Utils.GetCurrentFaviconSrc();
+var currentFaviconSrc = Utils.GetCurrentFaviconSrc();
+</code></doc.code>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Lightmin JS API: Utils.ChangeFavicon() -->
+                <doc.topic topicid="8bc">
+                    <doc.topictitle>Lightmin JS API: Utils.ChangeFavicon()</doc.topictitle>
+
+                    This method allows you to dynamically change the Website Favicon. This can be called frequently without problems, as it has a Cache system for future checks.
+
+                    <doc.code language="javascript"><code>
+//- Utils.ChangeFavicon(newFaviconSrc);
+//  STRING newFaviconSrc - The new HREF of the icon. It can be a URI or URL.
+Utils.ChangeFavicon("icons/myFavicon.ico");
+</code></doc.code>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Lightmin JS API: HttpRequest -->
+                <doc.topic topicid="8b">
+                    <doc.topictitle>Lightmin JS API: HttpRequest</doc.topictitle>
+
+                    The Lightmin Engine HttpRequest class is nothing more than a port to Lightmin, of the "Frontend Http Request" JS library created by Marcos Tomaz. Frontend HTTP Request is a library that aims to facilitate HTTP requests
+                    made
+                    with pure Javascript in the Frontend of your Websites. It was developed to make working with AJAX easier.
+                    <br>
+                    <br>
+                    What this library does is abstract most of the code needed to make HTTP requests, reducing the amount of code needed and the repetitiveness you have when using "XmlHttpRequest" objects from Javascript. With this library
+                    you can make HTTP requests like POST, GET or File Upload in an easy and fast way, with little code and with easy to use Callbacks so that you can easily change the UI of your Website while the Request is being made.
+                    <br>
+                    <br>
+                    Lightmin Engine HttpRequest class can be used easily and you can refer to the Documentation (ReadMe) of "Frontend Http Request" to learn how to use this class easily. Just read the Documentation by
+                    <a href="https://github.com/marcos4503/frontend-http-request" target="_blank">clicking on this link</a> and you will know how to use the HttpRequest class easily!
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Lightmin JS API: InputValidator -->
+                <doc.topic topicid="8c">
+                    <doc.topictitle>Lightmin JS API: InputValidator</doc.topictitle>
+
+                    The Lightmin Engine InputValidator class is nothing more than a port to Lightmin, of the "Frontend Input Validator" JS library created by Marcos Tomaz. The Frontend Input Validator is a Javascript library to be used in
+                    the Frontend of your website. The objective of this library is to provide a simple, easy to use and low code system for validating text or file inputs in your website Frontend interface. Which is very common in all types
+                    of websites, such as registration forms for example.
+                    <br>
+                    <br>
+                    Lightmin Engine InputValidator class can be used easily and you can refer to the Documentation (ReadMe) of "Frontend Input Validator" to learn how to use this class easily. Just read the Documentation by
+                    <a href="https://github.com/marcos4503/frontend-input-validator" target="_blank">clicking on this link</a> and you will know how to use the InputValidator class easily!
 
                 </doc.topic>
                 <!-- #endregion -->
