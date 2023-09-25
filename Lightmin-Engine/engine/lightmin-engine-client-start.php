@@ -17,7 +17,7 @@
         <!-- Lightmin Engine initializator JS -->
         <?php include_once("engine/engine-dynamic-includes/client-initializator-js.php"); ?>
         <!-- Lightmin Engine Client metadata -->
-        <title>Loading...</title>
+        <title><?php echo(Common::GetManifestBaseTitle()); ?></title>
         <link rel="icon" type="image/x-icon" href="engine/medias/icons/loading-favicon.ico">
         <meta id="le.websiteBrowserColor" name="theme-color" content="#FFFFFF">
         <meta name="viewport" content="width=device-width">

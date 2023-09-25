@@ -6,6 +6,8 @@ class Settings{
 
     //Public variables
     static loadedWebsiteSettings = null;   //<- This is JSON Object result of settings loaded from "settings.php" at start of website
+    static loadedBaseTitle = "";           //<- This is the website base title, defined in "manifest.json"
+    static loadedDefaultPage = "";         //<- This is the website default page, defined in "manifest.json"
 
     //Public methods
 
@@ -23,6 +25,16 @@ class Settings{
 
         //Return the desired setting
         return Settings.loadedWebsiteSettings[settingName];
+    }
+
+    static GetManifestBaseTitle(){
+        //Returnt the website base title defined in "manifest.json"
+        return Settings.loadedBaseTitle;
+    }
+
+    static GetManifestDefaultPage(){
+        //Returnt the website base title defined in "manifest.json"
+        return Settings.loadedDefaultPage;
     }
 
 }

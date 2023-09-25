@@ -7,6 +7,12 @@
 html, body {
     height: auto;
 }
+body{
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
 
 /* Loading Screen */
 
@@ -205,6 +211,7 @@ html, body {
 /* All Website Content */
 
 .le_body_allWebsiteContent{
+    display: none;
     width: 100%;
     height: auto;
 }

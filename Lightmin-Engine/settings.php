@@ -16,7 +16,7 @@ include_once("engine/lightmin-engine-settings-start.php");
 */
 
 //Defined settings for this Website...
-$settings->SetVariablePrimitiveValue("websiteBaseTitle", "Example Website");
+$settings->SetVariablePrimitiveValue("websiteLang", "en-US");
 
 // ┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 // ├────────────────────────────────────────────────   ====> [ STOP EDITING AFTER HERE! ] <====   ─────────────────────────────────────────────────┤

@@ -54,18 +54,22 @@ class Initializator {
 
         //Wait a time before start the load proccess
         window.setTimeout(() => {
-            //First remove any AWS or Google automatic scripts from the HEAD tag of Client...
-            Initializator.RemoveAwsAndGoogleAutomaticScripts();
-        }, 25);
+            //Enable the loading screen
+            Initializator.loadingScreenLoadBox.style.display = "block";
+            window.setTimeout(() => {
+                Initializator.loadingScreenLoadBox.style.opacity = "1.0";
+            }, 50);
 
-        //Enable the loading screen
-        Initializator.loadingScreenLoadBox.style.display = "block";
-        window.setTimeout(() => {
-            Initializator.loadingScreenLoadBox.style.opacity = "1.0";
-        }, 50);
-        window.setTimeout(() => {
-            Initializator.loadingScreenLoadBoxBarBg.style.width = "100%";
-        }, 500);
+            //Show the progress bar
+            window.setTimeout(() => {
+                Initializator.loadingScreenLoadBoxBarBg.style.width = "100%";
+            }, 500);
+
+            //Finally, start the load process
+            window.setTimeout(() => {
+                Initializator.RemoveAwsAndGoogleAutomaticScripts();
+            }, 500);
+        }, 25);        
     }
 
     static RemoveAwsAndGoogleAutomaticScripts(){
@@ -126,9 +130,10 @@ class Initializator {
     }
 
     static ApplyAllSettings(){
-        //Apply client settings
+        //Update the progress bar
         Initializator.loadingScreenLoadBoxBarFg.style.width = "25%";
-        document.title = Settings.Get("websiteBaseTitle");
+
+        //Apply client settings
         Utils.ChangeFavicon(Settings.Get("websiteFaviconNoNotificationsUri"));
         document.documentElement.setAttribute("lang", Settings.Get("websiteLang"));
         document.getElementById("le.websiteCharset").setAttribute("charset", Settings.Get("websiteCharSet"));
@@ -177,6 +182,10 @@ class Initializator {
                 var tmp = httpRequest.GetParsedJsonIfApiUsingBackendResponseBuilderHaveReturnedExpectedResponseHeaderAndRunOnErrorCallbackIfNotReturned("error<br/>{}", "success");
                 return;
             }
+
+            //Store the base title and default page of the website in cache of Settings
+            Settings.loadedBaseTitle = jsonResponse.baseTitle;
+            Settings.loadedDefaultPage = jsonResponse.defaultPage;
 
             //Get URI for all css libraries
             for(var i = 0; i < jsonResponse.cssLibraries.length; i++)
@@ -430,6 +439,10 @@ class Initializator {
         if(isClientValid == false)
             Initializator.clientErrorWarningPopUp.style.display = "flex";
 
+        //If the client is valid, enable the Client layout and HTML code
+        if(isClientValid == true)
+            Initializator.bodyAllWebsiteContent.style.display = "block";
+
         //Increase current step of init and go to next step
         Initializator.currentStepOfInit = 9;
         Initializator.FinishLoading();
@@ -519,12 +532,52 @@ class Initializator {
         }, 250);
     }
 
+    static GetStringWithGtAndLtConverted(stringToConvert){
+        //Return a string with "&lt;" and "&gt;" to "<" and ">"
+
+        /*
+         * This is because after converting an XML string to a Parsed XML using "(new DOMParser()).parseFromString(str, "text/xml");", all ">" and "<" characters
+         * that do not create Tags are converted to "&gt;" and "&lt;" respectively...
+        */
+
+        //Return the converted string...
+        return (stringToConvert.replaceAll("&lt;", "<").replaceAll("&gt;", ">"));
+    }
+
     static ProcessLoadedCssLibrary(cssSrc, sourceCode){
         //Protects the code against execution problems...
         try
         {
             //Get the "<style>" root tag from the PHP file...
             var parsedXmlRootNode = (new DOMParser()).parseFromString(sourceCode, "text/xml").documentElement;
+
+            //Check if the CSS library file have the PHP extension...
+            if((cssSrc.split("/").pop().split(".").pop()).toLowerCase() != "php"){
+                Common.SendLog("E", ("There was a problem loading the CSS in \"" + cssSrc + "\". The file extension needs to be \"php\"."));
+                return;
+            }
+            //Check if have found a root tag
+            if(parsedXmlRootNode == null){
+                Common.SendLog("E", ("There was a problem loading the CSS in \"" + cssSrc + "\". The root tag of the library file containing the nested CSS code could not be found."));
+                return;
+            }
+            //Check if the root tag is the "style" tag
+            if(parsedXmlRootNode.tagName.toLowerCase() != "style"){
+                Common.SendLog("E", ("There was a problem loading the CSS in \"" + cssSrc + "\". The root tag is not a \"style\" tag."));
+                return;
+            }
+            //Check if have a possible "z-index" attribute with "922000" or higher in the style
+            var zIndexMatches = parsedXmlRootNode.innerHTML.match(/;?{?\s?z\s?-\s?index\s?:\s?[0-9]*\s?;/g);
+            if(zIndexMatches != null)
+                for(var i = 0; i < zIndexMatches.length; i++){
+                    //Get the number of the z-index only
+                    var zIndexNumber = zIndexMatches[i].replaceAll(" ", "").replace("z-index", "").replace("{", "").replace(";", "").replace(":", "");
+                    //Check if the z-index found is greather than "922000"
+                    if(parseFloat(zIndexNumber) >= 922000.0){
+                        Common.SendLog("E", ("There was a problem loading the CSS in \"" + cssSrc + "\". The CSS code cannot use a \"z-index\" attribute with a value equal or greater than \"922000\" as any value above that, is reserved for Engine use only."));
+                        return;
+                    }
+                }
 
             //Create the new style tag
             var newStyleTag = document.createElement("style");
@@ -549,10 +602,26 @@ class Initializator {
             //Get the "<script>" root tag from the PHP file...
             var parsedXmlRootNode = (new DOMParser()).parseFromString(sourceCode, "text/xml").documentElement;
 
+            //Check if the JS library file have the PHP extension...
+            if((jsSrc.split("/").pop().split(".").pop()).toLowerCase() != "php"){
+                Common.SendLog("E", ("There was a problem loading the JS in \"" + jsSrc + "\". The file extension needs to be \"php\"."));
+                return;
+            }
+            //Check if have found a root tag
+            if(parsedXmlRootNode == null){
+                Common.SendLog("E", ("There was a problem loading the JS in \"" + jsSrc + "\". The root tag of the library file containing the nested JS code could not be found."));
+                return;
+            }
+            //Check if the root tag is the "script" tag
+            if(parsedXmlRootNode.tagName.toLowerCase() != "script"){
+                Common.SendLog("E", ("There was a problem loading the JS in \"" + jsSrc + "\". The root tag is not a \"script\" tag."));
+                return;
+            }
+
             //Create the new script tag
             var newScriptTag = document.createElement("script");
             newScriptTag.type = "text/javascript"
-            newScriptTag.innerHTML = parsedXmlRootNode.innerHTML;
+            newScriptTag.innerHTML = Initializator.GetStringWithGtAndLtConverted(parsedXmlRootNode.innerHTML);
 
             //Add it to the header, in loading order
             if(Initializator.lastScriptNodeAdded == null){
@@ -582,6 +651,11 @@ class Initializator {
             var codeNode = parsedXmlRootNode.getElementsByTagName("code")[0];
             var scriptNode = parsedXmlRootNode.getElementsByTagName("script")[0];
 
+            //Check if the Piece file have the HTM extension...
+            if((pieceSrc.split("/").pop().split(".").pop()).toLowerCase() != "htm"){
+                Common.SendLog("E", ("There was a problem loading the Piece in \"" + pieceSrc + "\". The file extension needs to be \"htm\"."));
+                return;
+            }
             //Check if the Piece name have only letters
             if((/^[a-zA-Z]+$/).test(pieceFileName) == false){
                 Common.SendLog("E", ("There was a problem loading the Piece in \"" + pieceSrc + "\". The Piece file name can only contain letters."));
@@ -641,6 +715,18 @@ class Initializator {
                             return;
                         }
                 }
+            //Check if CSS have a possible "z-index" attribute with "922000" or higher
+            var zIndexMatches = styleNode.innerHTML.match(/;?{?\s?z\s?-\s?index\s?:\s?[0-9]*\s?;/g);
+            if(zIndexMatches != null)
+                for(var i = 0; i < zIndexMatches.length; i++){
+                    //Get the number of the z-index only
+                    var zIndexNumber = zIndexMatches[i].replaceAll(" ", "").replace("z-index", "").replace("{", "").replace(";", "").replace(":", "");
+                    //Check if the z-index found is greather than "922000"
+                    if(parseFloat(zIndexNumber) >= 922000.0){
+                        Common.SendLog("E", ("There was a problem loading the Piece in \"" + pieceSrc + "\". The CSS code cannot use a \"z-index\" attribute with a value equal or greater than \"922000\" as any value above that, is reserved for Engine use only."));
+                        return;
+                    }
+                }
             //Check if the JSON of variables is valid
             var isValidJson = true;
             try { var jsonTest = JSON.parse(variablesNode.innerHTML); } catch(e){ isValidJson = false; }
@@ -650,7 +736,12 @@ class Initializator {
             }
             //Check if the HTML code has some "style" attribute in some tag
             if((/style\s*?=\s*?"/).test(codeNode.innerHTML) == true){
-                Common.SendLog("E", ("There was a problem loading the Piece in \"" + pieceSrc + "\". The HTML code cannot contain \"style\" attributes in any tag."));
+                Common.SendLog("E", ("There was a problem loading the Piece in \"" + pieceSrc + "\". The HTML code cannot contain \"style\" attributes in any tag. Place your CSS code in the appropriate location in the Piece file."));
+                return;
+            }
+            //Check if the HTML code has some "id" attribute in some tag
+            if((/id\s*?=\s*?"/).test(codeNode.innerHTML) == true){
+                Common.SendLog("E", ("There was a problem loading the Piece in \"" + pieceSrc + "\". The HTML code cannot contain \"id\" attributes in any tag. You must use Lightmin JavaScript API to find elements inside each Piece instance."));
                 return;
             }
             //Check if the HTML code have "head", "body", "style", "script" or "html" tags
@@ -696,7 +787,7 @@ class Initializator {
             //Create the Piece script tag
             var pieceScriptTag = document.createElement("script");
             pieceScriptTag.type = "text/javascript"
-            pieceScriptTag.innerHTML = scriptNode.innerHTML;
+            pieceScriptTag.innerHTML = Initializator.GetStringWithGtAndLtConverted(scriptNode.innerHTML);
             Initializator.lastPieceNodeAdded.parentNode.insertBefore(pieceScriptTag, Initializator.lastPieceNodeAdded.nextSibling);
             Initializator.lastPieceNodeAdded = pieceScriptTag;
 
@@ -728,6 +819,11 @@ class Initializator {
             //Get the screen file name
             var screenFileName = screenSrc.split("/").pop().replace(".htm", "").replace(".HTM", "");
 
+            //Check if the Screen file have the HTM extension...
+            if((screenSrc.split("/").pop().split(".").pop()).toLowerCase() != "htm"){
+                Common.SendLog("E", ("There was a problem loading the Screen in \"" + screenSrc + "\". The file extension needs to be \"htm\"."));
+                return;
+            }
             //Check if the Screen name have only letters
             if((/^[a-zA-Z]+$/).test(screenFileName) == false){
                 Common.SendLog("E", ("There was a problem loading the Screen in \"" + screenSrc + "\". The Screen file name can only contain letters."));

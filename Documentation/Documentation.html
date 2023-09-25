@@ -78,7 +78,9 @@
                     <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="5">File structure of a Lightmin Website</a></li>
                     <li class="summarySubItem">Client</li>
                     <ul>
-                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="5aa">A</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="5aa">What is it and how does it work</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="5ab">Loading and compilation system</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="5ac">Building the Client layout</a></li>
                     </ul>
                     <li class="summarySubItem">Pages</li>
                     <ul>
@@ -98,13 +100,22 @@
                     <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="7">Settings File</a></li>
                     <li class="summarySubItem">Lightmin JS API</li>
                     <ul>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8_">About</a></li>
                         <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8">Settings.Get()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="80a">Settings.GetManifestBaseTitle()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="80b">Settings.GetManifestDefaultPage()</a></li>
                         <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8a">Common.SendLog()</a></li>
                         <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8ba">Utils.RemoveAllListeners()</a></li>
                         <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8bb">Utils.GetCurrentFaviconSrc()</a></li>
                         <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8bc">Utils.ChangeFavicon()</a></li>
                         <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8b">HttpRequest</a></li>
                         <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8c">InputValidator</a></li>
+                    </ul>
+                    <li class="summarySubItem">Lightmin PHP API</li>
+                    <ul>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="9">About</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="9a">Common::GetManifestBaseTitle()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="9b">Common::GetManifestDefaultPage()</a></li>
                     </ul>
                 </ul>
                 <!-- -------------------------------------------------------------------------- END OF SUMMARY CONTENT -------------------------------------------------------------------------- -->
@@ -221,6 +232,199 @@
                 </doc.topic>
                 <!-- #endregion -->
 
+                <!-- #region Client: What is it and how does it work -->
+                <doc.topic topicid="5aa">
+                    <doc.topictitle>Client: What is it and how does it work</doc.topictitle>
+
+                    The Client is the <doc.detach>client.php</doc.detach> file on your Website created with the Lightmin Engine. It is the CENTRAL part of your entire Website, and for a user to access your Website, they must access the
+                    <doc.detach>client.php</doc.detach> page (file) in their Browser.
+                    <br>
+                    <br>
+                    When the user accesses your Website Client, they will first see a loading screen that is responsible for loading the modular content of your entire Website. All of the Engine native code (Javascript and PHP) will
+                    already be completely loaded and included in the Client even before the loading screen starts operating. In the next topic, more will be said about the loading screen.
+                    <br>
+                    <br>
+                    The Client is the ONLY page on which the user will access your Website, and once he enters your Website, he will no longer leave the Client page. As the objective of Lightmin Engine is to allow the creation of Websites
+                    that behave like applications, when accessing the Client, the user will see the loading screen and after that he will be able to use his Website and then, as he navigates, it will not load new pages or enter other pages
+                    as is done on a standard website. The user will only be in the Client, and as he navigates the Client content will change to different contents.
+                    <br>
+                    <br>
+                    This is done in a very simple way. The Client has its layout like any Website, however, at some point in the Client, usually in the place where the page content would be displayed, such as text, news or something
+                    like that, there is an element called <doc.detach>Window</doc.detach>. The <doc.detach>Windows</doc.detach> belongs to the Lightmin Engine and are elements that allow you to display a page there, and behave in a similar
+                    way to the HTML <doc.detach>iframe</doc.detach>.
+                    <br>
+                    <br>
+                    In addition to <doc.detach>Windows</doc.detach>, there is another very important element, which is <doc.detach>Pages</doc.detach>. The <doc.detach>Pages</doc.detach> belong to the Lightmin Engine and will be discussed in
+                    more detail later in the documentation, however, they function as "website pieces" where on each <doc.detach>Page</doc.detach> you place content from your Website, as you would on a normal Website which has different
+                    pages.
+                    <br>
+                    <br>
+                    The time the user accesses the Client, and the load ends, the home <doc.detach>Page</doc.detach> of the Website will be loaded and displayed within the <doc.detach>Window</doc.detach> of the Client. As the user will
+                    browse the Website, only the content of <doc.detach>Window</doc.detach> are updated and exchanging the <doc.detach>Pages</doc.detach> in a very intuitive and fluid way. But not only that. As the user will Browse the
+                    pages, the URL in the Browser is dynamically changing to refer to the current <doc.detach>Page</doc.detach> that the user is seeing, and if he copies this URL and access it later or on another device, the exact same
+                    <doc.detach>Page</doc.detach> will be loaded! This also enables links to your website specific <doc.detach>Pages</doc.detach> to be copied and shared, as in any standard website.
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Client: Loading and compilation system -->
+                <doc.topic topicid="5ab">
+                    <doc.topictitle>Client: Loading and compilation system</doc.topictitle>
+
+                    <doc.frame contentside="right" contentheight="512px">
+                        As stated in the previous topic, Client is the centerpiece of your Website created with Lightmin Engine. At some point, everything will connect with Client, everything will pass by the Client and everything will be
+                        part of the Client in any instance.
+                        <br>
+                        <br>
+                        On the loading and compilation screen, all content of your website will be loaded, except the contents present in the <doc.detach>media</doc.detach> and <doc.detach>pages</doc.detach> folders. Then, in the loading
+                        and compilation process, the contents of the <doc.detach>libraries</doc.detach>, <doc.detach>pieces</doc.detach>, <doc.detach>screens</doc.detach> folders and the <doc.detach>manifest.json</doc.detach> and
+                        <doc.detach>settings.php</doc.detach> files will all be loaded INTO the Client at the time of loading.
+                        <br>
+                        <br>
+                        This is precisely why the contents of your <doc.detach>client.php</doc.detach>, <doc.detach>Screens</doc.detach>, <doc.detach>Pieces</doc.detach> and your <doc.detach>Pages</doc.detach> will be affected by the CSS
+                        code you have in the <doc.detach>libraries</doc.detach> folder and that is also why you can access The Lightmin Engine JavaScript API from anywhere on your website, whether from <doc.detach>client.php</doc.detach>,
+                        <doc.detach>Pieces</doc.detach> or <doc.detach>Pages</doc.detach>. The JavaScript code you write and put in your <doc.detach>libraries</doc.detach> folder will be accessible from anywhere in your website as well,
+                        either from <doc.detach>client.php</doc.detach>, <doc.detach>Pieces</doc.detach> or <doc.detach>Pages</doc.detach>. The native code of Engine, metadata and other things will always be loaded on the Client by
+                        default, even before the initial load of the Client begins, as they are necessary items for the full operation of Engine, and their internal tasks and features.
+
+                        <doc.frameci src="DocumentationFiles/images/2.gif">Visual representation of the process being done.<br>(Does not contain all the details, but it is an approximate summary)</doc.frameci>
+                    </doc.frame>
+
+                    <doc.warn>
+                        Even if all the native code of Engine and other things related to Engine is always loaded on Client, even before the load screen begins, I STRONGLY RECOMMEND that you only run JavaScript code or use the
+                        Lightmin Engine JS API, only after the initial loading of the Client finish. This will ensure that you will not face problems or inconcases with your code, as loading can have performance and different variables
+                        while being underway. Therefore the safest is to wait for the Client load to be finished. As stated <a href="#5eb">here</a>, you can use the <doc.detach>LE_OnLoadEngineFinished()</doc.detach> callback to find out
+                        when the full Client loading has been finished. Click <a href="#5eb">here</a> and read the topic for more details about the <doc.detach>LE_OnLoadEngineFinished()</doc.detach> callback.
+                    </doc.warn>
+
+                    <doc.topicsubtitle>Loading stages</doc.topicsubtitle>
+                    The loading and compilation that Engine makes in Client has a total of 10 stages. Each stage is responsible for doing a specific task to ensure the best organization and better operation of your website.
+
+                    <doc.topicsubtitle>Stage 1</doc.topicsubtitle>
+                    At this stage, Engine removes some tags from the Client header. These are script tags generally included automatically on any AWS hosted sites. They are somewhat invasive tags that will not miss your website.
+
+                    <doc.topicsubtitle>Stage 2</doc.topicsubtitle>
+                    At this stage Engine will load for Client all settings defined in <doc.detach>settings.php</doc.detach>. Even the settings you do not define in the file will still be loaded, but with your standard values defined by
+                    Engine. After loading the settings, they are all stored in cache for future Engine appointments or yours, made from JS API.
+
+                    <doc.topicsubtitle>Stage 3</doc.topicsubtitle>
+                    At this stage, all previously loaded settings are applied to the Client.
+
+                    <doc.topicsubtitle>Stage 4</doc.topicsubtitle>
+                    At this stage the <doc.detach>manifest.json</doc.detach> file is loaded so that Engine can know more details of your Website. Some information such as a base title of the Website and standard
+                    <doc.detach>Page</doc.detach> is stored in the cache while other information is used for the upcoming loading stages. It is thanks to the <doc.detach>manifest.json</doc.detach> loaded is that Engine can know exactly
+                    what are the <doc.detach>Libraries</doc.detach>, <doc.detach>Pieces</doc.detach> and <doc.detach>Screens</doc.detach> existing on your website and thus can load them to Client.
+
+                    <doc.topicsubtitle>Stage 5</doc.topicsubtitle>
+                    At this stage, all CSS libraries stored in the <doc.detach>libraries/css</doc.detach> directory and informed in <doc.detach>manifest.json</doc.detach> are loaded and included in the Client header, having an effect
+                    throughout the client. For CSS libraries to be considered valid, they need to respect the rules below, and if they do not respect any of the rules, they are ignored in the loading process and are not included in the
+                    Client.
+                    <doc.list>
+                        <doc.listr>The file needs to have the PHP extension.</doc.listr>
+                        <doc.listr>The content of the file needs to obey a syntax and XML structure.</doc.listr>
+                        <doc.listr>All CSS code needs to be inside a <doc.detach>&lt;style&gt;</doc.detach> root tag.</doc.listr>
+                        <doc.listr>If the CSS code has a <doc.detach>z-index</doc.detach> attribute, it cannot be greater than <doc.detach>922000</doc.detach>.</doc.listr>
+                        <doc.listr>The CSS code cannot contain the characters <doc.detach>&lt;</doc.detach> and <doc.detach>&gt;</doc.detach> outside of comments.</doc.listr>
+                    </doc.list>
+                    <doc.info>
+                        The order in which each file is informed in <doc.detach>manifests.json</doc.detach> is completely respected in the loading process as well.
+                    </doc.info>
+
+                    <doc.topicsubtitle>Stage 6</doc.topicsubtitle>
+                    At this stage, all JavaScript libraries within the <doc.detach>libraries/js</doc.detach> directory and informed in the <doc.detach>manifest.json</doc.detach> are loaded and included in the Client header, starting to
+                    apply with part of the Client JavaScript code, as each one is loaded. For JS libraries to be considered valid, they need to respect the rules below, and if they do not respect any of the rules, they are ignored in
+                    the loading process and are not included in the Client.
+                    <doc.list>
+                        <doc.listr>The file needs to have the PHP extension.</doc.listr>
+                        <doc.listr>The content of the file needs to obey a syntax and XML structure.</doc.listr>
+                        <doc.listr>All JS code needs to be inside a <doc.detach>&lt;script&gt;</doc.detach> root tag.</doc.listr>
+                    </doc.list>
+                    <doc.info>
+                        The order in which each file is informed in <doc.detach>manifests.json</doc.detach> is completely respected in the loading process as well.
+                    </doc.info>
+
+                    <doc.topicsubtitle>Stage 7</doc.topicsubtitle>
+                    At this stage, all <doc.detach>Pieces</doc.detach> inside the <doc.detach>pieces</doc.detach> folder and informed in <doc.detach>manifest.json</doc.detach> are loaded. The JavaScript and CSS code of each
+                    <doc.detach>Piece</doc.detach> is loaded to the client and are active on the Client, while the JSON and HTML code of each <doc.detach>Piece</doc.detach> is stored in cache to be used whenever each component is
+                    rendered in <doc.detach>Pages</doc.detach> that use them. For <doc.detach>Pieces</doc.detach> to be considered valid, they need to respect the rules below, and if they do not respect any of the rules, they are
+                    ignored in the loading process and are not included in the Client.
+                    <doc.list>
+                        <doc.listr>The file needs to have the HTM extension.</doc.listr>
+                        <doc.listr>The name of the <doc.detach>Piece</doc.detach> file can only contain letters.</doc.listr>
+                        <doc.listr>The content of the file needs to obey a syntax and XML structure.</doc.listr>
+                        <doc.listr>All <doc.detach>Piece</doc.detach> code needs to be inside a <doc.detach>&lt;piece&gt;</doc.detach> root tag.</doc.listr>
+                        <doc.listr>The <doc.detach>for</doc.detach> attribute of the <doc.detach>piece</doc.detach> root tag needs to have the value <doc.detach>lightmin-engine</doc.detach>.</doc.listr>
+                        <doc.listr>The <doc.detach>name</doc.detach> attribute of the <doc.detach>piece</doc.detach> root tag must have the value equal to the name of the <doc.detach>Piece</doc.detach> file, however, without the extension.</doc.listr>
+                        <doc.listr>The tag <doc.detach>style</doc.detach> (containing CSS), <doc.detach>variables</doc.detach> (containing JSON), <doc.detach>code</doc.detach> (containing HTML) and <doc.detach>script</doc.detach> (containing JavaScript) need to be present in the <doc.detach>Piece</doc.detach> file.</doc.listr>
+                        <doc.listr>The CSS code of <doc.detach>Piece</doc.detach> cannot use ID Selectors.</doc.listr>
+                        <doc.listr>The CSS code of <doc.detach>Piece</doc.detach> cannot use Tag Selectors.</doc.listr>
+                        <doc.listr>The CSS code of <doc.detach>Piece</doc.detach> cannot use Type Selectors.</doc.listr>
+                        <doc.listr>The CSS code of <doc.detach>Piece</doc.detach> cannot use Keyframes.</doc.listr>
+                        <doc.listr>The Class Selectors of the <doc.detach>Piece</doc.detach> CSS code must have a name following the format ".Piece_PieceFileNameWithoutExtension_TheClassName {}".</doc.listr>
+                        <doc.listr>If the CSS code of <doc.detach>Piece</doc.detach> has a <doc.detach>z-index</doc.detach> attribute, it cannot be greater than <doc.detach>922000</doc.detach>.</doc.listr>
+                        <doc.listr>The JSON code of <doc.detach>Piece</doc.detach> needs to have a valid syntax.</doc.listr>
+                        <doc.listr>No one <doc.detach>Piece</doc.detach> HTML code tags can use the <doc.detach>style</doc.detach> attribute for inline styles.</doc.listr>
+                        <doc.listr>No one <doc.detach>Piece</doc.detach> HTML code tags can use the <doc.detach>id</doc.detach> attribute.</doc.listr>
+                        <doc.listr>The HTML code of <doc.detach>Piece</doc.detach> cannot make use of the <doc.detach>html</doc.detach>, <doc.detach>head</doc.detach>, <doc.detach>body</doc.detach>, <doc.detach>style</doc.detach> and <doc.detach>script</doc.detach> tags.</doc.listr>
+                        <doc.listr>All JavaScript code of <doc.detach>Piece</doc.detach> must be within a <doc.detach>class</doc.detach>.</doc.listr>
+                        <doc.listr>There can only be one <doc.detach>class</doc.detach> in the JavaScript code of <doc.detach>Piece</doc.detach>.</doc.listr>
+                        <doc.listr>The <doc.detach>class</doc.detach> name involving all the JavaScript code of <doc.detach>Piece</doc.detach> must have a name that follows the format "class Piece_PieceFileNameWithoutExtension {}".</doc.listr>
+                        <doc.listr>The CSS code and JSON code of the <doc.detach>Piece</doc.detach> cannot contain the characters <doc.detach>&lt;</doc.detach> and <doc.detach>&gt;</doc.detach> outside of comments.</doc.listr>
+                    </doc.list>
+
+                    <doc.topicsubtitle>Stage 8</doc.topicsubtitle>
+                    At this stage, all <doc.detach>Screens</doc.detach> inside the <doc.detach>sceens</doc.detach> folder and informed in <doc.detach>manifest.json</doc.detach> are loaded. The HTML code of each
+                    <doc.detach>Screen</doc.detach> is loaded to the Client, but they are disabled until the <doc.detach>Screen</doc.detach> is enabled using the Lightmin Engine JavaScript API. Anyway, the HTML code of each screen will
+                    already be part of the Client. For <doc.detach>Screens</doc.detach> to be considered valid, they need to respect the rules below, and if they do not respect any of the rules, they are ignored in the loading process
+                    and are not included in the Client.
+                    <doc.list>
+                        <doc.listr>The file needs to have the HTM extension.</doc.listr>
+                        <doc.listr>The name of the <doc.detach>Piece</doc.detach> file can only contain letters.</doc.listr>
+                        <doc.listr>The content of the file needs to obey a syntax and XML structure.</doc.listr>
+                        <doc.listr>All <doc.detach>Screen</doc.detach> code needs to be inside a <doc.detach>&lt;screen&gt;</doc.detach> root tag.</doc.listr>
+                        <doc.listr>The <doc.detach>for</doc.detach> attribute of the <doc.detach>screen</doc.detach> root tag needs to have the value <doc.detach>lightmin-engine</doc.detach>.</doc.listr>
+                        <doc.listr>The <doc.detach>name</doc.detach> attribute of the <doc.detach>screen</doc.detach> root tag must have the value equal to the name of the <doc.detach>Screen</doc.detach> file, however, without the extension.</doc.listr>
+                        <doc.listr>No one <doc.detach>Screen</doc.detach> HTML code tags can use the <doc.detach>style</doc.detach> attribute for inline styles.</doc.listr>
+                        <doc.listr>The HTML code of <doc.detach>Screen</doc.detach> cannot make use of the <doc.detach>html</doc.detach>, <doc.detach>head</doc.detach>, <doc.detach>body</doc.detach>, <doc.detach>style</doc.detach> and <doc.detach>script</doc.detach> tags.</doc.listr>
+                    </doc.list>
+
+                    <doc.topicsubtitle>Stage 9</doc.topicsubtitle>
+                    At this stage, Engine checks the code present in <doc.detach>client.php</doc.detach> you wrote. He will ensure that the rules below are respected...
+                    <doc.list>
+                        <doc.listr>No HTML code tags in <doc.detach>client.php</doc.detach> can use the <doc.detach>style</doc.detach> attribute for inline styles.</doc.listr>
+                        <doc.listr>The <doc.detach>script</doc.detach> tag cannot be used within <doc.detach>client.php</doc.detach>.</doc.listr>
+                        <doc.listr>The <doc.detach>style</doc.detach> tag cannot be used within <doc.detach>client.php</doc.detach>.</doc.listr>
+                    </doc.list>
+                    At this stage, Engine also does some additional jobs, such as preparing all <doc.detach>window</doc.detach> tags present within Client for use, and other things.
+
+                    <doc.topicsubtitle>Stage 10</doc.topicsubtitle>
+                    At the final stage, Engine only finishes loading work, removes the loading screen, run callbacks to warn that the load has been completed and other things.
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Client: Building the Client layout -->
+                <doc.topic topicid="5ac">
+                    <doc.topictitle>Client: Building the Client layout</doc.topictitle>
+
+                    Building your <doc.detach>client.php</doc.detach> is very simple. You just need to write your Client HTML code inside the <doc.detach>client.php</doc.detach> file. Your Website <doc.detach>client.php</doc.detach> file
+                    should look like the image below, however, you should not edit ANYTHING in the red part, only in the green part. In the image below, the green part indicates where exactly you should insert your Client HTML code. Note
+                    that you don't need to insert the <doc.detach>html</doc.detach>, <doc.detach>head</doc.detach> or <doc.detach>body</doc.detach> tags, you just need to write the HTML code exactly as you would write it inside the
+                    <doc.detach>body</doc.detach> tags of a regular HTML document.
+
+                    <doc.image src="DocumentationFiles/images/3.png"></doc.image>
+
+                    While you write your Client HTML code, you need to keep in mind the idea of setting aside a space in your Client, where you will place a <doc.detach>Window</doc.detach> that will be the place where the Client content
+                    will update as the user navigates through your Website.
+
+                    <doc.topicsubtitle>Where to put your CSS and JS code</doc.topicsubtitle>
+                    The Engine does not allow placing CSS and JavaScript code in <doc.detach>client.php</doc.detach> for some reasons, such as greater organization, greater optimization, among others. Therefore, all CSS and JavaScript code
+                    of your website (except <doc.detach>Pieces</doc.detach> CSS/JS code) must go to the <doc.detach>libraries</doc.detach> folder. You can read <a href="#5eb">this topic</a> for more details on exactly how to do this.
+
+                </doc.topic>
+                <!-- #endregion -->
+
+
 
                 <!-- #region Medias: Where to place Website Media files -->
                 <doc.topic topicid="5ea">
@@ -312,6 +516,8 @@ function exampleFunction() {
 
                     <doc.code language="json"><code>
 {
+    "baseTitle": "Example Website",
+    "defaultPage": "pages/home.php",
     "cssLibraries": [
         "libraries/css/example.php"
     ],
@@ -368,7 +574,6 @@ function exampleFunction() {
                     <doc.table>
                         <doc.tablecw>44%=>6%=>auto</doc.tablecw>
                         <doc.tablec>Variable=>Type=>Description</doc.tablec>
-                        <doc.tabler>websiteBaseTitle=>STRING=>Sets the base title for your Website. This title will be displayed in the Browser tab and will come before the title of the Page currently loaded and being displayed. Generally you will want to set the main title of the website itself. For example, if the website is for Honda, you will want to set the value "Honda" for this variable.</doc.tabler>
                         <doc.tabler>websiteFaviconNoNotificationsUri=>STRING=>Sets the image (in ICO format) to be used as the website Favicon while there are no Notifications being displayed using the Lightmin Engine Notifications API. You must provide the path, taking into account that the root is the folder where "client.php" is located.</doc.tabler>
                         <doc.tabler>websiteFaviconWithNotificationsUri=>STRING=>Sets the image (in ICO format) to be used as the website Favicon while THERE ARE notifications being displayed using the Lightmin Engine Notifications API. You must provide the path, taking into account that the root is the folder where "client.php" is located.</doc.tabler>
                         <doc.tabler>websiteLang=>STRING=>Defines the language of your Client page. It must be defined in accordance with the ISO-8859-1 format. For example "pt-BR" or "en-US".</doc.tabler>
@@ -399,6 +604,17 @@ function exampleFunction() {
                 </doc.topic>
                 <!-- #endregion -->
 
+                <!-- #region Lightmin JS API: About -->
+                <doc.topic topicid="8_">
+                    <doc.topictitle>Lightmin JS API: About</doc.topictitle>
+
+                    Lightmin Engine JavaScript API is accessible from ANY part of your website. Whether in <doc.detach>client.php</doc.detach>, in <doc.detach>libraries/js</doc.detach>, in <doc.detach>Pieces</doc.detach> or even in
+                    <doc.detach>Pages</doc.detach>. Lightmin JavaScript APIs provide several useful functions as well as control functions for your website to facilitate the development of your website and speed up the process where
+                    possible.
+
+                </doc.topic>
+                <!-- #endregion -->
+
                 <!-- #region Lightmin JS API: Settings.Get() -->
                 <doc.topic topicid="8">
                     <doc.topictitle>Lightmin JS API: Settings.Get()</doc.topictitle>
@@ -409,7 +625,35 @@ function exampleFunction() {
                     <doc.code language="javascript"><code>
 //- Settings.Get(settingName);
 //  STRING settingName - The name of settings variable that you want to get the value.
-var value = Settings.Get("websiteBaseTitle");
+var value = Settings.Get("websiteLang");
+</code></doc.code>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Lightmin JS API: Settings.GetManifestBaseTitle() -->
+                <doc.topic topicid="80a">
+                    <doc.topictitle>Lightmin JS API: Settings.GetManifestBaseTitle()</doc.topictitle>
+
+                    This method allows you to obtain the value defined in the <doc.detach>baseTitle</doc.detach> variable in your Website <doc.detach>manifest.json</doc.detach> file.
+
+                    <doc.code language="javascript"><code>
+//- Settings.GetManifestBaseTitle();
+var baseTitle = Settings.GetManifestBaseTitle();
+</code></doc.code>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Lightmin JS API: Settings.GetManifestDefaultPage() -->
+                <doc.topic topicid="80b">
+                    <doc.topictitle>Lightmin JS API: Settings.GetManifestDefaultPage()</doc.topictitle>
+
+                    This method allows you to obtain the value defined in the <doc.detach>defaultPage</doc.detach> variable in your Website <doc.detach>manifest.json</doc.detach> file.
+
+                    <doc.code language="javascript"><code>
+//- Settings.GetManifestDefaultPage();
+var defaultPage = Settings.GetManifestDefaultPage();
 </code></doc.code>
 
                 </doc.topic>
@@ -507,6 +751,44 @@ Utils.ChangeFavicon("icons/myFavicon.ico");
                     <br>
                     Lightmin Engine InputValidator class can be used easily and you can refer to the Documentation (ReadMe) of "Frontend Input Validator" to learn how to use this class easily. Just read the Documentation by
                     <a href="https://github.com/marcos4503/frontend-input-validator" target="_blank">clicking on this link</a> and you will know how to use the InputValidator class easily!
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Lightmin PHP API: About -->
+                <doc.topic topicid="9">
+                    <doc.topictitle>Lightmin PHP API: About</doc.topictitle>
+
+                    Lightmin Engine's PHP API allows you to do some useful things for your website, however, on the PHP side. The downside is that so far, Lightmin Engine's PHP APIs will only work in your <doc.detach>client.php</doc.detach>
+                    file. Note that PHP APIs will not work in your JavaScript codes and vice versa...
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Lightmin PHP API: Common::GetManifestBaseTitle() -->
+                <doc.topic topicid="9a">
+                    <doc.topictitle>Lightmin PHP API: Common::GetManifestBaseTitle()</doc.topictitle>
+
+                    This method returns the base title of your Website, which is configured in the "manifest.json" file.
+
+                    <doc.code language="php"><code>
+//- Common::GetManifestBaseTitle();
+$websiteBaseTitle = Common::GetManifestBaseTitle();
+</code></doc.code>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Lightmin PHP API: Common::GetManifestDefaultPage() -->
+                <doc.topic topicid="9b">
+                    <doc.topictitle>Lightmin PHP API: Common::GetManifestDefaultPage()</doc.topictitle>
+
+                    This method returns the default page of your Website, which is configured in the "manifest.json" file.
+
+                    <doc.code language="php"><code>
+//- Common::GetManifestDefaultPage();
+$websiteDefaultPage = Common::GetManifestDefaultPage();
+</code></doc.code>
 
                 </doc.topic>
                 <!-- #endregion -->

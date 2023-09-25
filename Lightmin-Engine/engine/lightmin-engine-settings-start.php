@@ -16,7 +16,6 @@ $settings->SetSuccessHeader(true);
 /////////////////////////////////////////// SETTINGS VARIABLE DECLARATIONS ///////////////////////////////////////////
 
 //Client variables...
-$settings->DeclareVariablePrimitive("websiteBaseTitle", "STRING");
 $settings->DeclareVariablePrimitive("websiteFaviconNoNotificationsUri", "STRING");
 $settings->DeclareVariablePrimitive("websiteFaviconWithNotificationsUri", "STRING");
 $settings->DeclareVariablePrimitive("websiteLang", "STRING");
@@ -39,7 +38,6 @@ $settings->DeclareVariablePrimitive("showTextSelectionHighlight", "BOOL");
 ////////////////////////////////////////// SETTINGS VARIABLE DEFAULT VALUES //////////////////////////////////////////
 
 //Client variables...
-$settings->SetVariablePrimitiveValue("websiteBaseTitle", "Untitled");
 $settings->SetVariablePrimitiveValue("websiteFaviconNoNotificationsUri", "engine/medias/icons/lightmin-no-notifications.ico");
 $settings->SetVariablePrimitiveValue("websiteFaviconWithNotificationsUri", "engine/medias/icons/lightmin-with-notifications.ico");
 $settings->SetVariablePrimitiveValue("websiteLang", "en-US");
