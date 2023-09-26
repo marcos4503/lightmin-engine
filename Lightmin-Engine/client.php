@@ -23,13 +23,13 @@ include_once("engine/lightmin-engine-client-start.php");
         <!-- navbar -->
         <div class="client_stackedGrid_contentArea_navbar">
             <div class="client_stackedGrid_contentArea_navbar_item_last"></div>
-            <div class="client_stackedGrid_contentArea_navbar_item">Page C</div>
-            <div class="client_stackedGrid_contentArea_navbar_item">Page B</div>
-            <div class="client_stackedGrid_contentArea_navbar_item">Page A</div>
+            <div class="client_stackedGrid_contentArea_navbar_item" id="client.tab3">Page C</div>
+            <div class="client_stackedGrid_contentArea_navbar_item" id="client.tab2">Page B</div>
+            <div class="client_stackedGrid_contentArea_navbar_item" id="client.tab1">Page A</div>
         </div>
         <!-- content area -->
         <div class="client_stackedGrid_contentArea_content">
-            <le.window type="main" identifier="ClientMainWindow">
+            <le.window type="main" identifier="ClientMainWindow" scalingmode="parent-content">
                 <!-- Lightmin Engine will render the pages content inside here... -->
             </le.window>
         </div>
@@ -59,12 +59,12 @@ include_once("engine/lightmin-engine-client-start.php");
 <div class="client_additionalWindow_root" id="additionalWindowBox">
     <div class="client_additionalWindow_box">
         <div class="client_additionalWindow_box_navbar">
-            <div class="client_additionalWindow_box_navbar_item">Additional Page A</div>
-            <div class="client_additionalWindow_box_navbar_item">Additional Page B</div>
+            <div class="client_additionalWindow_box_navbar_item" id="client.addWindow.tab1">Additional Page A</div>
+            <div class="client_additionalWindow_box_navbar_item" id="client.addWindow.tab2">Additional Page B</div>
         </div>
         <div class="client_additionalWindow_box_content">
             <div class="client_additionalWindow_box_content_scrollable">
-                <le.window type="normal" identifier="ClientAddWindow">
+                <le.window type="normal" identifier="ClientAddWindow" scalingmode="parent-content">
                     <!-- Lightmin Engine will render the pages content inside here... -->
                 </le.window>
             </div>

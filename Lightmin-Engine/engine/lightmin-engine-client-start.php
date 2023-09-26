@@ -8,10 +8,10 @@
         <!-- Lightmin Engine base JS -->
         <?php include_once("engine/engine-dynamic-includes/client-common-js.php"); ?>
         <?php include_once("engine/engine-dynamic-includes/client-settings-js.php"); ?>
-        <?php include_once("engine/engine-dynamic-includes/client-events-js.php"); ?>
         <?php include_once("engine/engine-dynamic-includes/client-utils-js.php"); ?>
         <?php include_once("engine/engine-dynamic-includes/client-pieces-js.php"); ?>
         <?php include_once("engine/engine-dynamic-includes/client-screens-js.php"); ?>
+        <?php include_once("engine/engine-dynamic-includes/client-windows-js.php"); ?>
         <?php include_once("engine/engine-dynamic-includes/client-frontend-http-request-js.php"); ?>
         <?php include_once("engine/engine-dynamic-includes/client-frontend-input-validator-js.php"); ?>
         <!-- Lightmin Engine initializator JS -->

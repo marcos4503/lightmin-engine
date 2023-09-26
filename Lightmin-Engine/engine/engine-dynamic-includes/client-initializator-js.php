@@ -78,7 +78,7 @@ class Initializator {
         var scriptTags = headElement.getElementsByTagName("script");
 
         //Remove any tag that matches with AWS or Google automatic scripts
-        for(var i = 0; i < scriptTags.length; i++)
+        for(var i = (scriptTags.length - 1); i >= 0; i--)
             if(scriptTags[i].getAttribute("src") != null){
                 //Get TYPE and SRC of current tag...
                 var tagSrcAtt = scriptTags[i].getAttribute("src");
@@ -434,6 +434,14 @@ class Initializator {
                 Common.SendLog("E", ("There was a problem loading the \"Client.php\" of website. HTML code cannot contain any \"style\" tags. Please place your styles in a library in the \"libraries/css\" path, for further optimization."));
                 isClientValid = false;
             }
+
+        //Proccess the "le.window" tags of the Client ang get the result...
+        var windowProcessResult = Initializator.ProcessWindowTags("client", Initializator.bodyAllWebsiteContent.getElementsByTagName("le.window"));
+        //If have an error, inform...
+        if(windowProcessResult != "success"){
+            Common.SendLog("E", ("There was a problem loading the \"Client.php\" of website. " + windowProcessResult));
+            isClientValid = false;
+        }
 
         //If the client is not valid, show the undismissable warning popup
         if(isClientValid == false)
@@ -867,8 +875,144 @@ class Initializator {
             
             //Store a reference for the Div tag of this loaded Screen in the cache...
             Screens.loadedScreensAndReferencesToDivElementOfEach[screenFileName] = newScreenTag;
+
+            //Proccess the "le.window" tags of the Screen ang get the result...
+            var windowProcessResult = Initializator.ProcessWindowTags("screen", newScreenTag.getElementsByTagName("le.window"));
+            //If have an error on process windows tags, inform...
+            if(windowProcessResult != "success")
+                Common.SendLog("E", ("There was a problem processing a \"le.window\" tag on Screen in \"" + screenSrc + "\". " + windowProcessResult));
         }
         catch(e){ Common.SendLog("E", ("There was a problem loading the Screen in \"" + screenSrc + "\". Please check whether the Screen HTM file syntax complies with Lightmin Engine standards. More details: " + e + ".")); }
+    }
+
+    static ProcessWindowTags(windowParentType, windowsTags){
+        //Prepare the response to return
+        var processingResult = "success";
+        
+        //If is a screen parent, and not have window tags, cancel
+        if(windowParentType == "screen" && windowsTags.length == 0){
+            processingResult = "success";
+            return processingResult;
+        }
+        //If is a screen parent, and have more than 1 window tags, cancel
+        if(windowParentType == "screen" && windowsTags.length > 1){
+            processingResult = "The number of \"le.window\" tags is limited to a maximum of 1 per Screen.";
+            return processingResult;
+        }
+        //If is a client parent, and not have window tags, cancel
+        if(windowParentType == "client" && windowsTags.length == 0){
+            processingResult = "No \"le.window\" tags were found in the Client. It is mandatory that there is at least one Window of type \"main\" in the Client.";
+            return processingResult;
+        }
+        //If is a client parent, and have more than 2 window tags, cancel
+        if(windowParentType == "client" && windowsTags.length > 2){
+            processingResult = "The number of \"le.window\" tags is limited to a maximum of 2 on the Client.";
+            return processingResult;
+        }
+        //Check if all mandatory attributes are defined...
+        for(var i = 0; i < windowsTags.length; i++)
+            if(windowsTags[i].getAttribute("type") == null || windowsTags[i].getAttribute("identifier") == null || windowsTags[i].getAttribute("scalingmode") == null){
+                processingResult = "A \"le.window\" tag does not have one or more of the 3 required attributes, which are \"type\", \"identifier\" and \"scalingmode\".";
+                return processingResult;
+            }
+        //Checks whether the value of the "type" attribute is valid...
+        for(var i = 0; i < windowsTags.length; i++)
+            if(windowsTags[i].getAttribute("type") != "main" &&  windowsTags[i].getAttribute("type") != "normal"){
+                processingResult = "A \"le.window\" tag has a \"type\" attribute with an invalid value. Only \"main\" and \"normal\" values are allowed.";
+                return processingResult;
+            }
+        //If is a screen...
+        if(windowParentType == "screen"){
+            //If a "main" window type, cancel
+            for(var i = 0; i < windowsTags.length; i++)
+                if(windowsTags[i].getAttribute("type") == "main"){
+                    processingResult = "A \"le.window\" tag is defined as type \"main\". Screens can only have \"normal\" Windows.";
+                    return processingResult;
+                }
+        }
+        //If is a client...
+        if(windowParentType == "client"){
+            //Count number of window tags of type "main"
+            var mainWindowTags = 0;
+            for(var i = 0; i < windowsTags.length; i++)
+                if(windowsTags[i].getAttribute("type") == "main")
+                    mainWindowTags += 1;
+            //If have none main windows, cancel
+            if(mainWindowTags == 0){
+                processingResult = "There are no \"le.window\" tags of type \"main\". A \"le.window\" tag of type \"main\" must exist in the Client.";
+                return processingResult;
+            }
+            //If have more than one main windows, cancel
+            if(mainWindowTags > 1){
+                processingResult = "There are many \"le.window\" tags of type \"main\" in the Client. Only one \"le.window\" tag of type \"main\" can exist on the Client.";
+                return processingResult;
+            }
+        }
+        //If is a screen and the window identifier already exists, cancel...
+        if(windowParentType == "screen")
+            for(var i = 0; i < windowsTags.length; i++)
+                if(Windows.isWindowExistent(windowsTags[i].getAttribute("identifier")) == true){
+                    processingResult = "A Window using the identifier \"" + windowsTags[i].getAttribute("identifier") + "\" already exists. It is not possible to use Windows with repeated identifiers, whether in Screens or in the Client.";
+                    return processingResult;
+                }
+        //If is a client and have a window with identifier that already exists, cancel...
+        if(windowParentType == "client"){
+            //Check if exists a window using the identifier...
+            for(var i = 0; i < windowsTags.length; i++)
+                if(Windows.isWindowExistent(windowsTags[i].getAttribute("identifier")) == true){
+                    processingResult = "A Window using the identifier \"" + windowsTags[i].getAttribute("identifier") + "\" already exists. It is not possible to use Windows with repeated identifiers, whether in Screens or in the Client.";
+                    return processingResult;
+                }
+            //If have two windows in the client, check if some of them have the same ID, if have, cancel...
+            if(windowsTags.length == 2 && windowsTags[0].getAttribute("identifier") == windowsTags[1].getAttribute("identifier")){
+                processingResult = "A Window using the identifier \"" + windowsTags[0].getAttribute("identifier") + "\" already exists. It is not possible to use Windows with repeated identifiers, whether in Screens or in the Client.";
+                return processingResult;
+            }
+        }
+        //Checks whether the value of the "scalingmode" attribute is valid...
+        for(var i = 0; i < windowsTags.length; i++)
+            if((/(?:parent|content)-(?:parent|content)/).test(windowsTags[i].getAttribute("scalingmode")) == false){
+                processingResult = "A \"le.window\" tag has an invalid value in the \"scalingmode\" attribute. The value must be in the format \"value1-value2\" and can only be \"parent\" or \"content\".";
+                return processingResult;
+            }
+
+        //Create the window tags...
+        for(var i = (windowsTags.length - 1); i >= 0; i--){
+            //Get the current tag
+            var currentWindowTag = windowsTags[i];
+            //Get window parameters
+            var parentType = windowParentType;
+            var type = currentWindowTag.getAttribute("type");
+            var identifier = currentWindowTag.getAttribute("identifier");
+            var scalingmodeX = currentWindowTag.getAttribute("scalingmode").split("-")[0];
+            var scalingmodeY = currentWindowTag.getAttribute("scalingmode").split("-")[1];
+
+            //Detect vertical and horizontal window scaling mode
+            var xScalingMode = "";
+            if(scalingmodeX == "parent")  { xScalingMode = "100%"; }
+            if(scalingmodeX == "content") { xScalingMode = "fit-content"; }
+            var yScalingMode = "";
+            if(scalingmodeY == "parent")  { yScalingMode = "100%"; }
+            if(scalingmodeY == "content") { yScalingMode = "fit-content"; }
+
+            //Create the window element
+            var finalWindowTag = document.createElement("div");
+            finalWindowTag.setAttribute("window", identifier);
+            finalWindowTag.setAttribute("type", type);
+            finalWindowTag.setAttribute("style", "width: " + xScalingMode + "; height: " + yScalingMode + "; min-height: 256px;");
+            finalWindowTag.innerHTML = Windows.GetNoPageLoadedHtmlCode();
+
+            //Register the window in cache
+            Windows.existantWindowsInClientAndScreens[identifier] = { parentType: parentType, type: type, elementRef: finalWindowTag, currentLoadedPageUri: "" };
+
+            //Add the final window to DOM after the old window tag
+            currentWindowTag.parentNode.insertBefore(finalWindowTag, currentWindowTag.nextSibling);
+            //Remove the old window tag from DOM
+            currentWindowTag.remove();
+        }
+
+        //Return the window processing result...
+        return processingResult;
     }
 }
 

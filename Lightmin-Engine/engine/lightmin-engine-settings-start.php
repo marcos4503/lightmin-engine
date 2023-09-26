@@ -35,6 +35,9 @@ $settings->DeclareVariablePrimitive("loadScreenErrorMessage", "STRING");
 $settings->DeclareVariablePrimitive("loadScreenErrorButtonMessage", "STRING");
 $settings->DeclareVariablePrimitive("showTextSelectionHighlight", "BOOL");
 
+//Windows variables...
+$settings->DeclareVariablePrimitive("noPageLoadedInWindowMessage", "STRING");
+
 ////////////////////////////////////////// SETTINGS VARIABLE DEFAULT VALUES //////////////////////////////////////////
 
 //Client variables...
@@ -56,5 +59,8 @@ $settings->SetVariablePrimitiveValue("loadScreenBackgroundColorHex", "#394c6b");
 $settings->SetVariablePrimitiveValue("loadScreenErrorMessage", "There was a problem on load the Website. Please check your Internet connection and try again!");
 $settings->SetVariablePrimitiveValue("loadScreenErrorButtonMessage", "Try Again");
 $settings->SetVariablePrimitiveValue("showTextSelectionHighlight", false);
+
+//Windows variables...
+$settings->SetVariablePrimitiveValue("noPageLoadedInWindowMessage", "There's nothing to show here for now");
 
 ?>

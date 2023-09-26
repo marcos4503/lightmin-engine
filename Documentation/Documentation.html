@@ -81,6 +81,7 @@
                         <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="5aa">What is it and how does it work</a></li>
                         <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="5ab">Loading and compilation system</a></li>
                         <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="5ac">Building the Client layout</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="5ad">Inserting a Window to display Pages</a></li>
                     </ul>
                     <li class="summarySubItem">Pages</li>
                     <ul>
@@ -93,6 +94,7 @@
                     <li class="summarySubItem">Screens</li>
                     <ul>
                         <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="5da">A</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="5dza">Inserting a Window to display Pages</a></li>
                     </ul>
                     <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="5ea">Medias: Where to place Website Media files</a></li>
                     <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="5eb">Libaries: Where to place Website CSS & JS code</a></li>
@@ -110,6 +112,7 @@
                         <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8bc">Utils.ChangeFavicon()</a></li>
                         <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8b">HttpRequest</a></li>
                         <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8c">InputValidator</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8d">Windows.isWindowExistent()</a></li>
                     </ul>
                     <li class="summarySubItem">Lightmin PHP API</li>
                     <ul>
@@ -424,6 +427,110 @@
                 </doc.topic>
                 <!-- #endregion -->
 
+                <!-- #region Client: Inserting a Window to display Pages -->
+                <doc.topic topicid="5ad">
+                    <doc.topictitle>Client: Inserting a Window to display Pages</doc.topictitle>
+
+                    Once you have completed the layout of your Client, leaving the place ready to display content, it is time to insert a <doc.detach>Window</doc.detach> in your Client. As you may have read previously in
+                    <a href="#5aa">this</a> topic, <doc.detach>Windows</doc.detach> work as standard HTML <doc.detach>iframes</doc.detach>, and are where <doc.detach>Pages</doc.detach> will be loaded and unloaded, as the user navigates,
+                    just like how an application works. The <doc.detach>Windows</doc.detach> can only be inserted in Screens (which you will see later in the documentation) and in the Client as we will see now.
+                    <br>
+                    <br>
+                    To insert a <doc.detach>Window</doc.detach> in your Client or Screen, simply use the HTML code below, placing it in the location you dedicated to displaying content in your Website layout...
+                    <doc.code language="html"><code>
+&lt;le.window type="main" identifier="Example" scalingmode="parent-content"&gt;&lt;/le.window&gt;
+</code></doc.code>
+                    When you insert the <doc.detach>Window</doc.detach> using this code, the Engine will prepare the Window on the loading screen and allow you to load <doc.detach>Pages</doc.detach> into it easily using the Lightmin Engine
+                    JS API. Now, let's understand what each attribute of the <doc.detach>le.window</doc.detach> tag means exactly...
+
+                    <doc.topicsubtitle>Attribute "type"</doc.topicsubtitle>
+                    The <doc.detach>Windows</doc.detach> can be divided into 2 types, which are <doc.detach>main</doc.detach> and <doc.detach>normal</doc.detach>. The difference between the two is that <doc.detach>main</doc.detach> is
+                    superior to <doc.detach>normal</doc.detach>. Both are capable of loading <doc.detach>Pages</doc.detach> normally and without any problems, however, the <doc.detach>Window</doc.detach> type <doc.detach>main</doc.detach>
+                    has special treatment from the Engine.
+                    <br>
+                    <br>
+                    The <doc.detach>Windows</doc.detach> of type <doc.detach>main</doc.detach> automatically load the <doc.detach>Page</doc.detach> defined in <doc.detach>defaultPage</doc.detach> in <doc.detach>manifest.json</doc.detach> as
+                    soon as the initial loading of the Website finishes. Furthermore, the URI of the <doc.detach>Page</doc.detach> that is currently being displayed in a <doc.detach>Window</doc.detach> of type <doc.detach>main</doc.detach>
+                    is always displayed in the Browser URL field, and will always reflect the <doc.detach>Page</doc.detach> that is currently displayed within it. And finally, if a user accesses your Website from a link that refers to a
+                    <doc.detach>Page</doc.detach>, the <doc.detach>main</doc.detach> type <doc.detach>Window</doc.detach> will start loading the link <doc.detach>Page</doc.detach> as soon as the initial loading of your Website finished. The
+                    <doc.detach>normal</doc.detach> type <doc.detach>Windows</doc.detach> do not have this URL linking mechanism. If the user accesses your Website using a link to the Client that does not mention any
+                    <doc.detach>Page</doc.detach>, then the default page defined in <doc.detach>defaultPage</doc.detach> in <doc.detach>manifest.json</doc.detach> will be loaded in the <doc.detach>Window</doc.detach> of type
+                    <doc.detach>main</doc.detach> automatically after initial loading of the Website.
+                    <br>
+                    <br>
+                    However, the <doc.detach>main</doc.detach> type <doc.detach>Window</doc.detach> can only be inserted once throughout the Website (and only on the Client), while the <doc.detach>normal</doc.detach> type can be inserted
+                    in each <doc.detach>Screen</doc.detach> and can be inserted in the <doc.detach>Client</doc.detach> too, together with the <doc.detach>Window</doc.detach> of type <doc.detach>main</doc.detach>. So, in total it is possible
+                    to have two <doc.detach>Windows</doc.detach> in the Client, and one <doc.detach>Window</doc.detach> per <doc.detach>Screen</doc.detach>.
+                    <doc.info>
+                        It is recommended that you define your Website default <doc.detach>Page</doc.detach> in the <doc.detach>manifest.json</doc.detach> file.
+                    </doc.info>
+
+                    <doc.topicsubtitle>Attribute "identifier"</doc.topicsubtitle>
+                    The <doc.detach>identifier</doc.detach> attribute only informs the ID of that <doc.detach>Window</doc.detach>. This ID will be used to refer to <doc.detach>Window</doc.detach> whenever you use the Lightmin Engine JS API
+                    to perform any action involving <doc.detach>Windows</doc.detach>.
+
+                    <doc.topicsubtitle>Attribute "scalingmode"</doc.topicsubtitle>
+                    The <doc.detach>scalingmode</doc.detach> attribute defines how the <doc.detach>Window</doc.detach> will expand horizontally and vertically according to the size of the currently loaded <doc.detach>Page</doc.detach>
+                    content. The value you will define in this attribute is made up of 2 subvalues separated by a <doc.detach>-</doc.detach>. The first value refers to the horizontal scale and the second value after
+                    <doc.detach>-</doc.detach> refers to the vertical scale.
+                    <br>
+                    <br>
+                    The two possible subvalues are <doc.detach>parent</doc.detach> and <doc.detach>content</doc.detach>. The <doc.detach>parent</doc.detach> informs that the scale of the <doc.detach>Window</doc.detach> will reach a maximum
+                    of the size of the parent tag of the <doc.detach>Window</doc.detach>, while the <doc.detach>content</doc.detach> defines that the scale of the <doc.detach>Window</doc.detach> will be defined according to the size of the
+                    content that currently appears within the <doc.detach>Window</doc.detach>.
+                    <br>
+                    <br>
+                    So, if you see a <doc.detach>Window</doc.detach> with the value below in the <doc.detach>scalingmode</doc.detach> attribute, means that the <doc.detach>Window</doc.detach> can scale vertically according to the size of
+                    the content, while it will remain horizontally at the width of the parent tag, which is the div.
+                    <doc.code language="html"><code>
+                        &lt;div style="width: 800px;"&gt;
+    &lt;le.window type="main" identifier="Example" scalingmode="parent-content"&gt;&lt;/le.window&gt;
+&lt;/div&gt;
+</code></doc.code>
+
+                    <doc.topicsubtitle>Continuing...</doc.topicsubtitle>
+                    So, now that you know exactly how to instantiate a <doc.detach>Window</doc.detach> in your Client, let's now see what the rules are for a <doc.detach>Window</doc.detach> to be considered valid by the Engine, when
+                    instantiated in the Client.
+                    <doc.list>
+                        <doc.listr>There must be at least one <doc.detach>Window</doc.detach> of type <doc.detach>main</doc.detach> in the Client.</doc.listr>
+                        <doc.listr>There cannot be more than two <doc.detach>Windows</doc.detach> on the Client.</doc.listr>
+                        <doc.listr>The attributes <doc.detach>type</doc.detach>, <doc.detach>identifier</doc.detach> and <doc.detach>scalingmod</doc.detach> must be defined in any <doc.detach>le.window</doc.detach> tag.</doc.listr>
+                        <doc.listr>The value of the <doc.detach>type</doc.detach> attribute must be <doc.detach>main</doc.detach> or <doc.detach>normal</doc.detach>, and cannot be anything other than that.</doc.listr>
+                        <doc.listr>A <doc.detach>Window</doc.detach> cannot have an identifier that is already being used in another <doc.detach>Window</doc.detach> that is in the Client or Screen.</doc.listr>
+                        <doc.listr>There can only be ONE <doc.detach>Window</doc.detach> of type <doc.detach>main</doc.detach> and at MINIMUM ONE <doc.detach>Window</doc.detach> of type <doc.detach>main</doc.detach> in the Client.</doc.listr>
+                        <doc.listr>The values of the <doc.detach>scalingmode</doc.detach> attribute can only be <doc.detach>parent</doc.detach> or <doc.detach>content</doc.detach> and must follow the <doc.detach>X-Y</doc.detach> or <doc.detach>horizontalValue-verticalValue</doc.detach> format. For example, <doc.detach>parent-content</doc.detach>.</doc.listr>
+                    </doc.list>
+                    <doc.warn>
+                        As seen previously, none of your Website JavaScript code should be executed before the Engine finishes the initial loading of your Website. The same goes for <doc.detach>Windows</doc.detach>. The
+                        <doc.detach>Window</doc.detach> are only ready after the Engine has loaded, so only try to load <doc.detach>Pages</doc.detach> after the initial Engine loading has finished.
+                    </doc.warn>
+
+                </doc.topic>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+
+
+
+                <!-- #region Screens: Inserting a Window to display Pages -->
+                <doc.topic topicid="5dza">
+                    <doc.topictitle>Screens: Inserting a Window to display Pages</doc.topictitle>
+
+                    As seen in <a href="#5ad">this</a> topic, <doc.detach>Windows</doc.detach> can be inserted into <doc.detach>Screens</doc.detach> too, in the same way they are inserted into the Client, without any problems! So you are
+                    able to load <doc.detach>Pages</doc.detach> within your <doc.detach>Screens</doc.detach> easily. In general, the <doc.detach>Windows</doc.detach> in <doc.detach>Screens</doc.detach> work exactly as they would in the
+                    Client, but there are some exceptions...
+                    <doc.list>
+                        <doc.listr>The existence of <doc.detach>Windows</doc.detach> is completely optional.</doc.listr>
+                        <doc.listr>There can only be a maximum of one <doc.detach>Window</doc.detach> per Screen.</doc.listr>
+                        <doc.listr>There cannot be <doc.detach>Windows</doc.detach> of type <doc.detach>main</doc.detach> within Screens.</doc.listr>
+                    </doc.list>
+                    Overall, it is recommended that you read <a href="#5ad">this</a> topic to understand everything about how to display <doc.detach>Windows</doc.detach> on your website, if you haven't already.
+
+                </doc.topic>
+                <!-- #endregion -->
+
+
 
 
                 <!-- #region Medias: Where to place Website Media files -->
@@ -590,6 +697,7 @@ function exampleFunction() {
                         <doc.tabler>loadScreenForegroundColorHex=>STRING=>Sets the filling color of the loading bar on the Engine initial loading screen. Must be set in Hexadecimal color format.</doc.tabler>
                         <doc.tabler>loadScreenBackgroundColorHex=>STRING=>Sets the background color of the loading bar on the Engine initial loading screen. Must be set in Hexadecimal color format.</doc.tabler>
                         <doc.tabler>showTextSelectionHighlight=>BOOL=>Defines whether the text selected on your website should be highlighted or not.</doc.tabler>
+                        <doc.tabler>noPageLoadedInWindowMessage=>STRING=>Defines the message that will appear on Windows that do not have any Page loaded, or that have never had a Page loaded.</doc.tabler>
                     </doc.table>
 
                     <doc.warn>
@@ -751,6 +859,21 @@ Utils.ChangeFavicon("icons/myFavicon.ico");
                     <br>
                     Lightmin Engine InputValidator class can be used easily and you can refer to the Documentation (ReadMe) of "Frontend Input Validator" to learn how to use this class easily. Just read the Documentation by
                     <a href="https://github.com/marcos4503/frontend-input-validator" target="_blank">clicking on this link</a> and you will know how to use the InputValidator class easily!
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Lightmin JS API: Windows.isWindowExistent() -->
+                <doc.topic topicid="8d">
+                    <doc.topictitle>Lightmin JS API: Windows.isWindowExistent()</doc.topictitle>
+
+                    This method checks whether a given Window exists on the Website. If yes, the method will return <doc.detach>true</doc.detach>. You must inform the Window identifier for the method.
+
+                    <doc.code language="javascript"><code>
+//- Windows.isWindowExistent(windowIdentifier);
+//  STRING windowIdentifier - The Window identifier. It is the same as defined in the "identifier" attribute of the "le.window" tag.
+var windowExists = Windows.isWindowExistent("ExampleWindow");
+</code></doc.code>
 
                 </doc.topic>
                 <!-- #endregion -->
