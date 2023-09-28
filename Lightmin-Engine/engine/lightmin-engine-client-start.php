@@ -17,8 +17,14 @@
         <!-- Lightmin Engine initializator JS -->
         <?php include_once("engine/engine-dynamic-includes/client-initializator-js.php"); ?>
         <!-- Lightmin Engine Client metadata -->
-        <title><?php echo(Common::GetManifestBaseTitle()); ?></title>
         <link rel="icon" type="image/x-icon" href="engine/medias/icons/loading-favicon.ico">
+        <title id="le.website.title"><?php echo(Common::GetManifestBaseTitle()); ?></title>
+        <meta id="le.website.description" name="description" content="">
+        <meta id="le.website.ogurl" property="og:url" content="">
+        <meta id="le.website.ogtitle" property="og:title" content="">
+        <meta id="le.website.ogdescription" property="og:description" content="">
+        <meta id="le.website.ogimage" property="og:image" content="">
+        <meta property="og:type" content="website">
         <meta id="le.websiteBrowserColor" name="theme-color" content="#FFFFFF">
         <meta name="viewport" content="width=device-width">
         <meta id="le.websiteCharset" charset="UTF-8">
@@ -28,10 +34,16 @@
         <meta id="le.loadedJsLibs.separator">
         <!-- Lightmin Engine loaded Pieces -->
         <meta id="le.loadedPieces.separator">
+        <!-- Lightmin Engine loaded Pages JS -->
+        <meta id="le.loadedPagesJs.separator">
         <!-- Lightmin Engine everything else -->
     </head>
     <body style="overflow-x: visible; overflow-y: scroll;">
         <!-- The Start of base HTML of Lightmin Engine -->
+        <!-- ////////////////////////////////   LOADING INDICATOR   //////////////////////////////// -->
+        <div id="le.loadingIndicator.bg" class="le_loadingIndicator_bg">
+            <div id="le.loadingIndicator.fg" class="le_loadingIndicator_fg"></div>
+        </div>
         <!-- ////////////////////////////////   LOADING SCREEN   //////////////////////////////// -->
         <div id="le.loadingScreenFront" class="le_loadingScreenFront">
             <div id="le.loadingScreen.loadBox" class="le_loadingScreen_loadingBox">

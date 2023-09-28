@@ -85,7 +85,8 @@
                     </ul>
                     <li class="summarySubItem">Pages</li>
                     <ul>
-                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="5ba">A</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="5ba">Creating Pages for your Website</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="5bb">Loading Pages inside Windows</a></li>
                     </ul>
                     <li class="summarySubItem">Pieces</li>
                     <ul>
@@ -190,6 +191,7 @@
                     <doc.list>
                         <doc.listr>Prior knowledge of HTML, CSS, JavaScript, JSON, PHP and how to create/host Websites.</doc.listr>
                         <doc.listr>A server that runs PHP.</doc.listr>
+                        <doc.listr>Your Apache/Nginx server cannot hide the file extension of PHP/HTM/JS/CSS among others in the Browser URL.</doc.listr>
                         <doc.listr>Everyone who will access your website will need Browsers that support JavaScript.</doc.listr>
                         <doc.listr>An HTML, JavaScript, CSS and PHP code editor. (I highly recommend "VS Code" because of its level of customization and extensions)</doc.listr>
                     </doc.list>
@@ -502,13 +504,190 @@
                     </doc.list>
                     <doc.warn>
                         As seen previously, none of your Website JavaScript code should be executed before the Engine finishes the initial loading of your Website. The same goes for <doc.detach>Windows</doc.detach>. The
-                        <doc.detach>Window</doc.detach> are only ready after the Engine has loaded, so only try to load <doc.detach>Pages</doc.detach> after the initial Engine loading has finished.
+                        <doc.detach>Windows</doc.detach> are only ready after the Engine has loaded, so only try to load <doc.detach>Pages</doc.detach> after the initial Engine loading has finished.
                     </doc.warn>
 
                 </doc.topic>
 
                 </doc.topic>
                 <!-- #endregion -->
+
+                <!-- #region Pages: Creating Pages for your Website -->
+                <doc.topic topicid="5ba">
+                    <doc.topictitle>Pages: Creating Pages for your Website</doc.topictitle>
+
+                    To create <doc.detach>Pages</doc.detach> for your Website made with Lightmin Engine, it's very simple. In the <doc.detach>pages</doc.detach> folder of your Website, you must create a file with
+                    <doc.detach>PHP</doc.detach> extension with whatever name you want, as if you were creating any page on a normal Website. Within the <doc.detach>pages</doc.detach> folder you can also create sub-directories to organize
+                    your pages as you prefer.
+                    <br>
+                    <br>
+                    Once you have created your <doc.detach>Page</doc.detach> PHP file, the code inside the file should look like this...
+                    <doc.code language="php"><code>
+&lt;html&gt;
+
+    &lt;head&gt;
+        &lt;!-- Page to Client Redirector --&gt;
+        &lt;script type="text/javascript" src="https://example.com/engine/utilities/page-to-client-redirector.js"&gt;&lt;/script&gt;
+        &lt;!-- Page Metadata --&gt;
+        &lt;title&gt;Page Title&lt;/title&gt;
+        &lt;meta name="description" content="Page Description"/&gt;
+        &lt;meta name="image" content="https://example.com/page-image.png"/&gt;
+    &lt;/head&gt;
+
+    &lt;script&gt;
+        /* Page Script */
+        
+        function LE_OnPageLoad(){
+            //on load this page...
+        }
+    &lt;/script&gt;
+
+    &lt;body&gt;
+        &lt;!-- Page HTML Content --&gt;
+    &lt;/body&gt;
+
+&lt;/html&gt;
+</code></doc.code>
+                    As you noticed, the structure of a <doc.detach>Page</doc.detach> is very simple and is very similar to the structure of a common HTML page, however, with some differences. The main objective of this structure is to allow
+                    full compatibility with search engines such as Google or Bing, so that a <doc.detach>Page</doc.detach> file closely resembles a standard HTML page and can be indexed by the engines. The <doc.detach>Page</doc.detach> file
+                    extension also needs to be <doc.detach>PHP</doc.detach> to allow you to run PHP scripts if you so desire. But now, let's break down each part of the <doc.detach>Page</doc.detach> to understand everything better.
+
+                    <doc.topicsubtitle>HTML tag</doc.topicsubtitle>
+                    The <doc.detach>html</doc.detach> tag is the root tag of a <doc.detach>Page</doc.detach> file precisely to make it look like a standard page, as explained previously in the paragraph above.
+
+                    <doc.topicsubtitle>HEAD tag</doc.topicsubtitle>
+                    The <doc.detach>head</doc.detach> tag is the header of your <doc.detach>Page</doc.detach>. Inside the header there can only be the following code below, and <b>NOTHING MORE</b> than that.
+                    <doc.code language="php"><code>
+&lt;!-- Page to Client Redirector --&gt;
+&lt;script type="text/javascript" src="https://example.com/engine/utilities/page-to-client-redirector.js"&gt;&lt;/script&gt;
+&lt;!-- Page Metadata --&gt;
+&lt;title&gt;Page Title&lt;/title&gt;
+&lt;meta name="description" content="Page Description"/&gt;
+&lt;meta name="image" content="https://example.com/page-image.png"/&gt;
+</code></doc.code>
+                    The objective with this is to keep the <doc.detach>head</doc.detach> tag as small and minimalistic as possible. You do not need and <b>SHOULD NOT</b> place anything more than that within the header of your
+                    <doc.detach>Pages</doc.detach>. In addiction, you cannot insert <doc.detach>style</doc.detach>, <doc.detach>link</doc.detach> or <doc.detach>script</doc.detach> tags within the <doc.detach>Pages</doc.detach> header. Now,
+                    let's understand what each item in the header means...
+                    <br>
+                    <br>
+                    Let's start with this part...
+                    <doc.code language="php"><code>
+&lt;!-- Page to Client Redirector --&gt;
+&lt;script type="text/javascript" src="https://example.com/engine/utilities/page-to-client-redirector.js"&gt;&lt;/script&gt;
+</code></doc.code>
+                    This is the ONLY allowed JavaScript code that can be placed within the <doc.detach>head</doc.detach> tag of your <doc.detach>Pages</doc.detach>. If a user accesses the PHP file of your <doc.detach>Page</doc.detach>
+                    directly, instead of accessing the <doc.detach>client.php</doc.detach> file, the user will only see your <doc.detach>Page</doc.detach>, that is, he will see a page without formatting, only with the content of text/HTML
+                    of your <doc.detach>Page</doc.detach>, as it will not be seeing the <doc.detach>Page</doc.detach> from <doc.detach>client.php</doc.detach>.
+                    <br>
+                    <br>
+                    Knowing this, the Lightmin Engine has a JavaScript file called <doc.detach>page-to-client-redirector.js</doc.detach> which, when placed in the <doc.detach>head</doc.detach> tag of your <doc.detach>Page</doc.detach>, will
+                    cause a user that is accessing your <doc.detach>Page</doc.detach> file directly, he will be redirected to <doc.detach>client.php</doc.detach>, but the <doc.detach>Page</doc.detach> he had accessed will be loaded
+                    immediately within <doc.detach>client.php</doc.detach>. Then, the user will see the <doc.detach>Page</doc.detach> inside <doc.detach>client.php</doc.detach> as it should be, thanks to this script. This script can be
+                    found in the <doc.detach>engine/utilities</doc.detach> directory and is a script that is part of the Engine precisely so you don't have to worry about it.
+                    <br>
+                    <br>
+                    The best way to add this script to your <doc.detach>Page</doc.detach> is by providing an absolute URL for the <doc.detach>page-to-client-redirector.js</doc.detach> script to the <doc.detach>src</doc.detach> attribute of
+                    the <doc.detach>script</doc.detach> tag in your <doc.detach>Page</doc.detach> header. So, if you have a website domain <doc.detach>test.com</doc.detach> where your Lightmin Website is at the root, you will need to
+                    provide the absolute URL being <doc.detach>https://test.com/engine/utilities/page-to-client-redirector.js</doc.detach>.
+                    <br>
+                    <br>
+                    And now, as for this part...
+                    <doc.code language="php"><code>
+&lt;!-- Page Metadata --&gt;
+&lt;title&gt;Page Title&lt;/title&gt;
+&lt;meta name="description" content="Page Description"/&gt;
+&lt;meta name="image" content="https://example.com/page-image.png"/&gt;
+</code></doc.code>
+                    The purpose of this part is to provide the metadata of your <doc.detach>Page</doc.detach>. This is where you define the title (required), description (optional) and image (optional) of your <doc.detach>Page</doc.detach>.
+                    All this metadata will appear in the Client and when links to your Website are shared by people. They can also be used by search engines and other things, so it's important that you provide this data whenever possible on
+                    your <doc.detach>Pages</doc.detach>.
+                    <br>
+                    <br>
+                    These are the only things that should be present in the header of your <doc.detach>Pages</doc.detach>, nothing more.
+
+                    <doc.topicsubtitle>SCRIPT tag</doc.topicsubtitle>
+                    Inside the <doc.detach>script</doc.detach> tag of your <doc.detach>Page</doc.detach> is where you should place ALL the JavaScript code for your <doc.detach>Page</doc.detach>. It is not recommended to place large
+                    JS codes, and keep in mind that this code will be compiled to the Client as soon as your page is loaded, so do not name methods, classes and variables with names that are already used in JS codes present in
+                    <doc.detach>libraries/js</doc.detach> of your Website.
+                    <br>
+                    <br>
+                    The <doc.detach>window.onload</doc.detach> and <doc.detach>document.onload</doc.detach> events will not work here. So if you want to run code right after your <doc.detach>Page</doc.detach> finishes loading and appears in
+                    the <doc.detach>Client</doc.detach>, just include a function called <doc.detach>LE_OnPageLoad()</doc.detach>. The method <doc.detach>LE_OnPageLoad()</doc.detach> must only be placed in your
+                    <doc.detach>Page</doc.detach> JavaScript code and only ONCE PER <doc.detach>Page</doc.detach>.
+
+                    <doc.topicsubtitle>BODY tag</doc.topicsubtitle>
+                    Inside the <doc.detach>body</doc.detach> tag is where you should place all the text content, HTML code or <doc.detach>Pieces</doc.detach> (which will be discussed later in the documentation) of your
+                    <doc.detach>Page</doc.detach>, just as you would do with a standard HTML page. The exception here is that you cannot use <doc.detach>style</doc.detach> and <doc.detach>script</doc.detach> tags here.
+
+                    <doc.warn>
+                        WARNING: If you disobey any rules, write the wrong HTML/XML syntax or something like that, the <doc.detach>Page</doc.detach> will not be able to be loaded in the Client.
+                    </doc.warn>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Pages: Loading Pages inside Windows -->
+                <doc.topic topicid="5bb">
+                    <doc.topictitle>Pages: Loading Pages inside Windows</doc.topictitle>
+
+                    At any time you wish, you can load <doc.detach>Pages</doc.detach> within any <doc.detach>Window</doc.detach> on your Website. To do this, you just need to use Lightmin JavaScript API. To load a page, you just need to
+                    call the <doc.detach>Windows.LoadPage()</doc.detach> method passing as a parameter the <doc.detach>identifier</doc.detach> of the Window in which you want to load the <doc.detach>Page</doc.detach> and the URI for the
+                    <doc.detach>Page</doc.detach> file to be loaded.
+                    <doc.code language="javascript"><code>
+Windows.LoadPage("ClientMainWindow", "example-page.php", null, null);
+</code></doc.code>
+                    For it to work, the <doc.detach>Page</doc.detach> file needs to be within the <doc.detach>pages</doc.detach> directory of your Website. Furthermore, the second parameter of the <doc.detach>Windows.LoadPage()</doc.detach>
+                    method takes into account that the <doc.detach>pages</doc.detach> directory is the root, so you don't need to enter a URI like <doc.detach>pages/example.php</doc.detach>, just enter <doc.detach>example.php</doc.detach>.
+                    <br>
+                    <br>
+                    Whenever you load a new <doc.detach>Page</doc.detach> you should always only use the Lightmin API for this. The use of the HTML <doc.detach>a</doc.detach> tag like
+                    <doc.detach>&lt;a href="example.com"&gt;&lt;/a&gt;</doc.detach> is unnecessary on Websites made with Lightmin, unless you want to send the user out of the Client, or to another page of course!
+                    <br>
+                    <br>
+                    Now, if you want to receive a Callback to know whether the Page loading was successful or not, just use the <doc.detach>Windows.LoadPage()</doc.detach> method passing functions in the parameters, as below.
+                    <doc.code language="javascript"><code>
+Windows.LoadPage("ClientMainWindow", "example-page.php",
+function(){
+    //run error code...
+},
+function(){
+    //run success code...
+});
+</code></doc.code>
+                    You can load Pages in any Window you want, any time you want. However, there are some rules and limitations...
+                    <doc.list>
+                        <doc.listr>The URI provided by the Page cannot be empty.</doc.listr>
+                        <doc.listr>The URI entered must lead to a Page file with the PHP extension.</doc.listr>
+                        <doc.listr>The URI entered cannot begin with <doc.detach>.</doc.detach>, <doc.detach>/</doc.detach> or <doc.detach>\</doc.detach>.</doc.listr>
+                        <doc.listr>The Window identifier provided must refer to an existing Window.</doc.listr>
+                        <doc.listr>A Page can only be loaded in one Window at a time. In other words, it is not possible to load a Page for more than 1 Window at the same time.</doc.listr>
+                        <doc.listr>The Page to be loaded must respect all the rules and syntax explained in the topic above.</doc.listr>
+                    </doc.list>
+
+                    <doc.topicsubtitle>Receiving Callbacks whenever a Page is loaded in any Window</doc.topicsubtitle>
+                    The Lightmin Engine provides a Callback so you can insert JavaScript into your Website code and then ALWAYS know that any <doc.detach>Page</doc.detach> is loaded on any <doc.detach>Window</doc.detach> on your Website.
+                    This can be useful for a number of reasons, mainly to highlight tabs or buttons to show the user which <doc.detach>Page</doc.detach> is currently loaded, for example.
+                    <br>
+                    <br>
+                    To use Callback, simply insert the code below into a JavaScript library on your Website and then the <doc.detach>LE_OnLoadPageInSomeWindow()</doc.detach> method will be called EVERY time a <doc.detach>Page</doc.detach>
+                    is loaded.
+                    <doc.code language="javascript"><code>
+function LE_OnLoadPageInSomeWindow(loadedInWindow, loadedPageUri){
+    console.log(("The Page \"" + loadedPageUri + "\" was loaded in the \"" + loadedInWindow + "\" Window!"));
+}
+</code></doc.code>
+                    The Callback also sends as a parameter the identifier of the <doc.detach>Window</doc.detach> that loads a <doc.detach>Page</doc.detach>, and also the URI of the <doc.detach>Page</doc.detach> that was loaded. But keep in
+                    mind that this Callback does not inform you whether the Page loading was successful, it only informs you when the loading of that <doc.detach>Page</doc.detach> started. When registering this Callback on your Website,
+                    don't forget to include the parameters, or else it won't work.
+                    <doc.warn>
+                        Keep in mind that Callback <doc.detach>LE_OnLoadPageInSomeWindow()</doc.detach> can only be registered ONLY ONCE on your entire Website. If you register this Callback more than once, there will be conflicts that will
+                        affect the functioning of your Website.
+                    </doc.warn>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+
 
 
 
@@ -697,7 +876,22 @@ function exampleFunction() {
                         <doc.tabler>loadScreenForegroundColorHex=>STRING=>Sets the filling color of the loading bar on the Engine initial loading screen. Must be set in Hexadecimal color format.</doc.tabler>
                         <doc.tabler>loadScreenBackgroundColorHex=>STRING=>Sets the background color of the loading bar on the Engine initial loading screen. Must be set in Hexadecimal color format.</doc.tabler>
                         <doc.tabler>showTextSelectionHighlight=>BOOL=>Defines whether the text selected on your website should be highlighted or not.</doc.tabler>
+                        <doc.tabler>loadingIndicatorBarHeightPx=>INT=> Sets the height (in pixels) of the loading indicator.</doc.tabler>
+                        <doc.tabler>loadingIndicatorBarForegroundColorHex=>STRING=>Sets the background color of the loading indicator. Must be set in Hexadecimal color format.</doc.tabler>
+                        <doc.tabler>loadingIndicatorBarBackgroundColorHex=>STRING=>Sets the foreground color of the loading indicator. Must be set in Hexadecimal color format.</doc.tabler>
                         <doc.tabler>noPageLoadedInWindowMessage=>STRING=>Defines the message that will appear on Windows that do not have any Page loaded, or that have never had a Page loaded.</doc.tabler>
+                        <doc.tabler>showWindowLoadingGif=>BOOL=>Defines whether or not a loading GIF should be displayed while a Window loads a Page.</doc.tabler>
+                        <doc.tabler>windowLoadingGifUri=>STRING=>Defines the image that will appear while a Window loads a Page. You must provide the path, taking into account that the root is the folder where "client.php" is located.</doc.tabler>
+                        <doc.tabler>windowLoadingGifSpacePx=>INT=>Defines the spacing (in pixels) between the image and message that appear while a Window loads a Page.</doc.tabler>
+                        <doc.tabler>windowLoadingMessage=>STRING=>Defines the message that will appear while a Window loads a Page.</doc.tabler>
+                        <doc.tabler>windowLoadingMessageFontWeight=>STRING=>Sets the font weight of the message that appears while a Window loads a Page. The value here needs to be the same as what you would define in an "font-weight" attribute in CSS.</doc.tabler>
+                        <doc.tabler>windowLoadingMessageFontSize=>INT=>Defines the font size (in pixels) of the message that will appear while a Window loads a Page.</doc.tabler>
+                        <doc.tabler>windowErrorImageUri=>STRING=>Defines the image that will appear when an error occurs when loading a Page. You must provide the path, taking into account that the root is the folder where "client.php" is located.</doc.tabler>
+                        <doc.tabler>windowErrorMessage=>STRING=>Defines the error message that will appear when an error occurs when loading a Page.</doc.tabler>
+                        <doc.tabler>windowErrorButtonMessage=>STRING=>Defines the content of the "Try Again" button that will appear when an error occurs when loading a Page.</doc.tabler>
+                        <doc.tabler>windowErrorButtonColorHex=>STRING=>Defines the color of the "Try Again" button that appears when an error occurs when loading a Page. Must be set in Hexadecimal color format.</doc.tabler>
+                        <doc.tabler>windowErrorButtonHoverColorHex=>STRING=>Defines the color of the "Try Again" button (with the mouse on top) that appears when an error occurs when loading a Page. Must be set in Hexadecimal color format.</doc.tabler>
+                        <doc.tabler>windowErrorButtonTextColorHex=>STRING=>Defines the text color of the "Try Again" button that appears when an error occurs when loading a Page. Must be set in Hexadecimal color format.</doc.tabler>
                     </doc.table>
 
                     <doc.warn>

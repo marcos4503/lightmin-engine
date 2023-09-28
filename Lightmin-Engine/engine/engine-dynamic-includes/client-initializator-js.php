@@ -27,6 +27,8 @@ class Initializator {
     static lastPieceNodeAdded = null;
     
     //Loading screen components
+    static loadingIndicatorBg = null;
+    static loadingIndicatorFg = null;
     static loadingScreenFront = null;
     static loadingScreenLoadBox = null;
     static loadingScreenLoadBoxLogo = null;
@@ -140,6 +142,9 @@ class Initializator {
         document.body.style.fontFamily = Settings.Get("websitePrimaryFontFamily");
         document.body.style.fontSize = (Settings.Get("websiteFontSizePx") + "px");
         document.getElementById("le.websiteBrowserColor").setAttribute("content", Settings.Get("browserColor"));
+        Initializator.loadingIndicatorBg.style.backgroundColor = Settings.Get("loadingIndicatorBarBackgroundColorHex");
+        Initializator.loadingIndicatorBg.style.height = (Settings.Get("loadingIndicatorBarHeightPx") + "px");
+        Initializator.loadingIndicatorFg.style.backgroundColor = Settings.Get("loadingIndicatorBarForegroundColorHex");
         Initializator.loadingScreenLoadBoxLogoImg.src = Settings.Get("loadScreenLogoUri");
         Initializator.loadingScreenLoadBoxLogoImg.style.display = "block";
         Initializator.loadingScreenLoadBoxLogoImg.style.animation = "le_loadingScreen_loadingBox_logo_img_enable 0.15s linear normal";
@@ -473,13 +478,33 @@ class Initializator {
 
             //Try to run a possible "OnLoadEngineFinished" method registered in any possible JS library...
             try{ eval("LE_OnLoadEngineFinished();"); } catch(e){  };
+
+            //Start loading the default home Page
+            Initializator.LoadDefaultPageOrCurrentUrl();
         }, 500);
+    }
+
+    static LoadDefaultPageOrCurrentUrl(){
+        //Prepare the page to be loaded
+        var pageUriToLoad = Settings.GetManifestDefaultPage();
+
+        //If the parameter "p" is setted in URL, get the URI from "p"
+        var currentUrl = window.location.href;
+        var url = new URL(currentUrl);
+        var pParameter = url.searchParams.get("p");
+        if(pParameter != null)
+            pageUriToLoad = pParameter;
+
+        //Load the requested page
+        Windows.LoadPage(Windows.GetMainWindowIdentifier(), pageUriToLoad, null, null);
     }
 
     //Auxiliar methods
 
     static GetReferencesForAllLoadingScreenComponents(){
         //Get reference for all loading screen components
+        Initializator.loadingIndicatorBg = document.getElementById("le.loadingIndicator.bg");
+        Initializator.loadingIndicatorFg = document.getElementById("le.loadingIndicator.fg");
         Initializator.loadingScreenFront = document.getElementById("le.loadingScreenFront");
         Initializator.loadingScreenLoadBox = document.getElementById("le.loadingScreen.loadBox");
         Initializator.loadingScreenLoadBoxLogo = document.getElementById("le.loadingScreen.loadBox.logo");
@@ -1002,8 +1027,12 @@ class Initializator {
             finalWindowTag.setAttribute("style", "width: " + xScalingMode + "; height: " + yScalingMode + "; min-height: 256px;");
             finalWindowTag.innerHTML = Windows.GetNoPageLoadedHtmlCode();
 
-            //Register the window in cache
-            Windows.existantWindowsInClientAndScreens[identifier] = { parentType: parentType, type: type, elementRef: finalWindowTag, currentLoadedPageUri: "" };
+            //Register the window in cache (declaring all variables that the Window will need in their lifetime)
+            Windows.existantWindowsInClientAndScreens[identifier] = { parentType: parentType, windowType: type, windowElementRef: finalWindowTag, currentLoadedPageUri: "", currentLoadedPageJsRef: null,
+                                                                      isLoadingSomePage: false,
+                                                                      loadingFadeInTimer: null, 
+                                                                      loadingHttpRequestTimer: null, httpRequestObj: null,
+                                                                      contentFadeInTimer: null, finishTransitionTimer: null };
 
             //Add the final window to DOM after the old window tag
             currentWindowTag.parentNode.insertBefore(finalWindowTag, currentWindowTag.nextSibling);

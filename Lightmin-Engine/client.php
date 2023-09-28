@@ -23,9 +23,9 @@ include_once("engine/lightmin-engine-client-start.php");
         <!-- navbar -->
         <div class="client_stackedGrid_contentArea_navbar">
             <div class="client_stackedGrid_contentArea_navbar_item_last"></div>
-            <div class="client_stackedGrid_contentArea_navbar_item" id="client.tab3">Page C</div>
-            <div class="client_stackedGrid_contentArea_navbar_item" id="client.tab2">Page B</div>
-            <div class="client_stackedGrid_contentArea_navbar_item" id="client.tab1">Page A</div>
+            <div class="client_stackedGrid_contentArea_navbar_item" id="client.tab3" onclick="Windows.LoadPage('ClientMainWindow', 'page-c.php', null, null);">Page C</div>
+            <div class="client_stackedGrid_contentArea_navbar_item" id="client.tab2" onclick="Windows.LoadPage('ClientMainWindow', 'page-b.php', null, null);">Page B</div>
+            <div class="client_stackedGrid_contentArea_navbar_item" id="client.tab1" onclick="Windows.LoadPage('ClientMainWindow', 'page-a.php', null, null);">Page A</div>
         </div>
         <!-- content area -->
         <div class="client_stackedGrid_contentArea_content">
@@ -59,8 +59,8 @@ include_once("engine/lightmin-engine-client-start.php");
 <div class="client_additionalWindow_root" id="additionalWindowBox">
     <div class="client_additionalWindow_box">
         <div class="client_additionalWindow_box_navbar">
-            <div class="client_additionalWindow_box_navbar_item" id="client.addWindow.tab1">Additional Page A</div>
-            <div class="client_additionalWindow_box_navbar_item" id="client.addWindow.tab2">Additional Page B</div>
+            <div class="client_additionalWindow_box_navbar_item" id="client.addWindow.tab1" onclick="Windows.LoadPage('ClientAddWindow', 'additionals/additional-page-a.php', null, null);">Additional Page A</div>
+            <div class="client_additionalWindow_box_navbar_item" id="client.addWindow.tab2" onclick="Windows.LoadPage('ClientAddWindow', 'additionals/additional-page-b.php', null, null);">Additional Page B</div>
         </div>
         <div class="client_additionalWindow_box_content">
             <div class="client_additionalWindow_box_content_scrollable">

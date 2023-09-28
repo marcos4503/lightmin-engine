@@ -14,6 +14,27 @@ body{
     margin-right: 0px;
 }
 
+/* Loading Indicator */
+
+.le_loadingIndicator_bg{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 1000000;
+    width: 100%;
+    height: 1px;
+    background-color: #737373;
+    pointer-events: none;
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.5);
+    opacity: 0.0;
+    transition: all 150ms;
+}
+.le_loadingIndicator_fg{
+    width: 0%;
+    height: 100%;
+    background-color: #6d90c9;
+}
+
 /* Loading Screen */
 
 .le_loadingScreenCredits{

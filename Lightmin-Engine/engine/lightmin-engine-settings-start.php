@@ -35,8 +35,25 @@ $settings->DeclareVariablePrimitive("loadScreenErrorMessage", "STRING");
 $settings->DeclareVariablePrimitive("loadScreenErrorButtonMessage", "STRING");
 $settings->DeclareVariablePrimitive("showTextSelectionHighlight", "BOOL");
 
+//Loading indicator...
+$settings->DeclareVariablePrimitive("loadingIndicatorBarHeightPx", "INT");
+$settings->DeclareVariablePrimitive("loadingIndicatorBarForegroundColorHex", "STRING");
+$settings->DeclareVariablePrimitive("loadingIndicatorBarBackgroundColorHex", "STRING");
+
 //Windows variables...
 $settings->DeclareVariablePrimitive("noPageLoadedInWindowMessage", "STRING");
+$settings->DeclareVariablePrimitive("showWindowLoadingGif", "BOOL");
+$settings->DeclareVariablePrimitive("windowLoadingGifUri", "STRING");
+$settings->DeclareVariablePrimitive("windowLoadingGifSpacePx", "INT");
+$settings->DeclareVariablePrimitive("windowLoadingMessage", "STRING");
+$settings->DeclareVariablePrimitive("windowLoadingMessageFontWeight", "STRING");
+$settings->DeclareVariablePrimitive("windowLoadingMessageFontSize", "INT");
+$settings->DeclareVariablePrimitive("windowErrorImageUri", "STRING");
+$settings->DeclareVariablePrimitive("windowErrorMessage", "STRING");
+$settings->DeclareVariablePrimitive("windowErrorButtonMessage", "STRING");
+$settings->DeclareVariablePrimitive("windowErrorButtonColorHex", "STRING");
+$settings->DeclareVariablePrimitive("windowErrorButtonHoverColorHex", "STRING");
+$settings->DeclareVariablePrimitive("windowErrorButtonTextColorHex", "STRING");
 
 ////////////////////////////////////////// SETTINGS VARIABLE DEFAULT VALUES //////////////////////////////////////////
 
@@ -60,7 +77,24 @@ $settings->SetVariablePrimitiveValue("loadScreenErrorMessage", "There was a prob
 $settings->SetVariablePrimitiveValue("loadScreenErrorButtonMessage", "Try Again");
 $settings->SetVariablePrimitiveValue("showTextSelectionHighlight", false);
 
+//Loading indicator...
+$settings->SetVariablePrimitiveValue("loadingIndicatorBarHeightPx", 4);
+$settings->SetVariablePrimitiveValue("loadingIndicatorBarForegroundColorHex", "#0a778d");
+$settings->SetVariablePrimitiveValue("loadingIndicatorBarBackgroundColorHex", "#c1c1c1");
+
 //Windows variables...
 $settings->SetVariablePrimitiveValue("noPageLoadedInWindowMessage", "There's nothing to show here for now");
+$settings->SetVariablePrimitiveValue("showWindowLoadingGif", true);
+$settings->SetVariablePrimitiveValue("windowLoadingGifUri", "engine/medias/images/spin-load.gif");
+$settings->SetVariablePrimitiveValue("windowLoadingGifSpacePx", 4);
+$settings->SetVariablePrimitiveValue("windowLoadingMessage", "Loading");
+$settings->SetVariablePrimitiveValue("windowLoadingMessageFontWeight", "normal");
+$settings->SetVariablePrimitiveValue("windowLoadingMessageFontSize", 16);
+$settings->SetVariablePrimitiveValue("windowErrorImageUri", "engine/medias/images/window-error.png");
+$settings->SetVariablePrimitiveValue("windowErrorMessage", "There was a problem loading the requested content.<br/>Please check if the link is correct and try again.");
+$settings->SetVariablePrimitiveValue("windowErrorButtonMessage", "Try Again");
+$settings->SetVariablePrimitiveValue("windowErrorButtonColorHex", "#107084");
+$settings->SetVariablePrimitiveValue("windowErrorButtonHoverColorHex", "#1593ac");
+$settings->SetVariablePrimitiveValue("windowErrorButtonTextColorHex", "#ffffff");
 
 ?>

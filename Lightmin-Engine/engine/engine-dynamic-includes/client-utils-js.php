@@ -6,6 +6,12 @@ class Utils{
 
     //Cache variables
     static cacheFaviconElement = null;
+    static cacheTitleElement = null;
+    static cacheOgTitleElement = null;
+    static cacheDescriptionElement = null;
+    static cacheOgDescriptionElement = null;
+    static cacheOgUrlElement = null;
+    static cacheOgImageElement = null;
 
     //Public methods
 
@@ -45,6 +51,49 @@ class Utils{
             Utils.cacheFaviconElement.href = newFaviconSrc;
     }
 
+    //Auxiliar methods
+
+    static ChangeClientMetadataTitle(newTitle){
+        //Get the cache, if don't have
+        if(Utils.cacheTitleElement == null)
+            Utils.cacheTitleElement = document.getElementById("le.website.title");
+        if(Utils.cacheOgTitleElement == null)
+            Utils.cacheOgTitleElement = document.getElementById("le.website.ogtitle");
+
+        //Change the title
+        Utils.cacheTitleElement.innerHTML = (Settings.GetManifestBaseTitle() + " - " + newTitle);
+        Utils.cacheOgTitleElement.setAttribute("content", (Settings.GetManifestBaseTitle() + " - " + newTitle));
+    }
+
+    static ChangeClientMetadataDescription(newDescription){
+        //Get the cache, if don't have
+        if(Utils.cacheDescriptionElement == null)
+            Utils.cacheDescriptionElement = document.getElementById("le.website.description");
+        if(Utils.cacheOgDescriptionElement == null)
+            Utils.cacheOgDescriptionElement = document.getElementById("le.website.ogdescription");
+
+        //Change the description
+        Utils.cacheDescriptionElement.setAttribute("content", newDescription);
+        Utils.cacheOgDescriptionElement.setAttribute("content", newDescription);
+    }
+
+    static ChangeClientMetadataUrl(newUrl){
+        //Get the cache, if don't have
+        if(Utils.cacheOgUrlElement == null)
+            Utils.cacheOgUrlElement = document.getElementById("le.website.ogurl");
+
+        //Change the url
+        Utils.cacheOgUrlElement.setAttribute("content", newUrl);
+    }
+
+    static ChangeClientMetadataImage(newImageUrl){
+        //Get the cache, if don't have
+        if(Utils.cacheOgImageElement == null)
+            Utils.cacheOgImageElement = document.getElementById("le.website.ogimage");
+
+        //Change the image
+        Utils.cacheOgImageElement.setAttribute("content", newImageUrl);
+    }
 }
 
 </script>

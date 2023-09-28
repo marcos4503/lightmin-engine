@@ -63,7 +63,7 @@ a{
     height: 36px;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    background-color: #ffffff;
+    background-color: #e8e8e8;
     margin-left: 8px;
     padding-left: 8px;
     padding-right: 8px;
@@ -74,7 +74,7 @@ a{
     transition: all 250ms;
 }
 .client_stackedGrid_contentArea_navbar_item:hover{
-    background-color: #e8e8e8;
+    background-color: #ffffff;
 }
 .client_stackedGrid_contentArea_navbar_item_last{
     float: right;
@@ -175,7 +175,7 @@ a{
     height: 36px;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    background-color: #ffffff;
+    background-color: #e8e8e8;
     margin-left: 4px;
     margin-right: 4px;
     padding-left: 8px;
@@ -187,7 +187,7 @@ a{
     transition: all 250ms;
 }
 .client_additionalWindow_box_navbar_item:hover{
-    background-color: #e8e8e8;
+    background-color: #ffffff;
 }
 .client_additionalWindow_box_content{
     width: 95%;

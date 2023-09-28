@@ -1,6 +1,6 @@
 {
     "baseTitle": "Example Website",
-    "defaultPage": "",
+    "defaultPage": "page-a.php",
     "cssLibraries": [
         "libraries/css/client-css.php"
     ],
