@@ -64,7 +64,7 @@ class Windows{
         return windowIdentifier;
     }
 
-    static LoadPage(windowIdentifier, pageUri, onErrorCallback, onSuccessCallback){
+    static LoadPage(windowIdentifier, pageUri, onDoneCallback){
         //If don't have a cache for the "loadedPagesScriptSeparator", create it
         if(Windows.loadedPagesScriptSeparator == null)
             Windows.loadedPagesScriptSeparator = document.getElementById("le.loadedPagesJs.separator");
@@ -72,28 +72,28 @@ class Windows{
         //If the page URI is empty, cancel
         if(pageUri == ""){
             Common.SendLog("E", ("There was a problem loading the Page \"" + pageUri + "\" in \"" + windowIdentifier + "\" Window. The URI provided is empty."));
-            return;
+            return false;
         }
         //If the page extension is different from PHP, cancel
         if(pageUri.split("/").pop().split(".").pop().toLowerCase() != "php"){
             Common.SendLog("E", ("There was a problem loading the Page \"" + pageUri + "\" in \"" + windowIdentifier + "\" Window. The URI entered must refer to a Page with a PHP extension."));
-            return;
+            return false;
         }
         //If the page URI starts with ".", "\" or "/", cancel
         if(pageUri.charAt(0) == "." || pageUri.charAt(0) == "/" || pageUri.charAt(0) == "\\"){
             Common.SendLog("E", ("There was a problem loading the Page \"" + pageUri + "\" in \"" + windowIdentifier + "\" Window. The URI of the Page to be loaded cannot start with \".\", \"/\" or \"\\\". The path to the Page " +
                                  "takes into account that the \"pages\" directory is the root."));
-            return;
+            return false;
         }
         //If the requested Window don't exists, cancel
         if(Windows.isWindowExistent(windowIdentifier) == false){
             Common.SendLog("E", ("There was a problem loading the Page \"" + pageUri + "\" in \"" + windowIdentifier + "\" Window. The Window \"" + windowIdentifier + "\" does not exist."));
-            return;
+            return false;
         }
         //If the requested page is already loaded in some window, cancel
         if(Windows.isPageLoadedInSomeWindow(pageUri) == true){
             Common.SendLog("E", ("There was a problem loading the Page \"" + pageUri + "\" in \"" + windowIdentifier + "\" Window. This Page is already loaded in a Window. A Page can only appear in one Window at a time."));
-            return;
+            return false;
         }
 
 
@@ -158,7 +158,7 @@ class Windows{
                 }
                 //If is an error content, add the onclick listener to the button...
                 if(isErrorContent == true)
-                    Windows.existantWindowsInClientAndScreens[wId].windowElementRef.querySelector((".le_window_" + wId + "_errorButton")).addEventListener("click", function(e){ Windows.LoadPage(wId, pageUri, onErrorCallback, onSuccessCallback); });
+                    Windows.existantWindowsInClientAndScreens[wId].windowElementRef.querySelector((".le_window_" + wId + "_errorButton")).addEventListener("click", function(e){ Windows.LoadPage(wId, pageUri, onDoneCallback); });
                 //If is an error content, inform to the window, that this is a error page...
                 if(isErrorContent == true)
                     Windows.existantWindowsInClientAndScreens[wId].currentLoadedPageUri = ("errorPage-" + wId);
@@ -188,6 +188,13 @@ class Windows{
 
         //Inform the current loaded page in this window
         Windows.existantWindowsInClientAndScreens[windowIdentifier].currentLoadedPageUri = pageUri;
+        //Inform the current loaded page in the Browser URL, and add it to the Browser history, if is a main window
+        if(Windows.existantWindowsInClientAndScreens[windowIdentifier].windowType == "main")
+        {
+            var queryParams = new URLSearchParams(window.location.search);
+            queryParams.set("p", pageUri);
+            history.pushState(null, null, "?" + queryParams.toString());
+        }
         //Inform that is loading a page
         Windows.existantWindowsInClientAndScreens[windowIdentifier].isLoadingSomePage = true;
 
@@ -197,9 +204,11 @@ class Windows{
             Windows.existantWindowsInClientAndScreens[windowIdentifier].currentLoadedPageJsRef = null;
         }
 
-        //If this is a main window, inform progress in loading indicator
-        if(Windows.existantWindowsInClientAndScreens[windowIdentifier].windowType == "main")
+        //If this is a main window, inform progress in loading indicator and scroll the Client to top
+        if(Windows.existantWindowsInClientAndScreens[windowIdentifier].windowType == "main"){
             Windows.SetLoadingIndicatorProgress(10.0);
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
 
         //Force to mantain the current height and width
         const windowRect = Windows.existantWindowsInClientAndScreens[windowIdentifier].windowElementRef.getBoundingClientRect();
@@ -228,7 +237,12 @@ class Windows{
                 Windows.existantWindowsInClientAndScreens[windowIdentifier].windowElementRef.style.transition = "all 150ms";
                 Windows.existantWindowsInClientAndScreens[windowIdentifier].windowElementRef.style.opacity = "0.0";
             });
-            Windows.existantWindowsInClientAndScreens[windowIdentifier].httpRequestObj.SetOnErrorCallback(function () { ShowContentAndDoFadeInAnimation(windowIdentifier, Windows.GetErrorOnLoadHtmlCode(windowIdentifier), "", true); });
+            Windows.existantWindowsInClientAndScreens[windowIdentifier].httpRequestObj.SetOnErrorCallback(function () {
+                //Render the error content inside the Window
+                ShowContentAndDoFadeInAnimation(windowIdentifier, Windows.GetErrorOnLoadHtmlCode(windowIdentifier), "", true); 
+                //Send a Callback of error on load the Page (if have registered)
+                if(onDoneCallback != null){ onDoneCallback(false); }
+            });
             Windows.existantWindowsInClientAndScreens[windowIdentifier].httpRequestObj.SetOnSuccessCallback(function (textResponse, jsonResponse) {
                 //Get the "<html>" root tag from the Page file...
                 var parsedXmlRootNode = (new DOMParser()).parseFromString(textResponse, "text/xml").documentElement;
@@ -237,18 +251,21 @@ class Windows{
                 if(parsedXmlRootNode.getElementsByTagName("parsererror").length > 0){
                     Common.SendLog("E", ("There was a problem loading the Page \"" + pageUri + "\" in \"" + windowIdentifier + "\" Window. The page contains XML syntax errors. Try to check if ALL opened tags are closed!"));
                     ShowContentAndDoFadeInAnimation(windowIdentifier, Windows.GetErrorOnLoadHtmlCode(windowIdentifier), "", true);
+                    if(onDoneCallback != null){ onDoneCallback(false); }
                     return;
                 }
                 //Check if the root tag name is correct
                 if(parsedXmlRootNode.tagName.toLowerCase() != "html"){
                     Common.SendLog("E", ("There was a problem loading the Page \"" + pageUri + "\" in \"" + windowIdentifier + "\" Window. The root tag \"html\" cannot be found."));
                     ShowContentAndDoFadeInAnimation(windowIdentifier, Windows.GetErrorOnLoadHtmlCode(windowIdentifier), "", true);
+                    if(onDoneCallback != null){ onDoneCallback(false); }
                     return;
                 }
                 //Check if the "head" tag exists
                 if(parsedXmlRootNode.getElementsByTagName("head").length == 0){
                     Common.SendLog("E", ("There was a problem loading the Page \"" + pageUri + "\" in \"" + windowIdentifier + "\" Window. The \"head\" tag cannot be found."));
                     ShowContentAndDoFadeInAnimation(windowIdentifier, Windows.GetErrorOnLoadHtmlCode(windowIdentifier), "", true);
+                    if(onDoneCallback != null){ onDoneCallback(false); }
                     return;
                 }
                 //Check if the number of tags child of "head" is 4
@@ -256,6 +273,7 @@ class Windows{
                 if(headTag.getElementsByTagName("script").length != 1 || headTag.getElementsByTagName("title").length != 1 || headTag.getElementsByTagName("meta").length != 2){
                     Common.SendLog("E", ("There was a problem loading the Page \"" + pageUri + "\" in \"" + windowIdentifier + "\" Window. Have more tags than expected in the header. There can only be 1 \"script\", 1 \"title\" and 2 \"meta\"."));
                     ShowContentAndDoFadeInAnimation(windowIdentifier, Windows.GetErrorOnLoadHtmlCode(windowIdentifier), "", true);
+                    if(onDoneCallback != null){ onDoneCallback(false); }
                     return;
                 }
                 //Check if the "script" head tag is correct
@@ -263,6 +281,7 @@ class Windows{
                 if(headScriptTag.getAttribute("src") != "" && headScriptTag.getAttribute("src").includes("page-to-client-redirector.js") == false){
                     Common.SendLog("E", ("There was a problem loading the Page \"" + pageUri + "\" in \"" + windowIdentifier + "\" Window. The header \"script\" tag cannot reference a script other than \"page-to-client-redirector.js\"."));
                     ShowContentAndDoFadeInAnimation(windowIdentifier, Windows.GetErrorOnLoadHtmlCode(windowIdentifier), "", true);
+                    if(onDoneCallback != null){ onDoneCallback(false); }
                     return;
                 }
                 //Check if "meta" head tags is correct
@@ -272,6 +291,7 @@ class Windows{
                     if(headMetaTags[i].getAttribute("name") == null || headMetaTags[i].getAttribute("content") == null){
                         Common.SendLog("E", ("There was a problem loading the Page \"" + pageUri + "\" in \"" + windowIdentifier + "\" Window. Header \"meta\" tags must have \"name\" and \"content\" attributes with values."));
                         ShowContentAndDoFadeInAnimation(windowIdentifier, Windows.GetErrorOnLoadHtmlCode(windowIdentifier), "", true);
+                        if(onDoneCallback != null){ onDoneCallback(false); }
                         return;
                     }
                 //Check if have "meta" tags of "description" and "image"
@@ -286,12 +306,14 @@ class Windows{
                 if(haveDescriptionMetaTag == false || haveImageMetaTag == false){
                     Common.SendLog("E", ("There was a problem loading the Page \"" + pageUri + "\" in \"" + windowIdentifier + "\" Window. There must be \"meta\" tags of \"description\" and \"image\" in the header."));
                     ShowContentAndDoFadeInAnimation(windowIdentifier, Windows.GetErrorOnLoadHtmlCode(windowIdentifier), "", true);
+                    if(onDoneCallback != null){ onDoneCallback(false); }
                     return;
                 }
                 //Check if have tags of "style" or "link"
                 if(headTag.getElementsByTagName("style").length > 0 || headTag.getElementsByTagName("link").length > 0){
                     Common.SendLog("E", ("There was a problem loading the Page \"" + pageUri + "\" in \"" + windowIdentifier + "\" Window. There cannot be \"style\" or \"link\" tags in the header."));
                     ShowContentAndDoFadeInAnimation(windowIdentifier, Windows.GetErrorOnLoadHtmlCode(windowIdentifier), "", true);
+                    if(onDoneCallback != null){ onDoneCallback(false); }
                     return;
                 }
                 //Check if the "script" tag exists
@@ -306,12 +328,14 @@ class Windows{
                 if(foundScripTag == false){
                     Common.SendLog("E", ("There was a problem loading the Page \"" + pageUri + "\" in \"" + windowIdentifier + "\" Window. There must be a \"script\" tag that is a child of the \"html\" tag, but not the \"head\" or \"body\" tags."));
                     ShowContentAndDoFadeInAnimation(windowIdentifier, Windows.GetErrorOnLoadHtmlCode(windowIdentifier), "", true);
+                    if(onDoneCallback != null){ onDoneCallback(false); }
                     return;
                 }
                 //Check if the "body" tag exists
                 if(parsedXmlRootNode.getElementsByTagName("body").length == 0){
                     Common.SendLog("E", ("There was a problem loading the Page \"" + pageUri + "\" in \"" + windowIdentifier + "\" Window. The \"body\" tag was not found."));
                     ShowContentAndDoFadeInAnimation(windowIdentifier, Windows.GetErrorOnLoadHtmlCode(windowIdentifier), "", true);
+                    if(onDoneCallback != null){ onDoneCallback(false); }
                     return;
                 }
                 //Check if exists "style" or "script" tags inside body
@@ -319,6 +343,7 @@ class Windows{
                 if(bodyTag.getElementsByTagName("style").length > 0 || bodyTag.getElementsByTagName("script").length > 0){
                     Common.SendLog("E", ("There was a problem loading the Page \"" + pageUri + "\" in \"" + windowIdentifier + "\" Window. The \"body\" tag cannot contain \"style\" or \"script\" tags."));
                     ShowContentAndDoFadeInAnimation(windowIdentifier, Windows.GetErrorOnLoadHtmlCode(windowIdentifier), "", true);
+                    if(onDoneCallback != null){ onDoneCallback(false); }
                     return;
                 }
                 
@@ -343,6 +368,8 @@ class Windows{
 
                 //Render the Page content inside the Window and compile the JavaScript
                 ShowContentAndDoFadeInAnimation(windowIdentifier, bodyTag.innerHTML, Initializator.GetStringWithGtAndLtConverted(scriptTag.innerHTML), false);
+                //Send a Callback of success on load the Page (if have registered)
+                if(onDoneCallback != null){ onDoneCallback(true); }
             });
             Windows.existantWindowsInClientAndScreens[windowIdentifier].httpRequestObj.SetRequestCustomDelay(150);
             Windows.existantWindowsInClientAndScreens[windowIdentifier].httpRequestObj.StartRequest();
@@ -354,6 +381,9 @@ class Windows{
 
         //Send Callback informing that a Page is being loaded in this Window...
         try{ eval(("LE_OnLoadPageInSomeWindow(\"" + windowIdentifier + "\", \"" + pageUri + "\");")); } catch(e){  };
+
+        //Inform that the call for this method was runned successfully
+        return true;
     }
 
     //Auxiliar methods
@@ -409,7 +439,7 @@ class Windows{
         errorHtmlCode += "display: flex;\n"
         errorHtmlCode += "padding: 8px;\n"
         errorHtmlCode += "box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.0);\n"
-        errorHtmlCode += "color: " + Settings.Get("windowErrorButtonTextColor") + ";\n"
+        errorHtmlCode += "color: " + Settings.Get("windowErrorButtonTextColorHex") + ";\n"
         errorHtmlCode += "border-radius: 8px;\n"
         errorHtmlCode += "text-transform: uppercase;\n"
         errorHtmlCode += "align-items: center;\n"
@@ -418,11 +448,11 @@ class Windows{
         errorHtmlCode += "margin-right: auto;\n"
         errorHtmlCode += "margin-left: auto;\n"
         errorHtmlCode += "cursor: pointer;\n"
-        errorHtmlCode += "background-color: " + Settings.Get("windowErrorButtonColor") + ";\n"
+        errorHtmlCode += "background-color: " + Settings.Get("windowErrorButtonColorHex") + ";\n"
         errorHtmlCode += "transition: all 250ms;\n"
         errorHtmlCode += "}\n"
         errorHtmlCode += ".le_windows_" + windowIdentifier + "_errorOnLoadPage_tryButton:hover{"
-        errorHtmlCode += "background-color: " + Settings.Get("windowErrorButtonColorHover") + ";\n"
+        errorHtmlCode += "background-color: " + Settings.Get("windowErrorButtonHoverColorHex") + ";\n"
         errorHtmlCode += "box-shadow: 0px 0px 6px 0px rgba(0,0,0,0.75);\n"
         errorHtmlCode += "}\n"
         errorHtmlCode += "</style>"
@@ -472,6 +502,12 @@ class Windows{
 
         //If progress is more than zero
         if(percentProgress > 0.0 && percentProgress < 100.0){
+            //If have a timer to hide the indicator, remove it
+            if(Windows.loadingIndicatorTimer != null)
+               window.clearTimeout(Windows.loadingIndicatorTimer);
+            Windows.loadingIndicatorTimer = null;
+
+            //Show the progress
             Windows.loadingIndicatorBackground.style.opacity = "1.0";
             Windows.loadingIndicatorForeground.style.transition = "all 500ms";
             Windows.loadingIndicatorForeground.style.width = (percentProgress + "%");

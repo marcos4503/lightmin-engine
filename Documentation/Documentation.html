@@ -634,7 +634,7 @@
                     call the <doc.detach>Windows.LoadPage()</doc.detach> method passing as a parameter the <doc.detach>identifier</doc.detach> of the Window in which you want to load the <doc.detach>Page</doc.detach> and the URI for the
                     <doc.detach>Page</doc.detach> file to be loaded.
                     <doc.code language="javascript"><code>
-Windows.LoadPage("ClientMainWindow", "example-page.php", null, null);
+Windows.LoadPage("ClientMainWindow", "example-page.php", null);
 </code></doc.code>
                     For it to work, the <doc.detach>Page</doc.detach> file needs to be within the <doc.detach>pages</doc.detach> directory of your Website. Furthermore, the second parameter of the <doc.detach>Windows.LoadPage()</doc.detach>
                     method takes into account that the <doc.detach>pages</doc.detach> directory is the root, so you don't need to enter a URI like <doc.detach>pages/example.php</doc.detach>, just enter <doc.detach>example.php</doc.detach>.
@@ -644,17 +644,22 @@ Windows.LoadPage("ClientMainWindow", "example-page.php", null, null);
                     <doc.detach>&lt;a href="example.com"&gt;&lt;/a&gt;</doc.detach> is unnecessary on Websites made with Lightmin, unless you want to send the user out of the Client, or to another page of course!
                     <br>
                     <br>
-                    Now, if you want to receive a Callback to know whether the Page loading was successful or not, just use the <doc.detach>Windows.LoadPage()</doc.detach> method passing functions in the parameters, as below.
+                    Now, if you want to receive a Callback to know whether the Page loading was successful or not, just use the <doc.detach>Windows.LoadPage()</doc.detach> method passing a function in the parameters, as below.
                     <doc.code language="javascript"><code>
 Windows.LoadPage("ClientMainWindow", "example-page.php",
-function(){
-    //run error code...
-},
-function(){
-    //run success code...
+function(isSuccess){
+    if(isSuccess == true){
+        //run success code...
+    }
+    if(isSuccess == false){
+        //run error code...
+    }
 });
 </code></doc.code>
-                    You can load Pages in any Window you want, any time you want. However, there are some rules and limitations...
+                    The <doc.detach>Windows.LoadPage()</doc.detach> method will also return a <doc.detach>bool</doc.detach> value that indicates whether the call to the <doc.detach>Windows.LoadPage()</doc.detach> method itself was
+                    successful. So if the returned value is <doc.detach>true</doc.detach>, it means that there was no error in calling the <doc.detach>Windows.LoadPage()</doc.detach> method and the <doc.detach>Page</doc.detach> started to
+                    load successfully. This value does not tell you whether the <doc.detach>Page</doc.detach> was loaded successfully, so if you want to obtain this information, you will need to inform the Callback function. You can load
+                    Pages in any Window you want, any time you want. However, there are some rules and limitations...
                     <doc.list>
                         <doc.listr>The URI provided by the Page cannot be empty.</doc.listr>
                         <doc.listr>The URI entered must lead to a Page file with the PHP extension.</doc.listr>

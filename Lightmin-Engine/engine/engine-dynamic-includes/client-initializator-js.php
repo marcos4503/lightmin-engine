@@ -473,14 +473,14 @@ class Initializator {
             window.setTimeout(() => { Initializator.loadingScreenBack.style.display = "none" }, 1000);
             window.setTimeout(() => { Initializator.loadingScreenCredits.style.display = "none" }, 5000);
 
-            //Increase current step of init and go to next step
+            //Increase current step of init
             Initializator.currentStepOfInit = 10;
-
-            //Try to run a possible "OnLoadEngineFinished" method registered in any possible JS library...
-            try{ eval("LE_OnLoadEngineFinished();"); } catch(e){  };
 
             //Start loading the default home Page
             Initializator.LoadDefaultPageOrCurrentUrl();
+
+            //Try to run a possible "OnLoadEngineFinished" method registered in any possible JS library...
+            try{ eval("LE_OnLoadEngineFinished();"); } catch(e){  };
         }, 500);
     }
 
@@ -496,7 +496,7 @@ class Initializator {
             pageUriToLoad = pParameter;
 
         //Load the requested page
-        Windows.LoadPage(Windows.GetMainWindowIdentifier(), pageUriToLoad, null, null);
+        Windows.LoadPage(Windows.GetMainWindowIdentifier(), pageUriToLoad, null);
     }
 
     //Auxiliar methods
@@ -594,6 +594,11 @@ class Initializator {
                 Common.SendLog("E", ("There was a problem loading the CSS in \"" + cssSrc + "\". The root tag of the library file containing the nested CSS code could not be found."));
                 return;
             }
+            //Check if have XML syntax errors in the file
+            if(parsedXmlRootNode.getElementsByTagName("parsererror").length > 0){
+                Common.SendLog("E", ("There was a problem loading the CSS in \"" + cssSrc + "\". The file contains XML syntax errors."));
+                return;
+            }
             //Check if the root tag is the "style" tag
             if(parsedXmlRootNode.tagName.toLowerCase() != "style"){
                 Common.SendLog("E", ("There was a problem loading the CSS in \"" + cssSrc + "\". The root tag is not a \"style\" tag."));
@@ -645,6 +650,11 @@ class Initializator {
                 Common.SendLog("E", ("There was a problem loading the JS in \"" + jsSrc + "\". The root tag of the library file containing the nested JS code could not be found."));
                 return;
             }
+            //Check if have XML syntax errors in the file
+            if(parsedXmlRootNode.getElementsByTagName("parsererror").length > 0){
+                Common.SendLog("E", ("There was a problem loading the JS in \"" + jsSrc + "\". The file contains XML syntax errors."));
+                return;
+            }
             //Check if the root tag is the "script" tag
             if(parsedXmlRootNode.tagName.toLowerCase() != "script"){
                 Common.SendLog("E", ("There was a problem loading the JS in \"" + jsSrc + "\". The root tag is not a \"script\" tag."));
@@ -684,6 +694,11 @@ class Initializator {
             var codeNode = parsedXmlRootNode.getElementsByTagName("code")[0];
             var scriptNode = parsedXmlRootNode.getElementsByTagName("script")[0];
 
+            //Check if have XML syntax errors in the file
+            if(parsedXmlRootNode.getElementsByTagName("parsererror").length > 0){
+                Common.SendLog("E", ("There was a problem loading the Piece in \"" + pieceSrc + "\". The file contains XML syntax errors."));
+                return;
+            }
             //Check if the Piece file have the HTM extension...
             if((pieceSrc.split("/").pop().split(".").pop()).toLowerCase() != "htm"){
                 Common.SendLog("E", ("There was a problem loading the Piece in \"" + pieceSrc + "\". The file extension needs to be \"htm\"."));
@@ -852,6 +867,11 @@ class Initializator {
             //Get the screen file name
             var screenFileName = screenSrc.split("/").pop().replace(".htm", "").replace(".HTM", "");
 
+            //Check if have XML syntax errors in the file
+            if(parsedXmlRootNode.getElementsByTagName("parsererror").length > 0){
+                Common.SendLog("E", ("There was a problem loading the Screen in \"" + screenSrc + "\". The file contains XML syntax errors."));
+                return;
+            }
             //Check if the Screen file have the HTM extension...
             if((screenSrc.split("/").pop().split(".").pop()).toLowerCase() != "htm"){
                 Common.SendLog("E", ("There was a problem loading the Screen in \"" + screenSrc + "\". The file extension needs to be \"htm\"."));
