@@ -64,11 +64,21 @@ class Windows{
         return windowIdentifier;
     }
 
-    static LoadPage(windowIdentifier, pageUri, onDoneCallback){
-        //If don't have a cache for the "loadedPagesScriptSeparator", create it
-        if(Windows.loadedPagesScriptSeparator == null)
-            Windows.loadedPagesScriptSeparator = document.getElementById("le.loadedPagesJs.separator");
+    static GetPageUriLoadedInMainWindow(){
+        //Prepare to return the response
+        var response = "";
 
+        //Search by the identifier of main window, and get the loaded page URI
+        for (var window in Windows.existantWindowsInClientAndScreens)
+            if(Windows.existantWindowsInClientAndScreens[window].windowType == "main")
+                response = Windows.existantWindowsInClientAndScreens[window].currentLoadedPageUri;
+
+
+        //Return the response
+        return response;
+    }
+
+    static LoadPage(windowIdentifier, pageUri, onDoneCallback){
         //If the page URI is empty, cancel
         if(pageUri == ""){
             Common.SendLog("E", ("There was a problem loading the Page \"" + pageUri + "\" in \"" + windowIdentifier + "\" Window. The URI provided is empty."));
@@ -204,7 +214,7 @@ class Windows{
             Windows.existantWindowsInClientAndScreens[windowIdentifier].currentLoadedPageJsRef = null;
         }
 
-        //If this is a main window, inform progress in loading indicator and scroll the Client to top
+        //If this is a main window, inform progress in loading indicator and scroll the Client to top, to see the new page
         if(Windows.existantWindowsInClientAndScreens[windowIdentifier].windowType == "main"){
             Windows.SetLoadingIndicatorProgress(10.0);
             window.scrollTo({top: 0, behavior: 'smooth'});
@@ -239,7 +249,7 @@ class Windows{
             });
             Windows.existantWindowsInClientAndScreens[windowIdentifier].httpRequestObj.SetOnErrorCallback(function () {
                 //Render the error content inside the Window
-                ShowContentAndDoFadeInAnimation(windowIdentifier, Windows.GetErrorOnLoadHtmlCode(windowIdentifier), "", true); 
+                ShowContentAndDoFadeInAnimation(windowIdentifier, Windows.GetErrorOnLoadHtmlCode(windowIdentifier), "", true);
                 //Send a Callback of error on load the Page (if have registered)
                 if(onDoneCallback != null){ onDoneCallback(false); }
             });
@@ -387,6 +397,27 @@ class Windows{
     }
 
     //Auxiliar methods
+
+    static PrepareWindowsCacheAndInternalFunctions(){
+        //Start listening "go forward" and "go backward" click event
+        window.addEventListener("popstate", () => {
+            //Get the current "p" parameter of URL
+            var url = new URL(window.location.href);
+            var pParameter = url.searchParams.get("p");
+
+            //If don't have "p" parameter, cancel
+            if(pParameter == null)
+                return;
+
+            //If the page of the URI in the Browser URL, is not loaded in the main window, load it
+            if(Windows.GetPageUriLoadedInMainWindow() != pParameter)
+                Windows.LoadPage(Windows.GetMainWindowIdentifier(), pParameter, null);
+        });
+
+        //If don't have a cache for the "loadedPagesScriptSeparator", create it
+        if(Windows.loadedPagesScriptSeparator == null)
+            Windows.loadedPagesScriptSeparator = document.getElementById("le.loadedPagesJs.separator");
+    }
 
     static GetNoPageLoadedHtmlCode(){
         //Return a HTML of no page loaded in the Window yet...

@@ -18,12 +18,12 @@
         <?php include_once("engine/engine-dynamic-includes/client-initializator-js.php"); ?>
         <!-- Lightmin Engine Client metadata -->
         <link rel="icon" type="image/x-icon" href="engine/medias/icons/loading-favicon.ico">
-        <title id="le.website.title"><?php echo(Common::GetManifestBaseTitle()); ?></title>
-        <meta id="le.website.description" name="description" content="">
-        <meta id="le.website.ogurl" property="og:url" content="">
-        <meta id="le.website.ogtitle" property="og:title" content="">
-        <meta id="le.website.ogdescription" property="og:description" content="">
-        <meta id="le.website.ogimage" property="og:image" content="">
+        <title id="le.website.title"><?php echo(Common::GetManifestBaseTitle()); ?> - <?php echo(Common::GetPageTitle((isset($_GET["p"]) ? $_GET["p"] : ""))); ?></title>
+        <meta id="le.website.description" name="description" content="<?php echo(Common::GetPageDescription((isset($_GET["p"]) ? $_GET["p"] : ""))); ?>">
+        <meta id="le.website.ogurl" property="og:url" content="<?php echo("https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"); ?>">
+        <meta id="le.website.ogtitle" property="og:title" content="<?php echo(Common::GetManifestBaseTitle()); ?> - <?php echo(Common::GetPageTitle((isset($_GET["p"]) ? $_GET["p"] : ""))); ?>">
+        <meta id="le.website.ogdescription" property="og:description" content="<?php echo(Common::GetPageDescription((isset($_GET["p"]) ? $_GET["p"] : ""))); ?>">
+        <meta id="le.website.ogimage" property="og:image" content="<?php echo(Common::GetPageImage((isset($_GET["p"]) ? $_GET["p"] : ""))); ?>">
         <meta property="og:type" content="website">
         <meta id="le.websiteBrowserColor" name="theme-color" content="#FFFFFF">
         <meta name="viewport" content="width=device-width">

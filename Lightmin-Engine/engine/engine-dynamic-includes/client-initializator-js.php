@@ -464,6 +464,9 @@ class Initializator {
     static FinishLoading(){
         //Wait time before close the loading screen
         window.setTimeout(() => {
+            //Prepare the Windows class caching and needed functions
+            Windows.PrepareWindowsCacheAndInternalFunctions();
+
             //Move the loading screen to out of screen
             Initializator.loadingScreenFront.style.top = "-100%";
             window.setTimeout(() => { Initializator.loadingScreenBack.style.top = "-100%"; }, 100);
@@ -473,14 +476,14 @@ class Initializator {
             window.setTimeout(() => { Initializator.loadingScreenBack.style.display = "none" }, 1000);
             window.setTimeout(() => { Initializator.loadingScreenCredits.style.display = "none" }, 5000);
 
-            //Increase current step of init
-            Initializator.currentStepOfInit = 10;
-
             //Start loading the default home Page
             Initializator.LoadDefaultPageOrCurrentUrl();
 
             //Try to run a possible "OnLoadEngineFinished" method registered in any possible JS library...
             try{ eval("LE_OnLoadEngineFinished();"); } catch(e){  };
+
+            //Increase current step of init
+            Initializator.currentStepOfInit = 10;
         }, 500);
     }
 
@@ -492,7 +495,7 @@ class Initializator {
         var currentUrl = window.location.href;
         var url = new URL(currentUrl);
         var pParameter = url.searchParams.get("p");
-        if(pParameter != null)
+        if(pParameter != null && pParameter != "")
             pageUriToLoad = pParameter;
 
         //Load the requested page
