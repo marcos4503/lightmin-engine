@@ -10,6 +10,11 @@
 
     <script>
         /* Page Script */
+
+        function LE_OnPageLoad(){
+            //on load this page...
+            //Pieces.InstantiatePieceAfter("Example", "test2", true, "auto", "auto", '{}', "ClientMainWindow", document.getElementById("testing2"));
+        }
     </script>
 
     <body>
@@ -21,45 +26,11 @@
         occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         <br/>
         <br/>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna 
-        aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        <br/>
-        <br/>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna 
-        aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        <br/>
-        <br/>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna 
-        aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        <br/>
-        <br/>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna 
-        aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        <br/>
-        <br/>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna 
-        aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        <br/>
-        <br/>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna 
-        aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        <br/>
-        <br/>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna 
-        aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        <le.piece.instantiate name="Example" piid="test" enabled="true" width="auto" height="auto">
+            {}
+        </le.piece.instantiate>
+
+        <!-- -->
+        <div id="testing2"></div>
     </body>
 </html>

@@ -842,10 +842,10 @@ class Initializator {
             Initializator.lastPieceNodeAdded.parentNode.insertBefore(pieceScriptTag, Initializator.lastPieceNodeAdded.nextSibling);
             Initializator.lastPieceNodeAdded = pieceScriptTag;
 
-            //Create the Piece style tag that contains the JSON and HTML of Piece
+            //Create the Piece style tag that contains the JSON and HTML of Piece, for caching
             var pieceJsonHtmlTag = document.createElement("style");
             pieceJsonHtmlTag.type = "json/html";
-            pieceJsonHtmlTag.innerHTML = ("<piece>\n<variables>\n" + variablesNode.innerHTML + "\n<variables>\n<code>\n" + codeNode.innerHTML + "\n</code>\n</piece>");
+            pieceJsonHtmlTag.innerHTML = ("<piece>\n<variables>\n" + variablesNode.innerHTML + "\n</variables>\n<code>\n" + codeNode.innerHTML + "\n</code>\n</piece>");
             Initializator.lastPieceNodeAdded.parentNode.insertBefore(pieceJsonHtmlTag, Initializator.lastPieceNodeAdded.nextSibling);
             Initializator.lastPieceNodeAdded = pieceJsonHtmlTag;
 
@@ -1051,7 +1051,7 @@ class Initializator {
             finalWindowTag.innerHTML = Windows.GetNoPageLoadedHtmlCode();
 
             //Register the window in cache (declaring all variables that the Window will need in their lifetime)
-            Windows.existantWindowsInClientAndScreens[identifier] = { parentType: parentType, windowType: type, windowElementRef: finalWindowTag, currentLoadedPageUri: "", currentLoadedPageJsRef: null,
+            Windows.existantWindowsInClientAndScreens[identifier] = { parentType: parentType, windowType: type, windowElementRef: finalWindowTag, currentLoadedPageUri: "", currentLoadedPageJsRef: null, instantiatedPiecesIdsAndRefs: [],
                                                                       isLoadingSomePage: false,
                                                                       loadingFadeInTimer: null, 
                                                                       loadingHttpRequestTimer: null, httpRequestObj: null,

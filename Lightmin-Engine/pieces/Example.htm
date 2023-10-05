@@ -2,38 +2,33 @@
 <piece for="lightmin-engine" name="Example">
 
     <documentation type="text/md">
-        <!--
-            Type the mini-documentation of this componente here...
-        -->
+        <!-- Piece Mini-Documentation -->
     </documentation>
 
-    <style type="text">
-        .Piece_Example_fdfdtter {
-        background-color: antiquewhite;
-        }
+    <style type="text/css">
+        /* Piece CSS Code */
     </style>
 
     <variables type="text/json">
         {
-        "id":"",
-        "src":""
+        "declaredVar1":"defaultValueForThis",
+        "declaredVar2":"defaultValueForThis"
         }
     </variables>
 
     <code type="text/html">
-        <div>
-            <div></div>
-        </div>
+        <!-- Piece HTML Code -->
+        <div test="__declaredVar1__">__declaredVar2__</div>
     </code>
 
     <script type="text/javascript">
         class Piece_Example {
 
-            //Piece code...
+            //Piece JS Code...
 
-            static example() {
-
-            }
+            /*
+             * ... the code ...
+            */
 
             //Engine callbacks...
 
@@ -41,7 +36,7 @@
 
             }
 
-            static OnRender(thisComponentInstanceElement) {
+            static OnInstantiate(inWindowId, pieceInstanceId) {
 
             }
         }

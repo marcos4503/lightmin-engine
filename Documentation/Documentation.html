@@ -87,10 +87,14 @@
                     <ul>
                         <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="5ba">Creating Pages for your Website</a></li>
                         <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="5bb">Loading Pages inside Windows</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="5bc">How do links reference Pages?</a></li>
                     </ul>
                     <li class="summarySubItem">Pieces</li>
                     <ul>
-                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="5ca">A</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="5ca">What is it and how does it work</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="5cb">Creating a Piece</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="5cd">Instantiating Pieces within Pages with HTML</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="5ce">Instantiating Pieces within Pages with JS</a></li>
                     </ul>
                     <li class="summarySubItem">Screens</li>
                     <ul>
@@ -114,6 +118,11 @@
                         <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8b">HttpRequest</a></li>
                         <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8c">InputValidator</a></li>
                         <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8d">Windows.isWindowExistent()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8e">Windows.isPageLoadedInSomeWindow()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8f">Windows.GetMainWindowIdentifier()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8g">Windows<br>.GetWindowIdentifierWhereThePageIsLoaded()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8h">Windows.GetPageUriLoadedInMainWindow()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8i">Windows.LoadPage()</a></li>
                     </ul>
                     <li class="summarySubItem">Lightmin PHP API</li>
                     <ul>
@@ -692,6 +701,354 @@ function LE_OnLoadPageInSomeWindow(loadedInWindow, loadedPageUri){
                 </doc.topic>
                 <!-- #endregion -->
 
+                <!-- #region Pages: How do links reference Pages? -->
+                <doc.topic topicid="5bc">
+                    <doc.topictitle>Pages: How do links reference Pages?</doc.topictitle>
+
+                    Websites created with the Lightmin Engine are dynamic, one-page websites that work like applications, as you already know. However, like normal Websites, it is still possible for the user to take the link from the
+                    current <doc.detach>Page</doc.detach> they are viewing and share that link with others on social networks or wherever they wish. The person who opens such a link will access your Website Client and then the
+                    <doc.detach>Page</doc.detach> linked to that link will be loaded for the user to see. In this topic we will see how this works.
+                    <br>
+                    <br>
+                    As you saw previously, <doc.detach>Pages</doc.detach> are loaded within <doc.detach>Windows</doc.detach>. A Website made with Lightmin can have multiple <doc.detach>Windows</doc.detach> within the Client, however, only
+                    one of these <doc.detach>Windows</doc.detach> can be of the <doc.detach>main</doc.detach> type, and this mechanic revolves around this type of <doc.detach>Window</doc.detach>. A website URL made with Lightmin should look
+                    like <doc.detach>https://example.com/client.php?p=home.php</doc.detach>, and we can divide this URL into two parts...
+                    <doc.list>
+                        <doc.listr><doc.detach>https://example.com/client.php</doc.detach>: This is the default URL of your Website, which the user must access and which will lead to the Client.</doc.listr>
+                        <doc.listr><doc.detach>?p=home.php</doc.detach>: In this second part, we have a parameter called <doc.detach>p</doc.detach>, an abbreviation for <doc.detach>Page</doc.detach>, and in this parameter, we have the URI of the <doc.detach>Page</doc.detach> that is currently being seen in the main <doc.detach>Window</doc.detach> of the Client. The value of this parameter will change as the user navigates to always reflect the URI of the <doc.detach>Page</doc.detach> currently being seen in the main <doc.detach>Window</doc.detach>.</doc.listr>
+                    </doc.list>
+                    The URI contained in the <doc.detach>p</doc.detach> parameter is the same as the one you use to load new <doc.detach>Pages</doc.detach> when using the <doc.detach>Windows.LoadPage()</doc.detach> method. As the user
+                    navigates your Website and <doc.detach>Pages</doc.detach> are loaded in the main <doc.detach>Window</doc.detach>, the URL will dynamically change in the Browser URL box to ALWAYS reflect the <doc.detach>Page</doc.detach>
+                    currently being viewed. This way, if the user copies the URL from the Browser and shares it, the person who accesses it will see the same <doc.detach>Page</doc.detach> as the user who shared the URL.
+
+                    <doc.topicsubtitle>Page Metadata</doc.topicsubtitle>
+                    Each <doc.detach>Page</doc.detach> has <doc.detach>title</doc.detach> and <doc.detach>meta</doc.detach> tags that you can use to provide Metadata for that <doc.detach>Page</doc.detach>. This metadata is later loaded into
+                    the Client. If, for example, the <doc.detach>p</doc.detach> parameter references <doc.detach>home.php</doc.detach>, the Client will load the <doc.detach>home.php</doc.detach> metadata, and then, when placing that URL in
+                    a social network, the social network will load the <doc.detach>Page</doc.detach> parameters referenced in the <doc.detach>p</doc.detach> parameter.
+
+                    <doc.topicsubtitle>In practice</doc.topicsubtitle>
+                    Now, let's see in practice what would happen to each URL, if the user tries to access each of the example URLs below...
+                    <doc.table>
+                        <doc.tablecw>30%=>auto</doc.tablecw>
+                        <doc.tablec>URL=>What would happen...</doc.tablec>
+                        <doc.tabler>https://example.com/client.php=>As no <doc.detach>Page</doc.detach> is being referenced in the URL, Lightmin will load the default <doc.detach>Page</doc.detach> defined in <doc.detach>defaultPage</doc.detach> in <doc.detach>manifest.json</doc.detach>, within the main <doc.detach>Window</doc.detach>. The metadata for this default <doc.detach>Page</doc.detach> will also be loaded.</doc.tabler>
+                        <doc.tabler>https://example.com/client.php?p==>As no <doc.detach>Page</doc.detach> is being referenced in the URL, Lightmin will load the default <doc.detach>Page</doc.detach> defined in <doc.detach>defaultPage</doc.detach> in <doc.detach>manifest.json</doc.detach>, within the main <doc.detach>Window</doc.detach>. The metadata for this default <doc.detach>Page</doc.detach> will also be loaded.</doc.tabler>
+                        <doc.tabler>https://example.com/client.php?p=home.php=>A <doc.detach>Page</doc.detach> is being referenced at this URL. If it actually exists, within the <doc.detach>pages</doc.detach> directory, it will be loaded in the main <doc.detach>Window</doc.detach>, along with its metadata. If it does not exist, or does not comply with the <doc.detach>Pages</doc.detach> syntax rules, the user will see an error message in the main <doc.detach>Window</doc.detach> in addition to the "Page Not Found" metadata being loaded in the Client.</doc.tabler>
+                    </doc.table>
+                    <doc.warn>
+                        It is extremely important that you define a default <doc.detach>Page</doc.detach> in <doc.detach>defaultPage</doc.detach> in <doc.detach>manifest.json</doc.detach>, so that Lightmin can load, if it is not possible to
+                        load the requested <doc.detach>Page</doc.detach>. This will keep your website working correctly.
+                    </doc.warn>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Pieces: What is it and how does it work -->
+                <doc.topic topicid="5ca">
+                    <doc.topictitle>Pieces: What is it and how does it work</doc.topictitle>
+
+                    The <doc.detach>Pieces</doc.detach> works as Components. They are a set of HTML, CSS and JavaScript codes that you can use and reuse, instantiating them as many times as you want within <doc.detach>Pages</doc.detach>.
+                    Whenever you instantiate a <doc.detach>Piece</doc.detach>, you can instantiate it with different data, as needed. Basically, <doc.detach>Pieces</doc.detach> allow you to write CSS, HTML and JavaScript code once, and then
+                    reuse that code as many times as you want.
+                    <br>
+                    <br>
+                    You can, for example, create a <doc.detach>Piece</doc.detach> that is a <doc.detach>Text Field</doc.detach> with the appearance and behavior you want. To do this, you will need to create a <doc.detach>Piece</doc.detach>
+                    with the HTML, CSS and JavaScript code once. Once this is done, you will only need to instantiate the <doc.detach>Text Field</doc.detach> within your <doc.detach>Page</doc.detach> as many times as you want! In the
+                    future, if you need to edit the <doc.detach>Text Field</doc.detach> code, you only need to edit the code in the <doc.detach>Piece</doc.detach> file and that's it! <doc.detach>Pieces</doc.detach> also facilitate
+                    repetitive code management, maintenance and standardization of your Website components.
+
+                    <doc.info>
+                        The <doc.detach>Pieces</doc.detach> can only be instantiated inside <doc.detach>Pages</doc.detach> files using HTML code or the Lightmin Engine JS API at Runtime.
+                    </doc.info>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Pieces: Creating a Piece -->
+                <doc.topic topicid="5cb">
+                    <doc.topictitle>Pieces: Creating a Piece</doc.topictitle>
+
+                    To create a <doc.detach>Piece</doc.detach> for your Website, it's very simple. In the <doc.detach>pieces</doc.detach> folder on your Website, you must create a file with the <doc.detach>HTM</doc.detach> extension and a
+                    name that contains only letters. I don't recommend placing subdirectories inside the <doc.detach>pieces</doc.detach> folder.
+                    <br>
+                    <br>
+                    Once you have created the <doc.detach>HTM</doc.detach> file of <doc.detach>Piece</doc.detach>, the code inside the file should look like this...
+                    <doc.code language="html"><code>
+&lt;?xml version="1.0" ?&gt;
+&lt;piece for="lightmin-engine" name="Example"&gt;
+
+    &lt;documentation type="text/md"&gt;
+        &lt;!-- Piece Mini-Documentation --&gt;
+    &lt;/documentation&gt;
+
+    &lt;style type="text/css"&gt;
+        /* Piece CSS Code */
+    &lt;/style&gt;
+
+    &lt;variables type="text/json"&gt;
+        {
+        "declaredVar1":"defaultValueForThis",
+        "declaredVar2":"defaultValueForThis"
+        }
+    &lt;/variables&gt;
+
+    &lt;code type="text/html"&gt;
+        &lt;!-- Piece HTML Code --&gt;
+    &lt;/code&gt;
+
+    &lt;script type="text/javascript"&gt;
+        class Piece_Example {
+
+            //Piece JS Code...
+
+            /*
+             * ... the code ...
+            */
+
+            //Engine callbacks...
+
+            static OnLoad() {
+
+            }
+
+            static OnInstantiate(inWindowId, pieceInstanceId) {
+
+            }
+        }
+    &lt;/script&gt;
+
+&lt;/piece&gt;
+</code></doc.code>
+                    As you may have noticed, the structure of a <doc.detach>Piece</doc.detach> file follows the <doc.detach>XML</doc.detach> structure. Each part of the <doc.detach>Piece</doc.detach> is contained within key tags. Now, let's
+                    go through each part of the <doc.detach>Piece</doc.detach> to understand what each part means.
+                    <doc.info>
+                        Your <doc.detach>Piece</doc.detach> file must comply with XML syntax, otherwise it will not be loaded by the Engine.
+                    </doc.info>
+
+                    <doc.topicsubtitle>PIECE tag</doc.topicsubtitle>
+                    The <doc.detach>piece</doc.detach> tag is the root of a <doc.detach>Piece</doc.detach> file. There are two attributes in this tag which are <doc.detach>for</doc.detach> and <doc.detach>name</doc.detach>. The
+                    <doc.detach>for</doc.detach> attribute must contain the value <doc.detach>lightmin-engine</doc.detach> and the <doc.detach>name</doc.detach> attribute must contain exactly the same name that you gave to the
+                    <doc.detach>Piece</doc.detach> file, however, without the extension.
+
+                    <doc.topicsubtitle>DOCUMENTATION tag</doc.topicsubtitle>
+                    Inside the <doc.detach>documentation</doc.detach> tags is where you can insert text describing what your <doc.detach>Piece</doc.detach> does, the features, variables, etc. So that you or someone else can consult the
+                    <doc.detach>Piece</doc.detach> file and understand everything it can to do. This text will never be loaded into the Client and it is recommended that it be placed in commented form, for better highlighting.
+
+                    <doc.topicsubtitle>STYLE tag</doc.topicsubtitle>
+                    Inside the <doc.detach>style</doc.detach> tags is where you should place the CSS code for your <doc.detach>Piece</doc.detach>. You should not place the CSS code of your <doc.detach>Pieces</doc.detach> in the
+                    <doc.detach>libraries</doc.detach> directory. The CSS code here can only use Class Selectors, and they must be in the format <doc.detach>.Piece_PieceFileNameWithoutExtension_TheClassName</doc.detach>. The CSS code for
+                    your <doc.detach>Piece</doc.detach> is only inserted into the Client once. You also cannot use the characters <doc.detach>&lt;</doc.detach> and <doc.detach>&gt;</doc.detach> in the CSS code.
+
+                    <doc.topicsubtitle>VARIABLES tag</doc.topicsubtitle>
+                    Inside the <doc.detach>variables</doc.detach> tags is where you should place the JSON code of your <doc.detach>Piece</doc.detach>. The JSON code of a <doc.detach>Piece</doc.detach> is used to declare variables and their
+                    default values. Variables can be placed in the HTML code of the <doc.detach>Piece</doc.detach> and when the <doc.detach>Piece</doc.detach> is instantiated, you can assign different values to such variables, and in this
+                    way, the <doc.detach>Piece</doc.detach> will be instantiated using different values. This is how you can instantiate the same <doc.detach>Piece</doc.detach> several times, but with different content and data.
+                    <doc.info>
+                        The content inside the <doc.detach>variables</doc.detach> tags must respect JSON syntax, otherwise the <doc.detach>Piece</doc.detach> will not be loaded. You also cannot use the characters
+                        <doc.detach>&lt;</doc.detach> and <doc.detach>&gt;</doc.detach> in the JSON code of variables.
+                    </doc.info>
+
+                    <doc.topicsubtitle>CODE tag</doc.topicsubtitle>
+                    Inside the <doc.detach>code</doc.detach> tags is where you should place the HTML code of your <doc.detach>Piece</doc.detach>. This is the HTML code that will be added to the Client whenever your
+                    <doc.detach>Piece</doc.detach> is instantiated within a <doc.detach>Page</doc.detach>. Within <doc.detach>code</doc.detach> tags you cannot use <doc.detach>html</doc.detach>, "<doc.detach>head</doc.detach>,
+                    <doc.detach>body</doc.detach>, <doc.detach>style</doc.detach> or <doc.detach>script</doc.detach> tags. Additionally, you cannot use the <doc.detach>id</doc.detach> and <doc.detach>style</doc.detach>
+                    attributes in any tags within the <doc.detach>code</doc.detach> tags.
+
+                    <doc.topicsubtitle>SCRIPT tag</doc.topicsubtitle>
+                    Inside the <doc.detach>script</doc.detach> tags is where you should place the JavaScript code of your <doc.detach>Piece</doc.detach>. This is where you must place the JavaScript code that will make your
+                    <doc.detach>Piece</doc.detach> work, if necessary, of course. You can also execute code whenever your <doc.detach>Piece</doc.detach> is loaded by the engine, registering function <doc.detach>OnLoad()</doc.detach>, and
+                    you can also execute code whenever your <doc.detach>Piece</doc.detach> is instantiated somewhere, registering function <doc.detach>OnInstantiate(inWindowId, pieceInstanceId)</doc.detach>. The JavaScript code for
+                    your <doc.detach>Piece</doc.detach> is only inserted into the Client once. All JavaScript code for your <doc.detach>Piece</doc.detach> must be inside a class that has a name in the format
+                    <doc.detach>class Piece_PieceFileNameWithoutExtension</doc.detach>. Furthermore, there can only be one <doc.detach>class</doc.detach> in the JavaScript code of your <doc.detach>Piece</doc.detach>.
+                    <br>
+                    <br>
+                    Within the class, within the JavaScript code of your <doc.detach>Piece</doc.detach>, all functions and variables need to be static in order for them to work. Only variables within functions can be local variables.
+
+                    <doc.topicsubtitle>Continuing...</doc.topicsubtitle>
+                    When using <doc.detach>Pieces</doc.detach>, you need to keep in mind that the CSS and JS code for the <doc.detach>Piece</doc.detach> will only be added to the client once. The HTML code will be added within the
+                    <doc.detach>Page</doc.detach> WHENEVER you instantiate the <doc.detach>Piece</doc.detach> in the desired location of <doc.detach>Page</doc.detach>. In the next topics of this documentation, you will learn how to
+                    instantiate <doc.detach>Pieces</doc.detach> in desired locations, within <doc.detach>Pages</doc.detach>, using HTML code or the Lightmin Engine JS API.
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Pieces: Instantiating Pieces within Pages with HTML -->
+                <doc.topic topicid="5cd">
+                    <doc.topictitle>Pieces: Instantiating Pieces within Pages with HTML</doc.topictitle>
+
+                    Now that you know how to create a <doc.detach>Piece</doc.detach>, it's time to instantiate them! Firstly, keep in mind that <doc.detach>Pieces</doc.detach> can only be instantiated within <doc.detach>Pages</doc.detach>,
+                    as we will see below. If you try to instantiate a <doc.detach>Piece</doc.detach> outside of a <doc.detach>Page</doc.detach>, it won't work. To instantiate a <doc.detach>Piece</doc.detach>, you must use the HTML code
+                    below, within any <doc.detach>Page</doc.detach>.
+                    <doc.code language="html"><code>
+&lt;le.piece.instantiate name="Example" piid="test" enabled="true" width="auto" height="auto"&gt;
+    {}
+&lt;/le.piece.instantiate&gt;
+</code></doc.code>
+                    Let's understand what each attribute means...
+                    <doc.table>
+                        <doc.tablecw>30%=>auto</doc.tablecw>
+                        <doc.tablec>Attribute=>Description</doc.tablec>
+                        <doc.tabler>name=>In this attribute, you define which <doc.detach>Piece</doc.detach> will be instantiated. You need to provide this attribute with the name of the <doc.detach>Piece</doc.detach> file you want to instantiate, of course without the extension. So if your <doc.detach>Piece</doc.detach> is called <doc.detach>TextField.htm</doc.detach>, you must provide <doc.detach>TextField</doc.detach> for this attribute. Note that if your <doc.detach>Piece</doc.detach> file does not obey the Engine rules or contains syntax errors, it will not be loaded and therefore cannot be instantiated.</doc.tabler>
+                        <doc.tabler>piid=>Here you must give an ID to your <doc.detach>Piece</doc.detach> instance, and you cannot use a <doc.detach>piid</doc.detach> for more than one <doc.detach>Piece</doc.detach> instantiated by <doc.detach>Page</doc.detach>. Once your <doc.detach>Piece</doc.detach> is instantiated, you can access it, read it and modify it whenever you want, but to do this you will need to know the <doc.detach>piid</doc.detach> of your <doc.detach>Piece</doc.detach> instance.</doc.tabler>
+                        <doc.tabler>enabled=>We'll talk about that below!</doc.tabler>
+                        <doc.tabler>width=>We'll talk about that below!</doc.tabler>
+                        <doc.tabler>height=>We'll talk about that below!</doc.tabler>
+                    </doc.table>
+                    <doc.warn>
+                        You must enter all of the above attributes to instantiate <doc.detach>Pieces</doc.detach>.
+                    </doc.warn>
+
+                    <doc.topicsubtitle>How instantiation works</doc.topicsubtitle>
+                    Whenever you instantiate a <doc.detach>Piece</doc.detach>, the instantiated HTML code will be injected in the desired location, however, the <doc.detach>Piece</doc.detach> HTML code will be contained within a
+                    <doc.detach>div</doc.detach> Box. Inside this Box, there will be the HTML code of your <doc.detach>Piece</doc.detach> and it will works normally like any HTML code, without limitations. So, let's say we have the
+                    following content on our <doc.detach>Page</doc.detach>...
+                    <doc.code language="html"><code>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad 
+minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
+voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia 
+deserunt mollit anim id est laborum.
+&lt;br&gt;
+&lt;br&gt;
+&lt;le.piece.instantiate name="Example" piid="test" enabled="true" width="auto" height="auto"&gt;
+    {}
+&lt;/le.piece.instantiate&gt;
+&lt;br&gt;
+&lt;br&gt;
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab 
+illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+</code></doc.code>
+                    And the HTML code of our <doc.detach>Piece</doc.detach> is this...
+                    <doc.code language="html"><code>
+&lt;input type="text" placeholder="test"/&gt;
+</code></doc.code>
+                    When our <doc.detach>Page</doc.detach> is loaded, the Engine will interpret the <doc.detach>le.piece.instantiate</doc.detach> tag that requests the instance of a <doc.detach>Piece</doc.detach> in that location, and then
+                    our <doc.detach>Page</doc.detach> code will become this...
+                    <doc.code language="html"><code>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+deserunt mollit anim id est laborum.
+&lt;br&gt;
+&lt;br&gt;
+&lt;div piece="Example" piid="test" style="display: block; width: auto; height: auto;"&gt;
+    &lt;input type="text" placeholder="test"/&gt;
+&lt;/div&gt;
+&lt;br&gt;
+&lt;br&gt;
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab
+illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+</code></doc.code>
+                    Note that the code for our <doc.detach>Piece</doc.detach> is injected in the exact place where the <doc.detach>le.piece.instantiate</doc.detach> tags were requesting the instantiation, and in addition, the HTML code for
+                    the <doc.detach>Piece</doc.detach> is placed inside a <doc.detach>div</doc.detach> Box. Regarding the <doc.detach>div</doc.detach> box, you have control over it. You can activate it, deactivate it, and define its width
+                    and height according to what you think is best. To do this, you must use the attributes <doc.detach>enabled</doc.detach>, <doc.detach>width</doc.detach> and <doc.detach>height</doc.detach>.
+                    <doc.list>
+                        <doc.listr><b>enabled</b>: You can set <doc.detach>true</doc.detach> or <doc.detach>false</doc.detach> and define whether the box will be activated or not. Disabling this will make your <doc.detach>Piece</doc.detach> instance completely disabled and invisible. Equivalent to "display: block/none;" in CSS.</doc.listr>
+                        <doc.listr><b>width</b>: You can set <doc.detach>auto</doc.detach>, a percentage value such as <doc.detach>50%</doc.detach>, or a pixel value such as <doc.detach>75px</doc.detach>. This will define the horizontal space that the <doc.detach>Piece</doc.detach> Box will occupy, and consequently will affect the size of your <doc.detach>Piece</doc.detach> instance.</doc.listr>
+                        <doc.listr><b>height</b>: You can set <doc.detach>auto</doc.detach>, a percentage value such as <doc.detach>50%</doc.detach>, or a pixel value such as <doc.detach>75px</doc.detach>. This will define the vertical space that the <doc.detach>Piece</doc.detach> Box will occupy, and consequently will affect the size of your <doc.detach>Piece</doc.detach> instance.</doc.listr>
+                    </doc.list>
+                    The <doc.detach>div</doc.detach> Box works and obeys the rules like any other standard <doc.detach>div</doc.detach>. You can also use the <doc.detach>SetPieceEnabled()</doc.detach> and
+                    <doc.detach>SetPieceSize()</doc.detach> methods of the Lightmin JavaScript API to control these attributes dynamically in Runtime, easily. You can instantiate your <doc.detach>Pieces</doc.detach> AS MANY times as you
+                    wish, inside a <doc.detach>Page</doc.detach>, as long as you do not repeat the <doc.detach>piid</doc.detach>. Whenever a <doc.detach>Piece</doc.detach> is instantiated within a <doc.detach>Page</doc.detach>, it is linked
+                    to the <doc.detach>Window</doc.detach> in which the <doc.detach>Page</doc.detach> is located and this way the Engine has control of all <doc.detach>Pieces</doc.detach> rendered within each <doc.detach>Page</doc.detach>.
+                    This Engine control allows you to have a complete JavaScript API to interact with each <doc.detach>Piece</doc.detach> instance in your <doc.detach>Pages</doc.detach>.
+
+                    <doc.topicsubtitle>The Pieces variables</doc.topicsubtitle>
+                    The <doc.detach>Piece</doc.detach> Variables allow you to instantiate the same <doc.detach>Piece</doc.detach> several times, however, with different changes and values in the HTML code, according to your demands. So,
+                    let's say I have this HTML code in my <doc.detach>Piece</doc.detach>...
+                    <doc.code language="html"><code>
+&lt;input type="text" placeholder="test"/&gt;
+</code></doc.code>
+                    However, whenever I instantiate this <doc.detach>Piece</doc.detach>, I want to provide different values to be placed inside the <doc.detach>type</doc.detach> and <doc.detach>placeholder</doc.detach> attributes.
+                    <br>
+                    <br>
+                    I can do this easily with the <doc.detach>Pieces</doc.detach> variables. First, between the <doc.detach>variables</doc.detach> tags of our <doc.detach>Piece</doc.detach>, we will declare two variables. Variable
+                    declaration is done using JSON code, and it is mandatory to follow the JSON syntax for the <doc.detach>Piece</doc.detach> to work. Let's declare the variables <doc.detach>typeValue</doc.detach> and
+                    <doc.detach>placeHolderValue</doc.detach>, like this...
+                    <doc.code language="json"><code>
+{
+    "typeValue":"",
+    "placeHolderValue":""
+}
+</code></doc.code>
+                    And now, let's set the default value for these variables. The default value is used when we do not define a new value for that variable when we instantiate the <doc.detach>Piece</doc.detach>. So the JSON code will look
+                    like this...
+                    <doc.code language="json"><code>
+{
+    "typeValue":"text",
+    "placeHolderValue":"Some Text"
+}
+</code></doc.code>
+                    Now, we need to insert these variables into the HTML code of our <doc.detach>Piece</doc.detach>. This is done by placing <doc.detach>__VariableName__</doc.detach> in ANY location in the HTML code of our
+                    <doc.detach>Piece</doc.detach>, and as many times as we want. So, inserting the variables in the desired locations, it will look like this...
+                    <doc.code language="html"><code>
+&lt;input type="__typeValue__" placeholder="__placeHolderValue__"/&gt;
+</code></doc.code>
+                    Now, if we use the code below to instantiate our <doc.detach>Piece</doc.detach>...
+                    <doc.code language="html"><code>
+&lt;le.piece.instantiate name="PieceName" piid="test" enabled="true" width="auto" height="auto"&gt;
+    {}
+&lt;/le.piece.instantiate&gt;
+</code></doc.code>
+                    We will have this result...
+                    <doc.code language="html"><code>
+&lt;div piece="PieceName" piid="test" style="display: block; width: auto; height: auto;"&gt;
+    &lt;input type="text" placeholder="Some Text"/&gt;
+&lt;/div&gt;
+</code></doc.code>
+                    Note that the values <b>"text"</b> and <b>"Some Text"</b> were applied to the places where the variables <b>"__typeValue__"</b> and <b>"__placeHolderValue__"</b> were, however, it was the default values of these
+                    variables that were placed there. This happened because, when we instantiated the <doc.detach>Piece</doc.detach>, we did not define new values for these variables, so the default values were used.
+                    <br>
+                    <br>
+                    To define new values for variables, when instantiating a <doc.detach>Piece</doc.detach>, you must define the variables and the new values within the JSON code that is between the
+                    <doc.detach>le.piece.instantiate</doc.detach> tags, as in the example below...
+                    <doc.code language="html"><code>
+&lt;le.piece.instantiate name="PieceName" piid="test" enabled="true" width="auto" height="auto"&gt;
+    {
+        "typeValue":"number",
+        "placeHolderValue":"wabalabadubdub"
+    }
+&lt;/le.piece.instantiate&gt;
+</code></doc.code>
+                    This code will produce this result...
+                    <doc.code language="html"><code>
+&lt;div piece="PieceName" piid="test" style="display: block; width: auto; height: auto;"&gt;
+    &lt;input type="number" placeholder="wabalabadubdub"/&gt;
+&lt;/div&gt;
+</code></doc.code>
+                    Note that now, the NEW values that we defined for the variables <doc.detach>typeValue</doc.detach> and <doc.detach>placeHolderValue</doc.detach> were successfully placed in the HTML code of the
+                    <doc.detach>Piece</doc.detach> when it was instantiated, and not the default values. However, we are not required to define the values of all variables in the <doc.detach>Pieces</doc.detach>, we can define any variable,
+                    or define the value of only one variable, as in the code below...
+                    <doc.code language="html"><code>
+&lt;le.piece.instantiate name="PieceName" piid="test" enabled="true" width="auto" height="auto"&gt;
+    {
+        "placeHolderValue":"wabalabadubdub"
+    }
+&lt;/le.piece.instantiate&gt;
+</code></doc.code>
+                    This will result in the following...
+                    <doc.code language="html"><code>
+&lt;div piece="PieceName" piid="test" style="display: block; width: auto; height: auto;"&gt;
+    &lt;input type="text" placeholder="wabalabadubdub"/&gt;
+&lt;/div&gt;
+</code></doc.code>
+                    Since we only defined a NEW value, only for the variable <doc.detach>placeHolderValue</doc.detach>, the variable <doc.detach>typeValue</doc.detach> was applied using its default value.
+                    <doc.warn>
+                        Note: Between the <doc.detach>le.piece.instantiate</doc.detach> tags you should only place JSON code to define new values for the <doc.detach>Pieces</doc.detach> variables. HTML code is not allowed between the
+                        <doc.detach>le.piece.instantiate</doc.detach> tags. If you don't want to set the value of any variables, just put <doc.detach>{ }</doc.detach> between the <doc.detach>le.piece.instantiate</doc.detach> tags.
+                    </doc.warn>
+
+                    <doc.topicsubtitle>Concluding...</doc.topicsubtitle>
+                    Now you know how the <doc.detach>Pieces</doc.detach> are instantiated, and how to use the <doc.detach>Pieces</doc.detach> variables. You are now able to use the power of <doc.detach>Pieces</doc.detach> and their
+                    flexibilities to easily reuse code and take advantage of all the benefits that <doc.detach>Pieces</doc.detach> bring. If you mix HTML, CSS, JavaScript and variables in your <doc.detach>Pieces</doc.detach>, you will be
+                    able to create <doc.detach>Pieces</doc.detach> that can do anything, look good and work thanks to JavaScript and CSS. You can also take a look at the source code of the <doc.detach>Pieces</doc.detach> that are already
+                    included with the base website created with Lightmin, which you downloaded from the GitHub repository.
+                    <br>
+                    <br>
+                    Continue reading the next topics to learn more about <doc.detach>Pieces</doc.detach> and consult the JS API of the Lightmin Engine <doc.detach>Pieces</doc.detach> class to learn all the methods that will allow you to
+                    interact with <doc.detach>Pieces</doc.detach> on your Lightmin Website.
+
+                </doc.topic>
+                <!-- #endregion -->
 
 
 
@@ -802,8 +1159,8 @@ function exampleFunction() {
                     compiled, they will be available for use across your website. However, for the Engine to know that these items exist, you need to inform it. And that's where the <doc.detach>manifest.json</doc.detach> file comes in.
                     <br>
                     <br>
-                    The <doc.detach>manifest.json</doc.detach> file is a JSON file and contains some arrays in which you must enter the path to the <doc.detach>Libraries</doc.detach> (CSS and JavaScript), <doc.detach>Pieces</doc.detach> and
-                    <doc.detach>Screens</doc.detach> files. A <doc.detach>manifest.json</doc.detach> file should look like this...
+                    The <doc.detach>manifest.json</doc.detach> file is a JSON file and contains some arrays in which you must enter the path to the <doc.detach>Libraries</doc.detach> (CSS and JavaScript), <doc.detach>Pieces</doc.detach>,
+                    <doc.detach>Screens</doc.detach> files and provides basic data about your website. A <doc.detach>manifest.json</doc.detach> file should look like this...
 
                     <doc.code language="json"><code>
 {
@@ -825,8 +1182,10 @@ function exampleFunction() {
 }
 </code></doc.code>
 
-                    Now, let's see what each variable (array) in <doc.detach>manifest.json</doc.detach> means.
+                    Now, let's see what each variable in <doc.detach>manifest.json</doc.detach> means.
                     <doc.list>
+                        <doc.listr><b>baseTitle</b>: Defines the base title of your Website. This will be the text that comes before the title of the <doc.detach>Page</doc.detach> currently loaded in the main <doc.detach>Window</doc.detach>.</doc.listr>
+                        <doc.listr><b>defaultPage</b>: Defines the default <doc.detach>Page</doc.detach> of your Website. It is the <doc.detach>Page</doc.detach> that will be loaded by default, when none is specified in the URL.</doc.listr>
                         <doc.listr><b>cssLibraries</b>: In this variable you must enter the path to each CSS file within the <doc.detach>libraries</doc.detach> folder on your Website.</doc.listr>
                         <doc.listr><b>javascriptLibraries</b>: In this variable you must enter the path to each JavaScript file within the <doc.detach>libraries</doc.detach> folder on your Website.</doc.listr>
                         <doc.listr><b>websitePieces</b>: In this variable you must enter the path to each <doc.detach>Piece</doc.detach> file within the <doc.detach>pieces</doc.detach> folder on your Website.</doc.listr>
@@ -1066,12 +1425,92 @@ Utils.ChangeFavicon("icons/myFavicon.ico");
                 <doc.topic topicid="8d">
                     <doc.topictitle>Lightmin JS API: Windows.isWindowExistent()</doc.topictitle>
 
-                    This method checks whether a given Window exists on the Website. If yes, the method will return <doc.detach>true</doc.detach>. You must inform the Window identifier for the method.
+                    This method checks whether a given <doc.detach>Window</doc.detach> exists on the Website. If yes, the method will return <doc.detach>true</doc.detach>. You must inform the <doc.detach>Window</doc.detach> identifier for
+                    the method.
 
                     <doc.code language="javascript"><code>
 //- Windows.isWindowExistent(windowIdentifier);
 //  STRING windowIdentifier - The Window identifier. It is the same as defined in the "identifier" attribute of the "le.window" tag.
 var windowExists = Windows.isWindowExistent("ExampleWindow");
+</code></doc.code>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Lightmin JS API: Windows.isPageLoadedInSomeWindow() -->
+                <doc.topic topicid="8e">
+                    <doc.topictitle>Lightmin JS API: Windows.isPageLoadedInSomeWindow()</doc.topictitle>
+
+                    This method checks whether a <doc.detach>Page</doc.detach> is currently loaded within any <doc.detach>Window</doc.detach> and will return <doc.detach>true</doc.detach> if so.
+
+                    <doc.code language="javascript"><code>
+//- Windows.isPageLoadedInSomeWindow(pageUri);
+//  STRING pageUri - The URI of the Page you want to check.
+var isLoaded = Windows.isPageLoadedInSomeWindow("home.php");
+</code></doc.code>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Lightmin JS API: Windows.GetMainWindowIdentifier() -->
+                <doc.topic topicid="8f">
+                    <doc.topictitle>Lightmin JS API: Windows.GetMainWindowIdentifier()</doc.topictitle>
+
+                    This method returns the <doc.detach>identifier</doc.detach> of the main <doc.detach>Window</doc.detach> of your Website.
+
+                    <doc.code language="javascript"><code>
+//- Windows.GetMainWindowIdentifier();
+var mainWindowId = Windows.GetMainWindowIdentifier();
+</code></doc.code>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Lightmin JS API: Windows.GetWindowIdentifierWhereThePageIsLoaded() -->
+                <doc.topic topicid="8g">
+                    <doc.topictitle>Lightmin JS API: Windows.GetWindowIdentifierWhereThePageIsLoaded()</doc.topictitle>
+
+                    This method returns the <doc.detach>identifier</doc.detach> of any <doc.detach>Window</doc.detach> in which a <doc.detach>Page</doc.detach> is currently loaded. If the <doc.detach>Page</doc.detach> entered is not loaded
+                    in any <doc.detach>Window</doc.detach>, then an empty string will be returned.
+
+                    <doc.code language="javascript"><code>
+//- Windows.GetWindowIdentifierWhereThePageIsLoaded(pageUri);
+//  STRING pageUri - The URI of the Page you want to check.
+var windowId = Windows.GetWindowIdentifierWhereThePageIsLoaded("home.php");
+</code></doc.code>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Lightmin JS API: Windows.GetPageUriLoadedInMainWindow() -->
+                <doc.topic topicid="8h">
+                    <doc.topictitle>Lightmin JS API: Windows.GetPageUriLoadedInMainWindow()</doc.topictitle>
+
+                    This method returns the URI of the <doc.detach>Page</doc.detach> that is currently loaded within the main <doc.detach>Window</doc.detach> of the Website. If there is no <doc.detach>Page</doc.detach> loaded within the
+                    <doc.detach>Window</doc.detach>, an empty string will be returned. If there is an error message inside the <doc.detach>Window</doc.detach>, the URI returned by this method will be something like
+                    <doc.detach>errorPage-MainWindowId</doc.detach>.
+
+                    <doc.code language="javascript"><code>
+//- Windows.GetPageUriLoadedInMainWindow();
+var loadedPageUri = Windows.GetPageUriLoadedInMainWindow();
+</code></doc.code>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Lightmin JS API: Windows.LoadPage() -->
+                <doc.topic topicid="8i">
+                    <doc.topictitle>Lightmin JS API: Windows.LoadPage()</doc.topictitle>
+
+                    This method loads a <doc.detach>Page</doc.detach> that is present within the <doc.detach>pages</doc.detach> directory into ANY <doc.detach>Window</doc.detach> present in the <doc.detach>Client</doc.detach> or
+                    <doc.detach>Screen</doc.detach> of your Website. This method is covered in more depth here in <a href="#5bb">this</a> topic. This method will return <doc.detach>true</doc.detach> if the CALL was made successfully.
+
+                    <doc.code language="javascript"><code>
+//- Windows.LoadPage(targetWindowId, pageUri, onDoneCallback);
+//  STRING targetWindowId   - The "identifier" of the Window in which the Page will be loaded.
+//  STRING pageUri          - The URI of a "Page" file within the "pages" directory.
+//  FUNCTION onDoneCallback - An optional callback function that will execute code whether the "Page" has been loaded successfully or not. You can pass "null" for this parameter if you don't want a callback.
+var successOnCall = Windows.LoadPage("ClientMainWindow", "home.php", null);
 </code></doc.code>
 
                 </doc.topic>

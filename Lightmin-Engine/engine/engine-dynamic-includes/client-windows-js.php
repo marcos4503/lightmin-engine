@@ -144,11 +144,15 @@ class Windows{
         var ShowContentAndDoFadeInAnimation = function(wId, newHtmlContent, newJsContent, isErrorContent){
             //Do a Fade-in in the new current content
             Windows.existantWindowsInClientAndScreens[wId].contentFadeInTimer = setTimeout(() => {
+                //Do the fade-in in the new current content, and set window to default height config
                 Windows.existantWindowsInClientAndScreens[wId].windowElementRef.style.minHeight = "256px";
                 Windows.existantWindowsInClientAndScreens[wId].windowElementRef.style.minWidth = "";
                 Windows.existantWindowsInClientAndScreens[wId].windowElementRef.innerHTML = newHtmlContent;
                 Windows.existantWindowsInClientAndScreens[wId].windowElementRef.style.transition = "all 150ms";
                 Windows.existantWindowsInClientAndScreens[wId].windowElementRef.style.opacity = "1.0";
+
+                //Post-process the window content to instante all Pieces, if have...
+                Pieces.ProcessPageHtmlCodeAndInstantiateAllPieces(wId, Windows.existantWindowsInClientAndScreens[wId].windowElementRef);
 
                 //If is not an error, add the JavaScript of the Page to the Client...
                 if(isErrorContent == false){
@@ -213,6 +217,8 @@ class Windows{
             Windows.existantWindowsInClientAndScreens[windowIdentifier].currentLoadedPageJsRef.remove();
             Windows.existantWindowsInClientAndScreens[windowIdentifier].currentLoadedPageJsRef = null;
         }
+        //Reset the list of instantiated Pieces, inside this window
+        Windows.existantWindowsInClientAndScreens[windowIdentifier].instantiatedPiecesIdsAndRefs = [];
 
         //If this is a main window, inform progress in loading indicator and scroll the Client to top, to see the new page
         if(Windows.existantWindowsInClientAndScreens[windowIdentifier].windowType == "main"){
