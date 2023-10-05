@@ -27,7 +27,9 @@
         <br/>
         <br/>
         <le.piece.instantiate name="Example" piid="test" enabled="true" width="auto" height="auto">
-            {}
+            {
+                "declaredVar1":"tttt"
+            }
         </le.piece.instantiate>
 
         <!-- -->

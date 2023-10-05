@@ -997,8 +997,10 @@ illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
 </code></doc.code>
                     Note that the values <b>"text"</b> and <b>"Some Text"</b> were applied to the places where the variables <b>"__typeValue__"</b> and <b>"__placeHolderValue__"</b> were, however, it was the default values of these
                     variables that were placed there. This happened because, when we instantiated the <doc.detach>Piece</doc.detach>, we did not define new values for these variables, so the default values were used.
-                    <br>
-                    <br>
+                    <doc.info>
+                        Note that if you insert a variable in the HTML code, which is not declared in the JSON code of the <doc.detach>Piece</doc.detach> (for example <b>__var__</b>), it will not be replaced by a value, since
+                        <doc.detach>var</doc.detach> was not declared in the JSON code of the <doc.detach>Piece</doc.detach>.
+                    </doc.info>
                     To define new values for variables, when instantiating a <doc.detach>Piece</doc.detach>, you must define the variables and the new values within the JSON code that is between the
                     <doc.detach>le.piece.instantiate</doc.detach> tags, as in the example below...
                     <doc.code language="html"><code>
@@ -1032,6 +1034,10 @@ illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
 &lt;/div&gt;
 </code></doc.code>
                     Since we only defined a NEW value, only for the variable <doc.detach>placeHolderValue</doc.detach>, the variable <doc.detach>typeValue</doc.detach> was applied using its default value.
+                    <doc.info>
+                        If within the <doc.detach>le.piece.instantiate</doc.detach> tags you define a new value for a variable that was not declared within the <doc.detach>Piece</doc.detach> JSON code, the variable will be ignored in the
+                        instantiation.
+                    </doc.info>
                     <doc.warn>
                         Note: Between the <doc.detach>le.piece.instantiate</doc.detach> tags you should only place JSON code to define new values for the <doc.detach>Pieces</doc.detach> variables. HTML code is not allowed between the
                         <doc.detach>le.piece.instantiate</doc.detach> tags. If you don't want to set the value of any variables, just put <doc.detach>{ }</doc.detach> between the <doc.detach>le.piece.instantiate</doc.detach> tags.
