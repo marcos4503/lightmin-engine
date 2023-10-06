@@ -19,7 +19,36 @@ class Pieces {
             Pieces.ProcessPieceInstantiation(name, instanceId, enabled, width, height, jsonVariables, targetWindowIdentifier, putAfterElement);
     }
 
-    static GetComponentInPieceInstance(targetWindowIdentifier, instanceId, componentId){ }
+    static GetComponentInPieceInstance(targetWindowIdentifier, instanceId, componentId){
+        //Prepare the result
+        var result = null;
+
+        //If target window, don't exists, cancel
+        if(Windows.isWindowExistent(targetWindowIdentifier) == false){
+            Common.SendLog("E", "Unable to obtain Component from an instantiated Piece. A Window with \"" + targetWindowIdentifier + "\" identifier, does not exist.");
+            return result;
+        }
+        //If the instance id don't exists in the window, cancel
+        if(Pieces.isPieceExistentInsideWindow(targetWindowIdentifier, instanceId) == false){
+            Common.SendLog("E", "Unable to obtain Component from an instantiated Piece. There is no Piece instantiated within Window \"" + targetWindowIdentifier + "\" using instance ID \"" + instanceId + "\".");
+            return result;
+        }
+
+        //Try to get a reference to the root of instantiated Piece
+        var instantiatedPiece = Windows.existantWindowsInClientAndScreens[targetWindowIdentifier].instantiatedPiecesIdsAndRefs[instanceId];
+        //If found the instantiated Piece, continues...
+        if(instantiatedPiece != null && instantiatedPiece != undefined){
+            //Try to find the Component inside the Piece instance, using the informed ID...
+            var componentFound = instantiatedPiece.querySelector("[component=\"" + componentId + "\"]");
+
+            //If found, inform the Component found...
+            if(componentFound != null)
+                result = componentFound;
+        }
+
+        //Return the result
+        return result;
+    }
 
     static isPieceEnabled(targetWindowIdentifier, instanceId){ }
 
@@ -47,6 +76,24 @@ class Pieces {
 
         //Return the result...
         return piecesIds;
+    }
+
+    static isPieceExistentInsideWindow(targetWindowIdentifier, instanceId){
+        //Prepare the result
+        var result = false;
+
+        //If the target window, don't exists, cancel
+        if(Windows.isWindowExistent(targetWindowIdentifier) == false){
+            Common.SendLog("E", "It was not possible to verify the existence of the instance of Piece \"" + instanceId + "\", within Window \"" + targetWindowIdentifier + "\". The informed Window does not exist.");
+            return result;
+        }
+
+        //If the informed instance id of a Piece exists, inform
+        if(Windows.existantWindowsInClientAndScreens[targetWindowIdentifier].instantiatedPiecesIdsAndRefs[instanceId] !== undefined)
+            result = true;
+
+        //Return the result
+        return result;
     }
 
     //Auxiliar methods
