@@ -13,7 +13,7 @@
 
         function LE_OnPageLoad(){
             //on load this page...
-            //Pieces.InstantiatePieceAfter("Example", "test2", true, "auto", "auto", '{}', "ClientMainWindow", document.getElementById("testing2"));
+            //Pieces.InstantiatePieceAfter("Example", "test", true, "auto", "auto", '{}', "ClientMainWindow", document.getElementById("testing2"));
         }
     </script>
 

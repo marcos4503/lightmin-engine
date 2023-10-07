@@ -50,15 +50,121 @@ class Pieces {
         return result;
     }
 
-    static isPieceEnabled(targetWindowIdentifier, instanceId){ }
+    static isPieceEnabled(targetWindowIdentifier, instanceId){
+        //Prepare the result
+        var result = false;
 
-    static SetPieceEnabled(targetWindowIdentifier, instanceId, enabled){ }
+        //If target window, don't exists, cancel
+        if(Windows.isWindowExistent(targetWindowIdentifier) == false){
+            Common.SendLog("E", "Unable to check if Piece is enabled. A Window with \"" + targetWindowIdentifier + "\" identifier, does not exist.");
+            return result;
+        }
+        //If the instance id don't exists in the window, cancel
+        if(Pieces.isPieceExistentInsideWindow(targetWindowIdentifier, instanceId) == false){
+            Common.SendLog("E", "Unable to check if Piece is enabled. There is no Piece instantiated within Window \"" + targetWindowIdentifier + "\" using instance ID \"" + instanceId + "\".");
+            return result;
+        }
 
-    static GetPieceSize(targetWindowIdentifier, instanceId){ }
+        //Try to get a reference to the root of instantiated Piece
+        var instantiatedPiece = Windows.existantWindowsInClientAndScreens[targetWindowIdentifier].instantiatedPiecesIdsAndRefs[instanceId];
+        //If found the instantiated Piece, continues...
+        if(instantiatedPiece != null && instantiatedPiece != undefined)
+            if(instantiatedPiece.style.display != "none")
+                result = true;
 
-    static SetPieceSize(targetWindowIdentifier, instanceId, newWidth, newHeight){ }
+        //Return the result
+        return result;
+    }
 
-    static DestroyPiece(targetWindowIdentifier, instanceId){ }
+    static SetPieceEnabled(targetWindowIdentifier, instanceId, enabled){
+        //If target window, don't exists, cancel
+        if(Windows.isWindowExistent(targetWindowIdentifier) == false){
+            Common.SendLog("E", "Unable to set Piece enabled or disabled. A Window with \"" + targetWindowIdentifier + "\" identifier, does not exist.");
+            return;
+        }
+        //If the instance id don't exists in the window, cancel
+        if(Pieces.isPieceExistentInsideWindow(targetWindowIdentifier, instanceId) == false){
+            Common.SendLog("E", "Unable to set Piece enabled or disabled. There is no Piece instantiated within Window \"" + targetWindowIdentifier + "\" using instance ID \"" + instanceId + "\".");
+            return;
+        }
+
+        //Try to get a reference to the root of instantiated Piece
+        var instantiatedPiece = Windows.existantWindowsInClientAndScreens[targetWindowIdentifier].instantiatedPiecesIdsAndRefs[instanceId];
+        //If found the instantiated Piece, continues...
+        if(instantiatedPiece != null && instantiatedPiece != undefined){
+            if(enabled == true)
+                instantiatedPiece.style.display = "block";
+            if(enabled == false)
+                instantiatedPiece.style.display = "none";
+        }
+    }
+
+    static GetPieceSize(targetWindowIdentifier, instanceId){
+        //Prepare the result
+        var result = { width: "", height: "" };
+
+        //If target window, don't exists, cancel
+        if(Windows.isWindowExistent(targetWindowIdentifier) == false){
+            Common.SendLog("E", "Unable to get Piece size. A Window with \"" + targetWindowIdentifier + "\" identifier, does not exist.");
+            return result;
+        }
+        //If the instance id don't exists in the window, cancel
+        if(Pieces.isPieceExistentInsideWindow(targetWindowIdentifier, instanceId) == false){
+            Common.SendLog("E", "Unable to get Piece size. There is no Piece instantiated within Window \"" + targetWindowIdentifier + "\" using instance ID \"" + instanceId + "\".");
+            return result;
+        }
+
+        //Try to get a reference to the root of instantiated Piece
+        var instantiatedPiece = Windows.existantWindowsInClientAndScreens[targetWindowIdentifier].instantiatedPiecesIdsAndRefs[instanceId];
+        //If found the instantiated Piece, continues...
+        if(instantiatedPiece != null && instantiatedPiece != undefined){
+            result.width = instantiatedPiece.style.width;
+            result.height = instantiatedPiece.style.height;
+        }
+
+        //Return the result
+        return result;
+    }
+
+    static SetPieceSize(targetWindowIdentifier, instanceId, newWidth, newHeight){
+        //If target window, don't exists, cancel
+        if(Windows.isWindowExistent(targetWindowIdentifier) == false){
+            Common.SendLog("E", "Unable to set Piece size. A Window with \"" + targetWindowIdentifier + "\" identifier, does not exist.");
+            return;
+        }
+        //If the instance id don't exists in the window, cancel
+        if(Pieces.isPieceExistentInsideWindow(targetWindowIdentifier, instanceId) == false){
+            Common.SendLog("E", "Unable to set Piece size. There is no Piece instantiated within Window \"" + targetWindowIdentifier + "\" using instance ID \"" + instanceId + "\".");
+            return;
+        }
+
+        //Try to get a reference to the root of instantiated Piece
+        var instantiatedPiece = Windows.existantWindowsInClientAndScreens[targetWindowIdentifier].instantiatedPiecesIdsAndRefs[instanceId];
+        //If found the instantiated Piece, continues...
+        if(instantiatedPiece != null && instantiatedPiece != undefined){
+            instantiatedPiece.style.width = newWidth;
+            instantiatedPiece.style.height = newHeight;
+        }
+    }
+
+    static DestroyPiece(targetWindowIdentifier, instanceId){
+        //If target window, don't exists, cancel
+        if(Windows.isWindowExistent(targetWindowIdentifier) == false){
+            Common.SendLog("E", "Unable to destroy Piece. A Window with \"" + targetWindowIdentifier + "\" identifier, does not exist.");
+            return;
+        }
+        //If the instance id don't exists in the window, cancel
+        if(Pieces.isPieceExistentInsideWindow(targetWindowIdentifier, instanceId) == false){
+            Common.SendLog("E", "Unable to destroy Piece. There is no Piece instantiated within Window \"" + targetWindowIdentifier + "\" using instance ID \"" + instanceId + "\".");
+            return;
+        }
+
+        //Try to get a reference to the root of instantiated Piece
+        var instantiatedPiece = Windows.existantWindowsInClientAndScreens[targetWindowIdentifier].instantiatedPiecesIdsAndRefs[instanceId];
+        //If found the instantiated Piece, continues...
+        if(instantiatedPiece != null && instantiatedPiece != undefined)
+            instantiatedPiece.remove();
+    }
 
     static GetInstanceIdOfAllInstantiatedPiecesInWindow(targetWindowIdentifier){
         //Prepare the list of IDs of instantiated pieces in the window

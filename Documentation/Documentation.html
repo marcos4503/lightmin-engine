@@ -124,6 +124,15 @@
                         <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8g">Windows<br>.GetWindowIdentifierWhereThePageIsLoaded()</a></li>
                         <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8h">Windows.GetPageUriLoadedInMainWindow()</a></li>
                         <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8i">Windows.LoadPage()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8j">Pieces.InstantiatePieceAfter()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8k">Pieces.GetComponentInPieceInstance()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8l">Pieces.isPieceEnabled()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8m">Pieces.SetPieceEnabled()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8n">Pieces.GetPieceSize()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8o">Pieces.SetPieceSize()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8p">Pieces.DestroyPiece()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8q">Pieces.<br>GetInstanceIdOfAllInstantiatedPieces<br>InWindow()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8r">Pieces.isPieceExistentInsideWindow()</a></li>
                     </ul>
                     <li class="summarySubItem">Lightmin PHP API</li>
                     <ul>
@@ -1596,6 +1605,175 @@ var successOnCall = Windows.LoadPage("ClientMainWindow", "home.php", null);
 
                 </doc.topic>
                 <!-- #endregion -->
+
+                <!-- #region Lightmin JS API: Pieces.InstantiatePieceAfter() -->
+                <doc.topic topicid="8j">
+                    <doc.topictitle>Lightmin JS API: Pieces.InstantiatePieceAfter()</doc.topictitle>
+
+                    This method is explained in more detail <a href="#5ce">here</a> in this topic. This method allows you to instantiate <doc.detach>Pieces</doc.detach> right after an element that exists within a
+                    <doc.detach>Page</doc.detach> that is within any <doc.detach>Window</doc.detach> of your Website.
+
+                    <doc.code language="javascript"><code>
+//- Pieces.InstantiatePieceAfter(name, instanceId, enabled, width, height, jsonVariables, targetWindowIdentifier, putAfterElement);
+//  STRING  name                    - The name of the Piece file to be instantiated.
+//  STRING  instanceId              - The ID that will be given to this Piece instance.
+//  BOOL    enabled                 - Defines whether the Piece Box (and consequently the entire Piece itself) will be active or not.
+//  STRING  width                   - Defines the width of the Piece Box (and consequently the entire Piece itself). It can be "auto", values in "%" or values in "px".
+//  STRING  height                  - Defines the height of the Piece Box (and consequently the entire Piece itself). It can be "auto", values in "%" or values in "px".
+//  STRING  jsonVariables           - JSON code used to define new values for Piece variables. It's the same JSON code you would put between the "le.piece.instantiate" tags.
+//  STRING  targetWindowIdentifier  - The identifier that refers to the Window in which the Page you want to insert this Piece is located.
+//  ELEMENT putAfterElement         - The element that will be used as the basis for positioning this Piece. It will be placed right after this element.
+Pieces.InstantiatePieceAfter("PieceName", "pieceId", true, "auto", "auto", '{}', "ClientMainWindow", document.getElementById("targetElement"));
+</code></doc.code>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Lightmin JS API: Pieces.GetComponentInPieceInstance() -->
+                <doc.topic topicid="8k">
+                    <doc.topictitle>Lightmin JS API: Pieces.GetComponentInPieceInstance()</doc.topictitle>
+
+                    This method is covered in full detail here in <a href="#5cf">this</a> topic. This method allows you to easily access any element within any instance of any <doc.detach>Piece</doc.detach>. It is necessary that in the
+                    <doc.detach>Piece</doc.detach> HTML code, you make the elements accessible for this method to work. Read this topic to understand how <a href="#5cf">this</a> is done.
+
+                    <doc.code language="javascript"><code>
+//- Pieces.GetComponentInPieceInstance(targetWindowIdentifier, instanceId, componentId);
+//  STRING targetWindowIdentifier  - The identifier of the Window in which the Page that the Piece instance is located is located.
+//  STRING instanceId              - The ID of the desired Piece instance.
+//  STRING componentId             - The ID of the Component present within the Piece instance, which you want to access.
+var someElement = Pieces.GetComponentInPieceInstance("ClientMainWindow", "pieceId", "nameTextField");
+</code></doc.code>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Lightmin JS API: Pieces.isPieceEnabled() -->
+                <doc.topic topicid="8l">
+                    <doc.topictitle>Lightmin JS API: Pieces.isPieceEnabled()</doc.topictitle>
+
+                    This method returns <doc.detach>true</doc.detach> if the target <doc.detach>Piece</doc.detach> Box is enabled (and consequently the entire <doc.detach>Piece</doc.detach>).
+
+                    <doc.code language="javascript"><code>
+//- Pieces.isPieceEnabled(targetWindowIdentifier, instanceId);
+//  STRING targetWindowIdentifier  - The identifier of the Window in which the Page that the Piece instance is located is located.
+//  STRING instanceId              - The ID of the desired Piece instance.
+var isEnabled = Pieces.isPieceEnabled("ClientMainWindow", "pieceId");
+</code></doc.code>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Lightmin JS API: Pieces.SetPieceEnabled() -->
+                <doc.topic topicid="8m">
+                    <doc.topictitle>Lightmin JS API: Pieces.SetPieceEnabled()</doc.topictitle>
+
+                    With this method you can set the Box of a <doc.detach>Piece</doc.detach> instance enabled or disabled (and consequently the entire <doc.detach>Piece</doc.detach>).
+
+                    <doc.code language="javascript"><code>
+//- Pieces.SetPieceEnabled(targetWindowIdentifier, instanceId, enabled);
+//  STRING targetWindowIdentifier  - The identifier of the Window in which the Page that the Piece instance is located is located.
+//  STRING instanceId              - The ID of the desired Piece instance.
+//  BOOL   enabled                 - Defines whether the Piece will be enabled or disabled.
+Pieces.SetPieceEnabled("ClientMainWindow", "pieceId", true);
+</code></doc.code>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Lightmin JS API: Pieces.GetPieceSize() -->
+                <doc.topic topicid="8n">
+                    <doc.topictitle>Lightmin JS API: Pieces.GetPieceSize()</doc.topictitle>
+
+                    With this method you can get the current width and height of a <doc.detach>Piece</doc.detach> instance Box.
+
+                    <doc.code language="javascript"><code>
+//- Pieces.GetPieceSize(targetWindowIdentifier, instanceId);
+//  STRING targetWindowIdentifier  - The identifier of the Window in which the Page that the Piece instance is located is located.
+//  STRING instanceId              - The ID of the desired Piece instance.
+var sizeData = Pieces.GetPieceSize("ClientMainWindow", "pieceId");
+var width = sizeData.width;
+var height = sizeData.height;
+</code></doc.code>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Lightmin JS API: Pieces.SetPieceSize() -->
+                <doc.topic topicid="8o">
+                    <doc.topictitle>Lightmin JS API: Pieces.SetPieceSize()</doc.topictitle>
+
+                    With this method you can define the current width and height of a <doc.detach>Piece</doc.detach> instance box (and consequently affect the size of the entire <doc.detach>Piece</doc.detach> itself).
+
+                    <doc.code language="javascript"><code>
+//- Pieces.SetPieceSize(targetWindowIdentifier, instanceId, newWidth, newHeight);
+//  STRING targetWindowIdentifier  - The identifier of the Window in which the Page that the Piece instance is located is located.
+//  STRING instanceId              - The ID of the desired Piece instance.
+//  STRING newWidth                - Defines the new width of the Piece Box (and consequently the entire Piece itself). It can be "auto", values in "%" or values in "px".
+//  STRING newHeight               - Defines the new height of the Piece Box (and consequently the entire Piece itself). It can be "auto", values in "%" or values in "px".
+Pieces.SetPieceSize("ClientMainWindow", "pieceId", "auto", "100px");
+</code></doc.code>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Lightmin JS API: Pieces.DestroyPiece() -->
+                <doc.topic topicid="8p">
+                    <doc.topictitle>Lightmin JS API: Pieces.DestroyPiece()</doc.topictitle>
+
+                    This method completely removes an instantiated <doc.detach>Piece</doc.detach> from the <doc.detach>Page</doc.detach> it is on, and consequently from the entire Website DOM.
+
+                    <doc.code language="javascript"><code>
+//- Pieces.DestroyPiece(targetWindowIdentifier, instanceId);
+//  STRING targetWindowIdentifier  - The identifier of the Window in which the Page that the Piece instance is located is located.
+//  STRING instanceId              - The ID of the desired Piece instance.
+Pieces.DestroyPiece("ClientMainWindow", "pieceId");
+</code></doc.code>
+
+                    <doc.warn>
+                        Although this method completely deletes an instantiated <doc.detach>Piece</doc.detach>, the instance ID used in the removed <doc.detach>Piece</doc.detach> is still registered in the <doc.detach>Window</doc.detach>
+                        that contains the <doc.detach>Page</doc.detach> that the <doc.detach>Piece</doc.detach> was on. Therefore, even after destroying a <doc.detach>Piece</doc.detach>, you will not be able to use the ID of the destroyed
+                        <doc.detach>Piece</doc.detach> to instantiate another <doc.detach>Piece</doc.detach>. The instanced IDs registry in <doc.detach>Windows</doc.detach> is reseted every time a <doc.detach>Page</doc.detach> is loaded.
+                    </doc.warn>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Lightmin JS API: Pieces.GetInstanceIdOfAllInstantiatedPiecesInWindow() -->
+                <doc.topic topicid="8q">
+                    <doc.topictitle>Lightmin JS API: Pieces.GetInstanceIdOfAllInstantiatedPiecesInWindow()</doc.topictitle>
+
+                    This method returns a list that contains the ID of all <doc.detach>Pieces</doc.detach> instantiated within a <doc.detach>Window</doc.detach>. It's a good way to query the registry of IDs
+                    instantiated from a <doc.detach>Window</doc.detach>.
+
+                    <doc.code language="javascript"><code>
+//- Pieces.GetInstanceIdOfAllInstantiatedPiecesInWindow(targetWindowIdentifier);
+//  STRING targetWindowIdentifier  - The identifier of the Window to consult.
+var instancedIdsArray = Pieces.GetInstanceIdOfAllInstantiatedPiecesInWindow("ClientMainWindow");
+</code></doc.code>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Lightmin JS API: Pieces.isPieceExistentInsideWindow() -->
+                <doc.topic topicid="8r">
+                    <doc.topictitle>Lightmin JS API: Pieces.isPieceExistentInsideWindow()</doc.topictitle>
+
+                    This method returns <doc.detach>true</doc.detach> if a given <doc.detach>Piece</doc.detach> is currently instantiated within a <doc.detach>Page</doc.detach> that is within any <doc.detach>Window</doc.detach>.
+
+                    <doc.code language="javascript"><code>
+//- Pieces.isPieceExistentInsideWindow(targetWindowIdentifier, instanceId);
+// STRING targetWindowIdentifier - The identifier of the Window in which the Page that the Piece instance is located is located.
+// STRING instanceId             - The ID of the desired Piece instance.
+var pieceExists = Pieces.isPieceExistentInsideWindow("ClientMainWindow", "pieceId");
+</code></doc.code>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+
+
+
+
 
                 <!-- #region Lightmin PHP API: About -->
                 <doc.topic topicid="9">
