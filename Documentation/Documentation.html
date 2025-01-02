@@ -824,6 +824,10 @@ function LE_OnLoadPageInSomeWindow(loadedInWindow, loadedPageUri){
             static OnInstantiate(inWindowId, pieceInstanceId) {
 
             }
+
+            static OnDestroy(inWindowId, pieceInstanceId) {
+            
+            }
         }
     &lt;/script&gt;
 
@@ -866,13 +870,21 @@ function LE_OnLoadPageInSomeWindow(loadedInWindow, loadedPageUri){
 
                     <doc.topicsubtitle>SCRIPT tag</doc.topicsubtitle>
                     Inside the <doc.detach>script</doc.detach> tags is where you should place the JavaScript code of your <doc.detach>Piece</doc.detach>. This is where you must place the JavaScript code that will make your
-                    <doc.detach>Piece</doc.detach> work, if necessary, of course. You can also execute code whenever your <doc.detach>Piece</doc.detach> is loaded by the engine, registering function <doc.detach>OnLoad()</doc.detach>, and
-                    you can also execute code whenever your <doc.detach>Piece</doc.detach> is instantiated somewhere, registering function <doc.detach>OnInstantiate(inWindowId, pieceInstanceId)</doc.detach>. The JavaScript code for
-                    your <doc.detach>Piece</doc.detach> is only inserted into the Client once. All JavaScript code for your <doc.detach>Piece</doc.detach> must be inside a class that has a name in the format
-                    <doc.detach>class Piece_PieceFileNameWithoutExtension</doc.detach>. Furthermore, there can only be one <doc.detach>class</doc.detach> in the JavaScript code of your <doc.detach>Piece</doc.detach>.
+                    <doc.detach>Piece</doc.detach> work, if necessary, of course. You can also execute code whenever your <doc.detach>Piece</doc.detach> is loaded by the engine, registering function <doc.detach>OnLoad()</doc.detach>,
+                    you can also execute code whenever your <doc.detach>Piece</doc.detach> is instantiated somewhere, registering function <doc.detach>OnInstantiate(inWindowId, pieceInstanceId)</doc.detach>. Finally, you can register code
+                    to run whenever your <doc.detach>Piece</doc.detach> is destroyed by registering the <doc.detach>OnDestroy(inWindowId, pieceInstanceId)</doc.detach> function. Instantiated <doc.detach>Pieces</doc.detach> are destroyed
+                    whenever the <doc.detach>Page</doc.detach> they are on is unloaded to load the next <doc.detach>Page</doc.detach> in a <doc.detach>Window</doc.detach>. Additionally, <doc.detach>Pieces</doc.detach> can also be destroyed
+                    if you request it using the Lightmin Engine JS API. The JavaScript code for your <doc.detach>Piece</doc.detach> is only inserted into the Client once. All JavaScript code for your <doc.detach>Piece</doc.detach> must be
+                    inside a class that has a name in the format <doc.detach>class Piece_PieceFileNameWithoutExtension</doc.detach>. Furthermore, there can only be one <doc.detach>class</doc.detach> in the JavaScript code of
+                    your <doc.detach>Piece</doc.detach>.
                     <br>
                     <br>
                     Within the class, within the JavaScript code of your <doc.detach>Piece</doc.detach>, all functions and variables need to be static in order for them to work. Only variables within functions can be local variables.
+                    <doc.warn>
+                        The <doc.detach>OnDestroy(inWindowId, pieceInstanceId)</doc.detach> callback is executed right after your <doc.detach>Piece</doc.detach> instance is destroyed and disappears from the interface. Even though the
+                        callback informs the <doc.detach>Window</doc.detach> and the ID of the instantiated <doc.detach>Piece</doc.detach> that was destroyed, this information is only for control and to better know where and which instance
+                        of the <doc.detach>Piece</doc.detach> was destroyed. Therefore, avoid executing Asynchronous codes and codes that try to Reference the <doc.detach>Piece</doc.detach> that was destroyed.
+                    </doc.warn>
 
                     <doc.topicsubtitle>Continuing...</doc.topicsubtitle>
                     When using <doc.detach>Pieces</doc.detach>, you need to keep in mind that the CSS and JS code for the <doc.detach>Piece</doc.detach> will only be added to the client once. The HTML code will be added within the
