@@ -103,7 +103,9 @@
                         <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="5dza">Inserting a Window to display Pages</a></li>
                     </ul>
                     <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="5ea">Medias: Where to place Website Media files</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="5ec">Medias: How to access or reference Media files</a></li>
                     <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="5eb">Libaries: Where to place Website CSS & JS code</a></li>
+                    <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="5ed">Libaries: How to use your JS & CSS of Libraries</a></li>
                     <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="6">Manifest File</a></li>
                     <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="7">Settings File</a></li>
                     <li class="summarySubItem">Lightmin JS API</li>
@@ -242,15 +244,15 @@
                     <doc.table>
                         <doc.tablecw>20%=>20%=>auto</doc.tablecw>
                         <doc.tablec>File=>Type=>Description</doc.tablec>
-                        <doc.tabler>engine=>Folder=>These are the Lightmin Engine core files, they are the files that are behind everything, making everything work. You do not need (and do not recommend) touching any of the files inside this folder. However, if in the future you want to update the Lightmin that is running behind your Website, you will only need to replace this folder with the "engine" folder of the new version of Lightmin Engine!</doc.tabler>
-                        <doc.tabler>libraries=>Folder=>Inside this folder you must place your Website CSS and JS files. I <b>STRONGLY</b> recommend that ALL of your Website CSS be inside this folder (except the "Pieces" CSS) so that organization is maintained, and to avoid clutter.</doc.tabler>
-                        <doc.tabler>medias=>Folder=>Inside this folder you must place ALL the media files from your Website. Be it a pure text file, image or even video. Files present here can also be easily accessed via JavaScript using the Lightmin Engine JS API!</doc.tabler>
-                        <doc.tabler>pages=>Folder=>In this folder you must place ALL the "Pages" files from your Lightmin Website. Any "Page" file that you intend to render within the Client must be present here. The "Page" files can contain JavaScript within them, without any problems, but it is recommended that they only be small scripts. Any large script should go to the "libraries" folder for greater organization of the Website.</doc.tabler>
-                        <doc.tabler>pieces=>Folder=>In this folder you must place all the HTM files of the "Pieces" that you created for your Website. When downloading the base website from the Github repository, some standard "Pieces" will come so that you have at least the basics to get started! The "Pieces" must contain their JavaScript code within the HTM file, regardless of the size of the script, along with the HTML and CSS code of the "Piece", for greater organization. Additionally, this makes it easier to share "Pieces" between different Lightmin websites.</doc.tabler>
-                        <doc.tabler>screens=>Folder=>In this folder, you must place all the "Screen" files for your Website. These files works as additional screens that cover your Website Client when called by JavaScript code, and this way you can use them to extend the base interface beyond just the Client interface, creating additional screens with different layouts and interfaces to perform smaller tasks on your Website, such as Login screens, Preferences screens, etc.</doc.tabler>
-                        <doc.tabler>client.php=>File=>This is your Website "Client" file, this is your Website central file. This is where you will program the layout and base interface of your Website, and it is where you will display "Pages" and other things.</doc.tabler>
-                        <doc.tabler>manifest.json=>File=>This is the Manifest of your Lightmin Website. Here in this file you must declare all the "Pieces", "Screens" and "Libraries (CSS and JS)" files present on your Lightmin Website. Only then will these files work and be compiled at runtime on the Client.</doc.tabler>
-                        <doc.tabler>settings.php=>File=>In this file you can configure any type of configurable thing for your Lightmin Website, which can range from colors of Engine elements, to transition animations between "Pages" in the Client.</doc.tabler>
+                        <doc.tabler>engine=>Folder=>These are the Lightmin Engine core files, they are the files that are behind everything, making everything work. You do not need (and do not recommend) touching any of the files inside this folder. However, if in the future you want to update the Lightmin Engine version that is running behind your Website, you will only need to replace this folder with the "engine" folder of the new version of Lightmin Engine!</doc.tabler>
+                        <doc.tabler>libraries=>Folder=>Inside this folder you must place your Website CSS, JS and PHP Include/Library files. I <b>STRONGLY</b> recommend that ALL of your Website CSS be inside this folder (except the <doc.detach>Pieces</doc.detach> CSS) so that organization is maintained, and to avoid clutter. With the exception of the JavaScript code for your <doc.detach>Pieces</doc.detach>, the vast majority of your Website JavaScript code should also be here. In addition to <doc.detach>Pieces</doc.detach>, JavaScript code can also be used in your <doc.detach>Pages</doc.detach>, but only use JavaScript code in your <doc.detach>Pages</doc.detach> when absolutely necessary, for better organization. Finally, all PHP code from libraries or that you use in "includes" should be here as well, for better organization.</doc.tabler>
+                        <doc.tabler>medias=>Folder=>Inside this folder you must place ALL the media files from your Website. Be it a pure text file, image or even video. The files present here can be easily accessed from anywhere in the Engine or your Website, whether from the <doc.detach>Client</doc.detach>, <doc.detach>Pieces</doc.detach>, <doc.detach>Pages</doc.detach>, <doc.detach>Screens</doc.detach> or even CSS and JS Libraries. You can refer to <a href="#5ec">this</a> topic to learn how to access your media from anywhere on your website.</doc.tabler>
+                        <doc.tabler>pages=>Folder=>In this folder you must place ALL the <doc.detach>Pages</doc.detach> files from your Lightmin Website. Any <doc.detach>Page</doc.detach> file that you intend to render within the <doc.detach>Client</doc.detach> must be present here. The <doc.detach>Pages</doc.detach> files can contain JavaScript within them, without any problems, but it is recommended that they only be small scripts, only the necessary. Any large script should go to the "libraries" folder for greater organization of the Website.</doc.tabler>
+                        <doc.tabler>pieces=>Folder=>In this folder you must place all the HTM files of the <doc.detach>Pieces</doc.detach> that you created for your Website. When downloading the base website from the Github repository, some standard <doc.detach>Pieces</doc.detach> will come so that you have at least the basics to get started! The <doc.detach>Pieces</doc.detach> must contain their JavaScript code within the HTM file, regardless of the size of the script, along with the HTML and CSS code of the <doc.detach>Piece</doc.detach>, for greater organization. Additionally, this makes it easier to share <doc.detach>Pieces</doc.detach> between different Lightmin websites.</doc.tabler>
+                        <doc.tabler>screens=>Folder=>In this folder, you must place all the HTM <doc.detach>Screen</doc.detach> files for your Website. These files works as additional screens that cover your Website <doc.detach>Client</doc.detach> when called by JavaScript code, and this way you can use them to extend the base interface beyond just the <doc.detach>Client</doc.detach> interface, creating additional screens with different layouts and interfaces to perform smaller tasks on your Website, such as Login screens, Preferences screens, etc.</doc.tabler>
+                        <doc.tabler>client.php=>File=>This is your Website <doc.detach>Client</doc.detach> file, this is your Website central file. This is where you will program the layout and base interface of your Website, and it is where you will display <doc.detach>Pages</doc.detach> and other things.</doc.tabler>
+                        <doc.tabler>manifest.json=>File=>This is the Manifest of your Lightmin Website. Here in this file you must declare all the <doc.detach>Pieces</doc.detach>, <doc.detach>Screens</doc.detach> and <doc.detach>Libraries</doc.detach> (CSS and JS) files present on your Lightmin Website. Only then will these files work and be compiled at runtime on the <doc.detach>Client</doc.detach>.</doc.tabler>
+                        <doc.tabler>settings.php=>File=>In this file you can configure any type of configurable thing for your Lightmin Website, which can range from colors of Engine elements, to transition animations between <doc.detach>Pages</doc.detach> in the <doc.detach>Client</doc.detach>.</doc.tabler>
                     </doc.table>
 
                 </doc.topic>
@@ -279,14 +281,14 @@
                     <br>
                     <br>
                     In addition to <doc.detach>Windows</doc.detach>, there is another very important element, which is <doc.detach>Pages</doc.detach>. The <doc.detach>Pages</doc.detach> belong to the Lightmin Engine and will be discussed in
-                    more detail later in the documentation, however, they function as "website pieces" where on each <doc.detach>Page</doc.detach> you place content from your Website, as you would on a normal Website which has different
+                    more detail later in the documentation, however, they function as "website parts" where on each <doc.detach>Page</doc.detach> you place content from your Website, as you would on a normal Website which has different
                     pages.
                     <br>
                     <br>
-                    The time the user accesses the Client, and the load ends, the home <doc.detach>Page</doc.detach> of the Website will be loaded and displayed within the <doc.detach>Window</doc.detach> of the Client. As the user will
+                    The time the user accesses the Client, and the load ends, the home <doc.detach>Page</doc.detach> of the Website will be loaded and displayed within the main <doc.detach>Window</doc.detach> of the Client. As the user will
                     browse the Website, only the content of <doc.detach>Window</doc.detach> are updated and exchanging the <doc.detach>Pages</doc.detach> in a very intuitive and fluid way. But not only that. As the user will Browse the
                     pages, the URL in the Browser is dynamically changing to refer to the current <doc.detach>Page</doc.detach> that the user is seeing, and if he copies this URL and access it later or on another device, the exact same
-                    <doc.detach>Page</doc.detach> will be loaded! This also enables links to your website specific <doc.detach>Pages</doc.detach> to be copied and shared, as in any standard website.
+                    <doc.detach>Page</doc.detach> will be loaded! This also enables links to your website specific <doc.detach>Pages</doc.detach> to be copied and shared, as in any standard static website.
 
                 </doc.topic>
                 <!-- #endregion -->
@@ -308,7 +310,7 @@
                         This is precisely why the contents of your <doc.detach>client.php</doc.detach>, <doc.detach>Screens</doc.detach>, <doc.detach>Pieces</doc.detach> and your <doc.detach>Pages</doc.detach> will be affected by the CSS
                         code you have in the <doc.detach>libraries</doc.detach> folder and that is also why you can access The Lightmin Engine JavaScript API from anywhere on your website, whether from <doc.detach>client.php</doc.detach>,
                         <doc.detach>Pieces</doc.detach> or <doc.detach>Pages</doc.detach>. The JavaScript code you write and put in your <doc.detach>libraries</doc.detach> folder will be accessible from anywhere in your website as well,
-                        either from <doc.detach>client.php</doc.detach>, <doc.detach>Pieces</doc.detach> or <doc.detach>Pages</doc.detach>. The native code of Engine, metadata and other things will always be loaded on the Client by
+                        either from <doc.detach>client.php</doc.detach>, <doc.detach>Pieces</doc.detach> or <doc.detach>Pages</doc.detach>. The native code of Engine, metadata and similar things will always be loaded on the Client by
                         default, even before the initial load of the Client begins, as they are necessary items for the full operation of Engine, and their internal tasks and features.
 
                         <doc.frameci src="DocumentationFiles/images/2.gif">Visual representation of the process being done.<br>(Does not contain all the details, but it is an approximate summary)</doc.frameci>
@@ -625,7 +627,7 @@
                     These are the only things that should be present in the header of your <doc.detach>Pages</doc.detach>, nothing more.
 
                     <doc.topicsubtitle>SCRIPT tag</doc.topicsubtitle>
-                    Inside the <doc.detach>script</doc.detach> tag of your <doc.detach>Page</doc.detach> is where you should place ALL the JavaScript code for your <doc.detach>Page</doc.detach>. It is not recommended to place large
+                    Inside the <doc.detach>script</doc.detach> tag of your <doc.detach>Page</doc.detach> is where you should place ALL the JavaScript code exclusive of your <doc.detach>Page</doc.detach>. It is not recommended to place large
                     JS codes, and keep in mind that this code will be compiled to the Client as soon as your page is loaded, so do not name methods, classes and variables with names that are already used in JS codes present in
                     <doc.detach>libraries/js</doc.detach> of your Website.
                     <br>
@@ -757,9 +759,9 @@ function LE_OnLoadPageInSomeWindow(loadedInWindow, loadedPageUri){
                 <doc.topic topicid="5ca">
                     <doc.topictitle>Pieces: What is it and how does it work</doc.topictitle>
 
-                    The <doc.detach>Pieces</doc.detach> works as Components. They are a set of HTML, CSS and JavaScript codes that you can use and reuse, instantiating them as many times as you want within <doc.detach>Pages</doc.detach>.
-                    Whenever you instantiate a <doc.detach>Piece</doc.detach>, you can instantiate it with different data, as needed. Basically, <doc.detach>Pieces</doc.detach> allow you to write CSS, HTML and JavaScript code once, and then
-                    reuse that code as many times as you want.
+                    The <doc.detach>Pieces</doc.detach> are equivalent to the concept of "Components" and "UserControls" in frameworks like React and WPF. They are a set of HTML, CSS and JavaScript codes that you can use and reuse,
+                    instantiating them as many times as you want within <doc.detach>Pages</doc.detach>. Whenever you instantiate a <doc.detach>Piece</doc.detach>, you can instantiate it with different data, as needed. Basically,
+                    <doc.detach>Pieces</doc.detach> allow you to write CSS, HTML and JavaScript code once, and then reuse that code as many times as you want.
                     <br>
                     <br>
                     You can, for example, create a <doc.detach>Piece</doc.detach> that is a <doc.detach>Text Field</doc.detach> with the appearance and behavior you want. To do this, you will need to create a <doc.detach>Piece</doc.detach>
@@ -793,17 +795,23 @@ function LE_OnLoadPageInSomeWindow(loadedInWindow, loadedPageUri){
 
     &lt;style type="text/css"&gt;
         /* Piece CSS Code */
+        
+        .Piece_Example_SomeCssClass {
+            background-color: #FF0000;
+        }
     &lt;/style&gt;
 
     &lt;variables type="text/json"&gt;
         {
-        "declaredVar1":"defaultValueForThis",
-        "declaredVar2":"defaultValueForThis"
+            "declaredVar1":"defaultValueForThis",
+            "declaredVar2":"defaultValueForThis"
         }
     &lt;/variables&gt;
 
     &lt;code type="text/html"&gt;
         &lt;!-- Piece HTML Code --&gt;
+        
+        &lt;div class="Piece_Example_SomeCssClass" test="__declaredVar1__"&gt;__declaredVar2__&lt;/div&gt;
     &lt;/code&gt;
 
     &lt;script type="text/javascript"&gt;
@@ -864,7 +872,7 @@ function LE_OnLoadPageInSomeWindow(loadedInWindow, loadedPageUri){
 
                     <doc.topicsubtitle>CODE tag</doc.topicsubtitle>
                     Inside the <doc.detach>code</doc.detach> tags is where you should place the HTML code of your <doc.detach>Piece</doc.detach>. This is the HTML code that will be added to the Client whenever your
-                    <doc.detach>Piece</doc.detach> is instantiated within a <doc.detach>Page</doc.detach>. Within <doc.detach>code</doc.detach> tags you cannot use <doc.detach>html</doc.detach>, "<doc.detach>head</doc.detach>,
+                    <doc.detach>Piece</doc.detach> is instantiated within a <doc.detach>Page</doc.detach>. Within <doc.detach>code</doc.detach> tags you cannot use <doc.detach>html</doc.detach>, <doc.detach>head</doc.detach>,
                     <doc.detach>body</doc.detach>, <doc.detach>style</doc.detach> or <doc.detach>script</doc.detach> tags. Additionally, you cannot use the <doc.detach>id</doc.detach> and <doc.detach>style</doc.detach>
                     attributes in any tags within the <doc.detach>code</doc.detach> tags.
 
@@ -885,9 +893,21 @@ function LE_OnLoadPageInSomeWindow(loadedInWindow, loadedPageUri){
                         callback informs the <doc.detach>Window</doc.detach> and the ID of the instantiated <doc.detach>Piece</doc.detach> that was destroyed, this information is only for control and to better know where and which instance
                         of the <doc.detach>Piece</doc.detach> was destroyed. Therefore, avoid executing Asynchronous codes and codes that try to Reference the <doc.detach>Piece</doc.detach> that was destroyed.
                     </doc.warn>
+                    Since your <doc.detach>Piece</doc.detach> JavaScript code is only inserted once in the <doc.detach>Client</doc.detach>, this means that ALL instances of your Piece have access to the same JavaScript code, i.e., your
+                    <doc.detach>Piece</doc.detach> JavaScript code is not separated by instances where you have a copy of the JavaScript code for each instance. Because of this, your JavaScript code must rely on the Instance ID, Lightmin's
+                    JS API for interacting with <doc.detach>Pieces</doc.detach>, and so on to interact with your <doc.detach>Piece</doc.detach> instances. If you need to store primitive values (Bool, Float, Int, and String) separately for
+                    each instance of your <doc.detach>Piece</doc.detach>, you can use Lightmin <doc.detach>Individual Data</doc.detach> JS API for this. The <doc.detach>Individual Data</doc.detach> API basically consists of the
+                    <doc.detach>Pieces.SetInIndividualDataOfPiece()</doc.detach> and <doc.detach>Pieces.GetOfIndividualDataOfPiece()</doc.detach> methods. This API provides an easy and straightforward way to store simple data for each
+                    instance of your <doc.detach>Piece</doc.detach>. The downside is that the <doc.detach>Individual Data</doc.detach> API is only capable of handling primitive values and can have a noticeable performance hit if called
+                    multiple times per second.
+                    <br>
+                    <br>
+                    If you need a more performant alternative that allows you to store individual JS values (like objects, arrays, and all the rest) in addition to primitive values for your <doc.detach>Piece</doc.detach> instances, a good
+                    alternative is the <doc.detach>Individual Storage</doc.detach> API. This is a slightly more complex API, and it should be explained more in the "Lightmin JS API" section of this documentation. See the Lightmin API
+                    reference section of this documentation for more details on API <doc.detach>Individual Data</doc.detach> and API <doc.detach>Individual Storage</doc.detach>.
 
                     <doc.topicsubtitle>Continuing...</doc.topicsubtitle>
-                    When using <doc.detach>Pieces</doc.detach>, you need to keep in mind that the CSS and JS code for the <doc.detach>Piece</doc.detach> will only be added to the client once. The HTML code will be added within the
+                    When using <doc.detach>Pieces</doc.detach>, you need to keep in mind that the CSS and JS code for the <doc.detach>Piece</doc.detach> will only be added to the Client once. The HTML code will be added within the
                     <doc.detach>Page</doc.detach> WHENEVER you instantiate the <doc.detach>Piece</doc.detach> in the desired location of <doc.detach>Page</doc.detach>. In the next topics of this documentation, you will learn how to
                     instantiate <doc.detach>Pieces</doc.detach> in desired locations, within <doc.detach>Pages</doc.detach>, using HTML code or the Lightmin Engine JS API.
 
