@@ -13,7 +13,19 @@
 
         function LE_OnPageLoad(){
             //on load this page...
-            //Pieces.InstantiatePieceAfter("Example", "test", true, "auto", "auto", '{}', "ClientMainWindow", document.getElementById("testing2"));
+            Pieces.InstantiatePieceAfter("Example", "test23", true, "auto", "auto", '{}', "ClientMainWindow", document.getElementById("testing2"), true);
+            Pieces.InstantiatePieceInlineAfter("Example", "test24", true, '{}', "ClientMainWindow", document.getElementById("testing3"), true);
+        }
+
+        function LE_OnPageUnload(){
+
+        }
+
+
+
+        
+        function run_code(){
+            
         }
     </script>
 
@@ -26,13 +38,37 @@
         occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         <br/>
         <br/>
-        <le.piece.instantiate name="Example" piid="test" enabled="true" width="auto" height="auto">
+        <le.piece name="Example" piid="test" enabled="true" width="auto" height="auto">
             {
                 "declaredVar1":"tttt"
             }
-        </le.piece.instantiate>
+        </le.piece>
+        <le.piece name="Example" piid="test2" enabled="true" width="auto" height="auto">
+            {
+                "declaredVar1":"aaaa"
+            }
+        </le.piece>
+        <le.piece name="Example" piid="test3" enabled="true" mode="default" width="auto" height="auto">
+            {
+                "declaredVar1":"bbbb"
+            }
+        </le.piece>
+        <br/>
+        <br/>
+        <br/>
+        .Place Holder | <le.piece name="Example" piid="itest" enabled="true" mode="inline">{ }</le.piece> | <le.piece name="Example" piid="itest2" enabled="true" mode="inline">{ }</le.piece> | <hr id="testing3"/> | %piece% | Place Holder.
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <a onclick="run_code();">Run</a>
 
         <!-- -->
-        <div id="testing2"></div>
+        <br/>
+        <br/>
+        <hr id="testing2"/>
+        <hr id="testing5"/>
     </body>
 </html>

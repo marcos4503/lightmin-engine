@@ -1056,6 +1056,8 @@ class Initializator {
                                                                       loadingFadeInTimer: null, 
                                                                       loadingHttpRequestTimer: null, httpRequestObj: null,
                                                                       contentFadeInTimer: null, finishTransitionTimer: null };
+            //Register the window in Individual Storage API of Pieces...
+            Pieces.IndividualStorage.individualStorage[identifier] = { allocationsForPiecesInstances: [] };
 
             //Add the final window to DOM after the old window tag
             currentWindowTag.parentNode.insertBefore(finalWindowTag, currentWindowTag.nextSibling);

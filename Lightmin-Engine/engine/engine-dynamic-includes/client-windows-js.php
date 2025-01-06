@@ -217,6 +217,12 @@ class Windows{
             Windows.existantWindowsInClientAndScreens[windowIdentifier].currentLoadedPageJsRef.remove();
             Windows.existantWindowsInClientAndScreens[windowIdentifier].currentLoadedPageJsRef = null;
         }
+        //Run all possibles "OnDestroy" methods of all instantiated Pieces, inside this Window
+        for (var piid in Windows.existantWindowsInClientAndScreens[windowIdentifier].instantiatedPiecesIdsAndRefs){
+            var instantiatedPiece = Windows.existantWindowsInClientAndScreens[windowIdentifier].instantiatedPiecesIdsAndRefs[piid];
+            if (instantiatedPiece !== null && instantiatedPiece !== undefined)
+                try{ eval("Piece_" + instantiatedPiece.getAttribute("piece") + ".OnDestroy(\"" + windowIdentifier + "\", \"" + piid + "\");"); } catch(e){  };
+        }
         //Reset the list of instantiated Pieces, inside this window
         Windows.existantWindowsInClientAndScreens[windowIdentifier].instantiatedPiecesIdsAndRefs = [];
 

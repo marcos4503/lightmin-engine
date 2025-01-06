@@ -7,6 +7,10 @@
 
     <style type="text/css">
         /* Piece CSS Code */
+
+        .Piece_Example_SomeCssClass {
+            background-color: #FF0000;
+        }
     </style>
 
     <variables type="text/json">
@@ -18,7 +22,8 @@
 
     <code type="text/html">
         <!-- Piece HTML Code -->
-        <div test="__declaredVar1__">__declaredVar2__</div>
+
+        <div class="Piece_Example_SomeCssClass" test="__declaredVar1__" component="comp1">__declaredVar2__</div>
     </code>
 
     <script type="text/javascript">
@@ -37,6 +42,10 @@
             }
 
             static OnInstantiate(inWindowId, pieceInstanceId) {
+
+            }
+
+            static OnDestroy(inWindowId, pieceInstanceId) {
 
             }
         }
