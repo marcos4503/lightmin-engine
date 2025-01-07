@@ -922,9 +922,9 @@ function LE_OnLoadPageInSomeWindow(loadedInWindow, loadedPageUri){
                     as we will see below. If you try to instantiate a <doc.detach>Piece</doc.detach> outside of a <doc.detach>Page</doc.detach>, it won't work. To instantiate a <doc.detach>Piece</doc.detach>, you must use the HTML code
                     below, within any <doc.detach>Page</doc.detach>.
                     <doc.code language="html"><code>
-&lt;le.piece.instantiate name="Example" piid="test" enabled="true" width="auto" height="auto"&gt;
+&lt;le.piece name="Example" piid="test" enabled="true" width="auto" height="auto"&gt;
     {}
-&lt;/le.piece.instantiate&gt;
+&lt;/le.piece&gt;
 </code></doc.code>
                     Let's understand what each attribute means...
                     <doc.table>
@@ -951,9 +951,9 @@ voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occa
 deserunt mollit anim id est laborum.
 &lt;br&gt;
 &lt;br&gt;
-&lt;le.piece.instantiate name="Example" piid="test" enabled="true" width="auto" height="auto"&gt;
+&lt;le.piece name="Example" piid="test" enabled="true" width="auto" height="auto"&gt;
     {}
-&lt;/le.piece.instantiate&gt;
+&lt;/le.piece&gt;
 &lt;br&gt;
 &lt;br&gt;
 Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab 
@@ -963,7 +963,7 @@ illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
                     <doc.code language="html"><code>
 &lt;input type="text" placeholder="test"/&gt;
 </code></doc.code>
-                    When our <doc.detach>Page</doc.detach> is loaded, the Engine will interpret the <doc.detach>le.piece.instantiate</doc.detach> tag that requests the instance of a <doc.detach>Piece</doc.detach> in that location, and then
+                    When our <doc.detach>Page</doc.detach> is loaded, the Engine will interpret the <doc.detach>le.piece</doc.detach> tag that requests the instance of a <doc.detach>Piece</doc.detach> in that location, and then
                     our <doc.detach>Page</doc.detach> code will become this...
                     <doc.code language="html"><code>
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
@@ -980,7 +980,7 @@ deserunt mollit anim id est laborum.
 Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab
 illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
 </code></doc.code>
-                    Note that the code for our <doc.detach>Piece</doc.detach> is injected in the exact place where the <doc.detach>le.piece.instantiate</doc.detach> tags were requesting the instantiation, and in addition, the HTML code for
+                    Note that the code for our <doc.detach>Piece</doc.detach> is injected in the exact place where the <doc.detach>le.piece</doc.detach> tags were requesting the instantiation, and in addition, the HTML code for
                     the <doc.detach>Piece</doc.detach> is placed inside a <doc.detach>div</doc.detach> Box. Regarding the <doc.detach>div</doc.detach> box, you have control over it. You can activate it, deactivate it, and define its width
                     and height according to what you think is best. To do this, you must use the attributes <doc.detach>enabled</doc.detach>, <doc.detach>width</doc.detach> and <doc.detach>height</doc.detach>.
                     <doc.list>
@@ -993,6 +993,11 @@ illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
                     wish, inside a <doc.detach>Page</doc.detach>, as long as you do not repeat the <doc.detach>piid</doc.detach>. Whenever a <doc.detach>Piece</doc.detach> is instantiated within a <doc.detach>Page</doc.detach>, it is linked
                     to the <doc.detach>Window</doc.detach> in which the <doc.detach>Page</doc.detach> is located and this way the Engine has control of all <doc.detach>Pieces</doc.detach> rendered within each <doc.detach>Page</doc.detach>.
                     This Engine control allows you to have a complete JavaScript API to interact with each <doc.detach>Piece</doc.detach> instance in your <doc.detach>Pages</doc.detach>.
+                    <doc.info>
+                        If you add more <doc.detach>le.piece</doc.detach> tags dynamically to your <doc.detach>Page</doc.detach> after it has already loaded, you will need to call the
+                        <doc.detach>Pieces.CheckByPieceTagsInWindowAndInterpretate()</doc.detach> method so that the Engine reinterprets your <doc.detach>Page</doc.detach>, processing any new <doc.detach>le.piece</doc.detach> tags added to
+                        the Page DOM.
+                    </doc.info>
 
                     <doc.topicsubtitle>The Pieces variables</doc.topicsubtitle>
                     The <doc.detach>Piece</doc.detach> Variables allow you to instantiate the same <doc.detach>Piece</doc.detach> several times, however, with different changes and values in the HTML code, according to your demands. So,
@@ -1027,9 +1032,9 @@ illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
 </code></doc.code>
                     Now, if we use the code below to instantiate our <doc.detach>Piece</doc.detach>...
                     <doc.code language="html"><code>
-&lt;le.piece.instantiate name="PieceName" piid="test" enabled="true" width="auto" height="auto"&gt;
+&lt;le.piece name="PieceName" piid="test" enabled="true" width="auto" height="auto"&gt;
     {}
-&lt;/le.piece.instantiate&gt;
+&lt;/le.piece&gt;
 </code></doc.code>
                     We will have this result...
                     <doc.code language="html"><code>
@@ -1044,14 +1049,14 @@ illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
                         <doc.detach>var</doc.detach> was not declared in the JSON code of the <doc.detach>Piece</doc.detach>.
                     </doc.info>
                     To define new values for variables, when instantiating a <doc.detach>Piece</doc.detach>, you must define the variables and the new values within the JSON code that is between the
-                    <doc.detach>le.piece.instantiate</doc.detach> tags, as in the example below...
+                    <doc.detach>le.piece</doc.detach> tags, as in the example below...
                     <doc.code language="html"><code>
-&lt;le.piece.instantiate name="PieceName" piid="test" enabled="true" width="auto" height="auto"&gt;
+&lt;le.piece name="PieceName" piid="test" enabled="true" width="auto" height="auto"&gt;
     {
         "typeValue":"number",
         "placeHolderValue":"wabalabadubdub"
     }
-&lt;/le.piece.instantiate&gt;
+&lt;/le.piece&gt;
 </code></doc.code>
                     This code will produce this result...
                     <doc.code language="html"><code>
@@ -1063,11 +1068,11 @@ illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
                     <doc.detach>Piece</doc.detach> when it was instantiated, and not the default values. However, we are not required to define the values of all variables in the <doc.detach>Pieces</doc.detach>, we can define any variable,
                     or define the value of only one variable, as in the code below...
                     <doc.code language="html"><code>
-&lt;le.piece.instantiate name="PieceName" piid="test" enabled="true" width="auto" height="auto"&gt;
+&lt;le.piece name="PieceName" piid="test" enabled="true" width="auto" height="auto"&gt;
     {
         "placeHolderValue":"wabalabadubdub"
     }
-&lt;/le.piece.instantiate&gt;
+&lt;/le.piece&gt;
 </code></doc.code>
                     This will result in the following...
                     <doc.code language="html"><code>
@@ -1077,12 +1082,39 @@ illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
 </code></doc.code>
                     Since we only defined a NEW value, only for the variable <doc.detach>placeHolderValue</doc.detach>, the variable <doc.detach>typeValue</doc.detach> was applied using its default value.
                     <doc.info>
-                        If within the <doc.detach>le.piece.instantiate</doc.detach> tags you define a new value for a variable that was not declared within the <doc.detach>Piece</doc.detach> JSON code, the variable will be ignored in the
+                        If within the <doc.detach>le.piece</doc.detach> tags you define a new value for a variable that was not declared within the <doc.detach>Piece</doc.detach> JSON code, the variable will be ignored in the
                         instantiation.
                     </doc.info>
                     <doc.warn>
-                        Note: Between the <doc.detach>le.piece.instantiate</doc.detach> tags you should only place JSON code to define new values for the <doc.detach>Pieces</doc.detach> variables. HTML code is not allowed between the
-                        <doc.detach>le.piece.instantiate</doc.detach> tags. If you don't want to set the value of any variables, just put <doc.detach>{ }</doc.detach> between the <doc.detach>le.piece.instantiate</doc.detach> tags.
+                        Note: Between the <doc.detach>le.piece</doc.detach> tags you should only place JSON code to define new values for the <doc.detach>Pieces</doc.detach> variables. HTML code is not allowed between the
+                        <doc.detach>le.piece</doc.detach> tags. If you don't want to set the value of any variables, just put <doc.detach>{ }</doc.detach> between the <doc.detach>le.piece</doc.detach> tags.
+                    </doc.warn>
+
+                    <doc.topicsubtitle>Instantiating in "Inline" mode</doc.topicsubtitle>
+                    If for some reason, you need the instantiated <doc.detach>Piece</doc.detach> to behave like Text, that is, it can be inserted in the middle of Texts, placed in the middle of text lines, then you can instantiate your
+                    <doc.detach>Piece</doc.detach> in <doc.detach>Inline</doc.detach> mode. By default, <doc.detach>Pieces</doc.detach> are instantiated in <doc.detach>Default</doc.detach> mode, where they have the same behavior as the
+                    default behavior of <doc.detach>divs</doc.detach>.
+                    <br>
+                    <br>
+                    To instantiate a <doc.detach>Piece</doc.detach> in <doc.detach>Inline</doc.detach> mode, you just need to specify this through the <doc.detach>mode</doc.detach> attribute. And that's all you need to do. Otherwise, the
+                    same rules for instantiating "Default Pieces" apply to "Inline Pieces". See an example of <doc.detach>Inline</doc.detach> instantiation below...
+                    <doc.code language="html"><code>
+&lt;le.piece name="Example" piid="itest" enabled="true" mode="inline"&gt;
+    { }
+&lt;/le.piece&gt;
+</code></doc.code>
+                    When instantiating <doc.detach>Pieces</doc.detach> in <doc.detach>Inline</doc.detach> mode, you do not need to provide the <doc.detach>width</doc.detach> and <doc.detach>height</doc.detach> attributes. See below for an
+                    explanation of the attributes used in this code...
+                    <doc.table>
+                        <doc.tablecw>30%=>auto</doc.tablecw>
+                        <doc.tablec>Attribute=>Description</doc.tablec>
+                        <doc.tabler>name=>It has already been explained above in the documentation!</doc.tabler>
+                        <doc.tabler>piid=>It has already been explained above in the documentation!</doc.tabler>
+                        <doc.tabler>enabled=>It has already been explained above in the documentation!</doc.tabler>
+                        <doc.tabler>mode=>Determines the instantiation mode of the <doc.detach>Piece</doc.detach>. It can be <doc.detach>default</doc.detach> or <doc.detach>inline</doc.detach>. This attribute does not need to be informed, and if it is not informed the Engine will assume that the value should be <doc.detach>default</doc.detach>. Therefore, only use this attribute if you want the <doc.detach>Piece</doc.detach> to be instantiated in <doc.detach>inline</doc.detach> mode.</doc.tabler>
+                    </doc.table>
+                    <doc.warn>
+                        You must enter all of the above attributes to instantiate <doc.detach>Pieces</doc.detach> in <doc.detach>inline</doc.detach> mode.
                     </doc.warn>
 
                     <doc.topicsubtitle>Concluding...</doc.topicsubtitle>
