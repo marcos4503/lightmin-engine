@@ -1135,12 +1135,12 @@ illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
                     <doc.topictitle>Pieces: Instantiating Pieces within Pages with JS</doc.topictitle>
 
                     If you read the last topic and are wondering if you can instantiate <doc.detach>Pieces</doc.detach> in Runtime, on your Website... Well, the answer is yes! The procedure and rules are the same, as if you were
-                    instantiating a <doc.detach>Pieces</doc.detach> using HTML code, however, you will use JavaScript code, calling a Lightmin API function!
+                    instantiating a <doc.detach>Piece</doc.detach> using HTML code, however, you will use JavaScript code, calling a Lightmin API function!
                     <br>
                     <br>
                     To instantiate a <doc.detach>Piece</doc.detach>, using Lightmin JavaScript API, use the code below...
                     <doc.code language="javascript"><code>
-Pieces.InstantiatePieceAfter("Example", "somePiece2", true, "auto", "auto", '{}', "ClientMainWindow", document.getElementById("targetElementId"));
+Pieces.InstantiatePieceAfter("Example", "somePiece2", true, "auto", "auto", '{}', "ClientMainWindow", document.getElementById("targetElementId"), false);
 </code></doc.code>
                     But what does each parameter mean?
                     <doc.table>
@@ -1151,9 +1151,28 @@ Pieces.InstantiatePieceAfter("Example", "somePiece2", true, "auto", "auto", '{}'
                         <doc.tabler>enabled=>BOOL=>Defines whether the <doc.detach>Piece</doc.detach> is enabled or disabled after instantiation.</doc.tabler>
                         <doc.tabler>width=>STRING=>Defines the width of the <doc.detach>Piece</doc.detach> Box. It works according to the <doc.detach>width</doc.detach> attribute of the instantiation using HTML.</doc.tabler>
                         <doc.tabler>height=>STRING=>Defines the height of the <doc.detach>Piece</doc.detach> Box. It works according to the <doc.detach>height</doc.detach> attribute of the instantiation using HTML.</doc.tabler>
-                        <doc.tabler>jsonVariables=>STRING=>Here you insert the JSON code to define values for the variables of the <doc.detach>Piece</doc.detach> to be instantiated. Use <doc.detach>{ }</doc.detach> if you don't want to define any variables. If you want to define a variable, simply insert the same JSON code that you would insert between the <doc.detach>le.piece.instantiate</doc.detach> tags if you used HTML to instantiate a <doc.detach>Piece</doc.detach>.</doc.tabler>
+                        <doc.tabler>jsonVariables=>STRING=>Here you insert the JSON code to define values for the variables of the <doc.detach>Piece</doc.detach> to be instantiated. Use <doc.detach>{ }</doc.detach> if you don't want to define any variables. If you want to define a variable, simply insert the same JSON code that you would insert between the <doc.detach>le.piece</doc.detach> tags if you used HTML to instantiate a <doc.detach>Piece</doc.detach>.</doc.tabler>
                         <doc.tabler>targetWindowIdentifier=>STRING=>Here you enter the <doc.detach>identifier</doc.detach> of the <doc.detach>Window</doc.detach> that contains the <doc.detach>Page</doc.detach> that you want to instantiate a <doc.detach>Piece</doc.detach> inside.</doc.tabler>
-                        <doc.tabler>putAfterElement=>ELEMENT=>Here you enter an element (or node) that will serve as the basis for instantiating the <doc.detach>Piece</doc.detach>. The element or node must be within the <doc.detach>Page</doc.detach> that is loaded in the <doc.detach>Window</doc.detach> informed in the last parameter. The instantiated <doc.detach>Piece</doc.detach> will be placed right after the element informed in this parameter, and the parent element of the <doc.detach>Piece</doc.detach> will be the same parent element as the element informed in this parameter. The element entered here will remain untouched, even after the desired <doc.detach>Piece</doc.detach> is instantiated.</doc.tabler>
+                        <doc.tabler>putAfterElement=>ELEMENT=>Here you enter an element (or node) that will serve as the basis for instantiating the <doc.detach>Piece</doc.detach>. The element or node must be within the <doc.detach>Page</doc.detach> that is loaded in the <doc.detach>Window</doc.detach> informed in the last parameter. The instantiated <doc.detach>Piece</doc.detach> will be placed right after the element informed in this parameter, and the parent element of the <doc.detach>Piece</doc.detach> will be the same parent element as the element informed in this parameter.</doc.tabler>
+                        <doc.tabler>autoRemoveAnchorElement=>BOOL=>If you enter <doc.detach>true</doc.detach> for this parameter, the anchor element entered in the previous parameter, that is, the element used as the positioning basis for the instantiated <doc.detach>Piece</doc.detach>, will be removed from the DOM immediately after the <doc.detach>Piece</doc.detach> is instantiated.</doc.tabler>
+                    </doc.table>
+
+                    <doc.topicsubtitle>Instantiating in "Inline" mode</doc.topicsubtitle>
+                    If you need to instantiate the <doc.detach>Piece</doc.detach> in <doc.detach>Inline</doc.detach> mode, you will need to use another function as shown in the example below...
+                    <doc.code language="javascript"><code>
+Pieces.InstantiatePieceInlineAfter("Example", "someInlinePiece2", true, '{}', "ClientMainWindow", document.getElementById("targetElementId"), false);
+</code></doc.code>
+                    But what does each parameter mean?
+                    <doc.table>
+                        <doc.tablecw>20%=>10%=>auto</doc.tablecw>
+                        <doc.tablec>Parameter=>Type=>Description</doc.tablec>
+                        <doc.tabler>name=>STRING=>The name of the <doc.detach>Piece</doc.detach> to be instantiated. It works according to the <doc.detach>name</doc.detach> attribute of the instantiation using HTML.</doc.tabler>
+                        <doc.tabler>instanceId=>STRING=>The ID to be given to the <doc.detach>Piece</doc.detach> instance. It works according to the <doc.detach>piid</doc.detach> attribute of the instantiation using HTML.</doc.tabler>
+                        <doc.tabler>enabled=>BOOL=>Defines whether the <doc.detach>Piece</doc.detach> is enabled or disabled after instantiation.</doc.tabler>
+                        <doc.tabler>jsonVariables=>STRING=>Here you insert the JSON code to define values for the variables of the <doc.detach>Piece</doc.detach> to be instantiated. Use <doc.detach>{ }</doc.detach> if you don't want to define any variables. If you want to define a variable, simply insert the same JSON code that you would insert between the <doc.detach>le.piece</doc.detach> tags if you used HTML to instantiate a <doc.detach>Piece</doc.detach>.</doc.tabler>
+                        <doc.tabler>targetWindowIdentifier=>STRING=>Here you enter the <doc.detach>identifier</doc.detach> of the <doc.detach>Window</doc.detach> that contains the <doc.detach>Page</doc.detach> that you want to instantiate a <doc.detach>Piece</doc.detach> inside.</doc.tabler>
+                        <doc.tabler>putAfterElement=>ELEMENT=>Here you enter an element (or node) that will serve as the basis for instantiating the <doc.detach>Piece</doc.detach>. The element or node must be within the <doc.detach>Page</doc.detach> that is loaded in the <doc.detach>Window</doc.detach> informed in the last parameter. The instantiated <doc.detach>Piece</doc.detach> will be placed right after the element informed in this parameter, and the parent element of the <doc.detach>Piece</doc.detach> will be the same parent element as the element informed in this parameter.</doc.tabler>
+                        <doc.tabler>autoRemoveAnchorElement=>BOOL=>If you enter <doc.detach>true</doc.detach> for this parameter, the anchor element entered in the previous parameter, that is, the element used as the positioning basis for the instantiated <doc.detach>Piece</doc.detach>, will be removed from the DOM immediately after the <doc.detach>Piece</doc.detach> is instantiated.</doc.tabler>
                     </doc.table>
 
                 </doc.topic>
@@ -1163,8 +1182,8 @@ Pieces.InstantiatePieceAfter("Example", "somePiece2", true, "auto", "auto", '{}'
                 <doc.topic topicid="5cf">
                     <doc.topictitle>Pieces: Interacting with Elements/Nodes inside an instantiated Piece</doc.topictitle>
 
-                    Once you have instantiated a <doc.detach>Piece</doc.detach>, and its HTML code has been injected in the desired location, during Runtime, you may want to interact with elements or nodes that are part of the instantiated
-                    <doc.detach>Piece</doc.detach>. Knowing this, Lightmin Engine has a simple system to make this possible.
+                    Once you have instantiated a <doc.detach>Piece</doc.detach>, and its HTML code has been injected in the desired location, during Runtime, you may want to interact with elements (or nodes) that are part of the
+                    instantiated <doc.detach>Piece</doc.detach>. Knowing this, Lightmin Engine has a simple system to make this possible.
                     <br>
                     <br>
                     If you have readed <a href="#5cd">this</a> topic, you know that when instantiating a <doc.detach>Piece</doc.detach>, its HTML code is injected into the desired location, but the <doc.detach>Piece</doc.detach> HTML code
