@@ -1226,7 +1226,6 @@ imageElement.src = "https://example.com/images/newPhoto.png";
 
 
 
-
                 <!-- #region Screens: Inserting a Window to display Pages -->
                 <doc.topic topicid="5dza">
                     <doc.topictitle>Screens: Inserting a Window to display Pages</doc.topictitle>
@@ -1247,24 +1246,51 @@ imageElement.src = "https://example.com/images/newPhoto.png";
 
 
 
+
                 <!-- #region Medias: Where to place Website Media files -->
                 <doc.topic topicid="5ea">
-                    <doc.topictitle>Medias - Where to place Website Media files</doc.topictitle>
+                    <doc.topictitle>Medias: Where to place Website Media files</doc.topictitle>
 
                     On websites created using Lightmin Engine, all media files such as Images, Videos, Icons and others must go to the <doc.detach>medias</doc.detach> folder. This is to ensure greater organization on Lightmin-based
                     websites. Image files should go to <doc.detach>medias/images</doc.detach>, icon files should go to <doc.detach>medias/icons</doc.detach>, sound or music files should go to <doc.detach>medias/sounds</doc.detach>, plain
-                    text files should go to <doc.detach>medias/others</doc.detach>.
+                    text files should go to <doc.detach>medias/text</doc.detach> and so on.
                     <br>
                     <br>
-                    This organization will also allow you to be able to find resources (like images) easily using Lightmin Engine JavaScript API, whether in your <doc.detach>Pages</doc.detach>, <doc.detach>Pieces</doc.detach> or whatever
-                    you want!
+                    This organization will also allow you to be able to find resources (like images) easily using Lightmin Engine API, whether in your <doc.detach>Pages</doc.detach>, <doc.detach>Pieces</doc.detach> or in any other location.
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Medias: How to access or reference Media files -->
+                <doc.topic topicid="5ec">
+                    <doc.topictitle>Medias: How to access or reference Media file</doc.topictitle>
+
+                    Accessing the files in the <doc.detach>medias</doc.detach> folder is really easy on Websites made with Lightmin. Whether it's in CSS/JS code in your <doc.detach>libraries</doc.detach>, in CSS/JS/HTML code in your
+                    <doc.detach>Pieces</doc.detach>, in the HTML code of your <doc.detach>Pages</doc.detach>, in the HTML code of your <doc.detach>Client</doc.detach>, or anywhere else on your Website. You just need to use a path like
+                    <doc.detach>medias/image/example.png</doc.detach>. See the examples below of accessing media from CSS, JavaScript and HTML code.
+                    <doc.code language="html"><code>
+&lt;img src="medias/images/example.png" alt="Example Image" /&gt;
+</code></doc.code>
+                    <doc.code language="css"><code>
+.someClass{
+    font-size: 16px;
+    background-image: url(medias/images/header.png);
+}
+</code></doc.code>
+                    <doc.code language="javascript"><code>
+var imgElement = document.getElementById("carImage");
+imgElement.src = "medias/images/honda-civic.png";
+</code></doc.code>
+                    <doc.info>
+                        The above examples apply to any point on your Website. Just remember that the path must start with <doc.detach>medias/</doc.detach>.
+                    </doc.info>
 
                 </doc.topic>
                 <!-- #endregion -->
 
                 <!-- #region Libaries: Where to place Website CSS & JS code -->
                 <doc.topic topicid="5eb">
-                    <doc.topictitle>Libaries - Where to place Website CSS & JS code</doc.topictitle>
+                    <doc.topictitle>Libaries: Where to place Website CSS & JS code</doc.topictitle>
 
                     Any website worth its salt needs CSS and JavaScript codes to function. With websites made in Lightmin, it's the same thing. Although Lightmin provides a platform for you to create your own dynamic websites, you still
                     need to program the JavaScript that will make your website come to life and the CSS that will make your website look however you want.
@@ -1319,6 +1345,52 @@ function exampleFunction() {
                     Either way, every file that contains CSS should go in directory <doc.detach>libraries/css</doc.detach> on your Website, while every file that contains JavaScript code should go in directory
                     <doc.detach>libraries/js</doc.detach> on your Website. And of course, both type of files must comply with the examples mentioned above, otherwise the Engine will not be able to compile them at the time of initial
                     loading, which could result in problems running your Website.
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Libaries: How to use your JS & CSS of Libraries -->
+                <doc.topic topicid="5ed">
+                    <doc.topictitle>Libaries: How to use your JS & CSS of Libraries</doc.topictitle>
+
+                    Once you have placed your CSS and JS libraries in the <doc.detach>libraries</doc.detach> folder, and registered them in the <doc.detach>manifest.json</doc.detach> file, they will be loaded at the beginning of your
+                    Website. Once they are successfully loaded, your Website will already be using them.
+                    <br>
+                    <br>
+                    So if you created a CSS library with the following code...
+                    <doc.code language="css"><code>
+&lt;?php /* This is a example CSS file for the Lightmin website */ ?&gt;
+
+&lt;style&gt;
+
+.example{
+    background-color: #FF0000;
+}
+
+&lt;/style&gt;
+</code></doc.code>
+                    ... Placed it in <doc.detach>libraries/css</doc.detach> and registered it in the <doc.detach>manifest.json</doc.detach> file, then all you need to do is apply the style to your Website HTML tags, anywhere on your
+                    Website, be it in the <doc.detach>Client</doc.detach>, <doc.detach>Pieces</doc.detach>, <doc.detach>Pages</doc.detach>, etc. As in the example below.
+                    <doc.code language="html"><code>
+&lt;div class="example"&gt;&lt;/div&gt;
+</code></doc.code>
+                    No additional action is required, the CSS library will already be taking effect on your Website as soon as it is loaded at the beginning.
+                    <br>
+                    <br>
+                    The same line of reasoning applies to JavaScript libraries. If you created a JS library with the following code...
+                    <doc.code language="javascript"><code>
+&lt;?php /* This is a example JavaScript file for the Lightmin website */ ?&gt;
+
+&lt;script&gt;
+
+function helloWorld(){
+    console.log("Hello World!");
+}
+
+&lt;/script&gt;
+</code></doc.code>
+                    ... Placed it in <doc.detach>libraries/js</doc.detach> and registered it in the <doc.detach>manifest.json</doc.detach> file, then all you need to do is use the functions, classes, variables and other things from your JS
+                    library, anywhere on your Website.
 
                 </doc.topic>
                 <!-- #endregion -->
