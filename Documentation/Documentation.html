@@ -126,15 +126,21 @@
                         <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8g">Windows<br>.GetWindowIdentifierWhereThePageIsLoaded()</a></li>
                         <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8h">Windows.GetPageUriLoadedInMainWindow()</a></li>
                         <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8i">Windows.LoadPage()</a></li>
-                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8j">Pieces.InstantiatePieceAfter()</a></li>
-                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8k">Pieces.GetComponentInPieceInstance()</a></li>
-                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8l">Pieces.isPieceEnabled()</a></li>
-                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8m">Pieces.SetPieceEnabled()</a></li>
-                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8n">Pieces.GetPieceSize()</a></li>
-                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8o">Pieces.SetPieceSize()</a></li>
-                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8p">Pieces.DestroyPiece()</a></li>
-                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8q">Pieces.<br>GetInstanceIdOfAllInstantiatedPieces<br>InWindow()</a></li>
-                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8r">Pieces.isPieceExistentInsideWindow()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8j">Pieces.<br>CheckByPieceTagsInWindowAndInterpretate()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8k">Pieces.InstantiatePieceAfter()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8l">Pieces.InstantiatePieceInlineAfter()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8m">Pieces.isPieceExistentInsideWindow()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8n">Pieces.DestroyPiece()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8o">Pieces.GetInstanceIdOfAllInstantiated<br>PiecesInWindow()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8p">Pieces.GetPieceMode()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8q">Pieces.isPieceEnabled()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8r">Pieces.SetPieceEnabled()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8s">Pieces.GetPieceSize()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8t">Pieces.SetPieceSize()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8u">Pieces.GetComponentInPieceInstance()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8v">Pieces.TryToDetectPieceInstanceIdAnd<br>OwnerWindowUsingDomElementAsBasis()</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8w">Pieces Individual Data API</a></li>
+                        <li><a class="summaryItem" onclick="GoToDivSmoothly(this);" correspondentTopicId="8x">Pieces Individual Storage API</a></li>
                     </ul>
                     <li class="summarySubItem">Lightmin PHP API</li>
                     <ul>
@@ -1761,49 +1767,143 @@ var successOnCall = Windows.LoadPage("ClientMainWindow", "home.php", null);
                 </doc.topic>
                 <!-- #endregion -->
 
-                <!-- #region Lightmin JS API: Pieces.InstantiatePieceAfter() -->
+                <!-- #region Lightmin JS API: Pieces.CheckByPieceTagsInWindowAndInterpretate() -->
                 <doc.topic topicid="8j">
+                    <doc.topictitle>Lightmin JS API: Pieces.CheckByPieceTagsInWindowAndInterpretate()</doc.topictitle>
+
+                    This method analyzes a <doc.detach>Window</doc.detach> that has a <doc.detach>Page</doc.detach> loaded, then searches for existing <doc.detach>le.piece</doc.detach> Tags in DOM and interprets them, instantiating the
+                    <doc.detach>Pieces</doc.detach> that these Tags request.
+
+                    <doc.code language="javascript"><code>
+//- Pieces.CheckByPieceTagsInWindowAndInterpretate(targetWindowIdentifier);
+//  STRING  targetWindowIdentifier      - The identifier of the Window to be analyzed.
+Pieces.CheckByPieceTagsInWindowAndInterpretate("ClientMainWindow");
+</code></doc.code>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Lightmin JS API: Pieces.InstantiatePieceAfter() -->
+                <doc.topic topicid="8k">
                     <doc.topictitle>Lightmin JS API: Pieces.InstantiatePieceAfter()</doc.topictitle>
 
                     This method is explained in more detail <a href="#5ce">here</a> in this topic. This method allows you to instantiate <doc.detach>Pieces</doc.detach> right after an element that exists within a
                     <doc.detach>Page</doc.detach> that is within any <doc.detach>Window</doc.detach> of your Website.
 
                     <doc.code language="javascript"><code>
-//- Pieces.InstantiatePieceAfter(name, instanceId, enabled, width, height, jsonVariables, targetWindowIdentifier, putAfterElement);
+//- Pieces.InstantiatePieceAfter(name, instanceId, enabled, width, height, jsonVariables, targetWindowIdentifier, putAfterElement, autoRemoveAnchorElement);
 //  STRING  name                    - The name of the Piece file to be instantiated.
 //  STRING  instanceId              - The ID that will be given to this Piece instance.
 //  BOOL    enabled                 - Defines whether the Piece Box (and consequently the entire Piece itself) will be active or not.
 //  STRING  width                   - Defines the width of the Piece Box (and consequently the entire Piece itself). It can be "auto", values in "%" or values in "px".
 //  STRING  height                  - Defines the height of the Piece Box (and consequently the entire Piece itself). It can be "auto", values in "%" or values in "px".
-//  STRING  jsonVariables           - JSON code used to define new values for Piece variables. It's the same JSON code you would put between the "le.piece.instantiate" tags.
+//  STRING  jsonVariables           - JSON code used to define new values for Piece variables. It's the same JSON code you would put between the "le.piece" tags.
 //  STRING  targetWindowIdentifier  - The identifier that refers to the Window in which the Page you want to insert this Piece is located.
 //  ELEMENT putAfterElement         - The element that will be used as the basis for positioning this Piece. It will be placed right after this element.
-Pieces.InstantiatePieceAfter("PieceName", "pieceId", true, "auto", "auto", '{}', "ClientMainWindow", document.getElementById("targetElement"));
+//  BOOL    autoRemoveAnchorElement - If true, remove the element informed in "putAfterElement" parameter, after Piece instantiated.
+Pieces.InstantiatePieceAfter("PieceName", "pieceId", true, "auto", "auto", '{}', "ClientMainWindow", document.getElementById("targetElement"), false);
 </code></doc.code>
 
                 </doc.topic>
                 <!-- #endregion -->
 
-                <!-- #region Lightmin JS API: Pieces.GetComponentInPieceInstance() -->
-                <doc.topic topicid="8k">
-                    <doc.topictitle>Lightmin JS API: Pieces.GetComponentInPieceInstance()</doc.topictitle>
+                <!-- #region Lightmin JS API: Pieces.InstantiatePieceInlineAfter() -->
+                <doc.topic topicid="8l">
+                    <doc.topictitle>Lightmin JS API: Pieces.InstantiatePieceInlineAfter()</doc.topictitle>
 
-                    This method is covered in full detail here in <a href="#5cf">this</a> topic. This method allows you to easily access any element within any instance of any <doc.detach>Piece</doc.detach>. It is necessary that in the
-                    <doc.detach>Piece</doc.detach> HTML code, you make the elements accessible for this method to work. Read this topic to understand how <a href="#5cf">this</a> is done.
+                    This method is explained in more detail <a href="#5ce">here</a> in this topic. This method allows you to instantiate <doc.detach>Pieces</doc.detach> right after an element that exists within a
+                    <doc.detach>Page</doc.detach> that is within any <doc.detach>Window</doc.detach> of your Website. The <doc.detach>Piece</doc.detach> instantiated by this method, will be instantiated in
+                    <doc.detach>Inline</doc.detach> mode.
 
                     <doc.code language="javascript"><code>
-//- Pieces.GetComponentInPieceInstance(targetWindowIdentifier, instanceId, componentId);
+//- Pieces.InstantiatePieceInlineAfter(name, instanceId, enabled, jsonVariables, targetWindowIdentifier, putAfterElement, autoRemoveAnchorElement);
+//  STRING  name                    - The name of the Piece file to be instantiated.
+//  STRING  instanceId              - The ID that will be given to this Piece instance.
+//  BOOL    enabled                 - Defines whether the Piece Box (and consequently the entire Piece itself) will be active or not.
+//  STRING  jsonVariables           - JSON code used to define new values for Piece variables. It's the same JSON code you would put between the "le.piece" tags.
+//  STRING  targetWindowIdentifier  - The identifier that refers to the Window in which the Page you want to insert this Piece is located.
+//  ELEMENT putAfterElement         - The element that will be used as the basis for positioning this Piece. It will be placed right after this element.
+//  BOOL    autoRemoveAnchorElement - If true, remove the element informed in "putAfterElement" parameter, after Piece instantiated.
+Pieces.InstantiatePieceInlineAfter("PieceName", "pieceId", true, '{}', "ClientMainWindow", document.getElementById("targetElement"), false);
+</code></doc.code>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Lightmin JS API: Pieces.isPieceExistentInsideWindow() -->
+                <doc.topic topicid="8m">
+                    <doc.topictitle>Lightmin JS API: Pieces.isPieceExistentInsideWindow()</doc.topictitle>
+
+                    This method returns <doc.detach>true</doc.detach> if a given <doc.detach>Piece</doc.detach> is currently instantiated within a <doc.detach>Page</doc.detach> that is within any <doc.detach>Window</doc.detach>.
+
+                    <doc.code language="javascript"><code>
+//- Pieces.isPieceExistentInsideWindow(targetWindowIdentifier, instanceId);
+// STRING targetWindowIdentifier  - The identifier of the Window in which the Page that the Piece instance is located is located.
+// STRING instanceId              - The ID of the desired Piece instance.
+var pieceExists = Pieces.isPieceExistentInsideWindow("ClientMainWindow", "pieceId");
+</code></doc.code>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Lightmin JS API: Pieces.DestroyPiece() -->
+                <doc.topic topicid="8n">
+                    <doc.topictitle>Lightmin JS API: Pieces.DestroyPiece()</doc.topictitle>
+
+                    This method completely removes an instantiated <doc.detach>Piece</doc.detach> from the <doc.detach>Page</doc.detach> it is on, and consequently from the entire Website DOM.
+
+                    <doc.code language="javascript"><code>
+//- Pieces.DestroyPiece(targetWindowIdentifier, instanceId);
 //  STRING targetWindowIdentifier  - The identifier of the Window in which the Page that the Piece instance is located is located.
 //  STRING instanceId              - The ID of the desired Piece instance.
-//  STRING componentId             - The ID of the Component present within the Piece instance, which you want to access.
-var someElement = Pieces.GetComponentInPieceInstance("ClientMainWindow", "pieceId", "nameTextField");
+Pieces.DestroyPiece("ClientMainWindow", "pieceId");
+</code></doc.code>
+
+                    <doc.warn>
+                        After a <doc.detach>Piece</doc.detach> instance is destroyed, it is also removed from the <doc.detach>Window</doc.detach> Instance ID registry. This means that any operation that attempts to access the destroyed
+                        instance will result in an error, so after destroying a <doc.detach>Piece</doc.detach>, do not attempt to reference or access it again. After destroying a <doc.detach>Piece</doc.detach> instance, you can use its ID
+                        again in a new <doc.detach>Piece</doc.detach> instance. The Instanced IDs registry in <doc.detach>Windows</doc.detach> is reseted every time a new <doc.detach>Page</doc.detach> is loaded in the
+                        <doc.detach>Window</doc.detach>.
+                    </doc.warn>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Lightmin JS API: Pieces.GetInstanceIdOfAllInstantiatedPiecesInWindow() -->
+                <doc.topic topicid="8o">
+                    <doc.topictitle>Lightmin JS API: Pieces.GetInstanceIdOfAllInstantiatedPiecesInWindow()</doc.topictitle>
+
+                    This method returns a list that contains the instance ID of all <doc.detach>Pieces</doc.detach> instantiated within a <doc.detach>Window</doc.detach>. It's a good way to query the registry of IDs
+                    instantiated inside a <doc.detach>Window</doc.detach>.
+
+                    <doc.code language="javascript"><code>
+//- Pieces.GetInstanceIdOfAllInstantiatedPiecesInWindow(targetWindowIdentifier);
+//  STRING targetWindowIdentifier  - The identifier of the Window to consult.
+var instancedIdsArray = Pieces.GetInstanceIdOfAllInstantiatedPiecesInWindow("ClientMainWindow");
+</code></doc.code>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Lightmin JS API: Pieces.GetPieceMode() -->
+                <doc.topic topicid="8p">
+                    <doc.topictitle>Lightmin JS API: Pieces.GetPieceMode()</doc.topictitle>
+
+                    This method returns a <doc.detach>string</doc.detach> indicating the type of <doc.detach>Piece</doc.detach> in question, that is, how it was instantiated. The returned value can be <doc.detach>default</doc.detach> or
+                    <doc.detach>inline</doc.detach>.
+
+                    <doc.code language="javascript"><code>
+//- Pieces.GetPieceMode(targetWindowIdentifier, instanceId);
+//  STRING targetWindowIdentifier  - The identifier of the Window to consult.
+//  STRING instanceId              - The instance ID of the Piece to be checked.
+var pieceMode = Pieces.GetPieceMode("ClientMainWindow", "pieceExample");
 </code></doc.code>
 
                 </doc.topic>
                 <!-- #endregion -->
 
                 <!-- #region Lightmin JS API: Pieces.isPieceEnabled() -->
-                <doc.topic topicid="8l">
+                <doc.topic topicid="8q">
                     <doc.topictitle>Lightmin JS API: Pieces.isPieceEnabled()</doc.topictitle>
 
                     This method returns <doc.detach>true</doc.detach> if the target <doc.detach>Piece</doc.detach> Box is enabled (and consequently the entire <doc.detach>Piece</doc.detach>).
@@ -1819,10 +1919,10 @@ var isEnabled = Pieces.isPieceEnabled("ClientMainWindow", "pieceId");
                 <!-- #endregion -->
 
                 <!-- #region Lightmin JS API: Pieces.SetPieceEnabled() -->
-                <doc.topic topicid="8m">
+                <doc.topic topicid="8r">
                     <doc.topictitle>Lightmin JS API: Pieces.SetPieceEnabled()</doc.topictitle>
 
-                    With this method you can set the Box of a <doc.detach>Piece</doc.detach> instance enabled or disabled (and consequently the entire <doc.detach>Piece</doc.detach>).
+                    With this method you can set the Box of a <doc.detach>Piece</doc.detach> instance, enabled or disabled (and consequently the entire <doc.detach>Piece</doc.detach>).
 
                     <doc.code language="javascript"><code>
 //- Pieces.SetPieceEnabled(targetWindowIdentifier, instanceId, enabled);
@@ -1836,10 +1936,10 @@ Pieces.SetPieceEnabled("ClientMainWindow", "pieceId", true);
                 <!-- #endregion -->
 
                 <!-- #region Lightmin JS API: Pieces.GetPieceSize() -->
-                <doc.topic topicid="8n">
+                <doc.topic topicid="8s">
                     <doc.topictitle>Lightmin JS API: Pieces.GetPieceSize()</doc.topictitle>
 
-                    With this method you can get the current width and height of a <doc.detach>Piece</doc.detach> instance Box.
+                    With this method you can get the current <doc.detach>width</doc.detach> and <doc.detach>height</doc.detach> of a <doc.detach>Piece</doc.detach> instance Box.
 
                     <doc.code language="javascript"><code>
 //- Pieces.GetPieceSize(targetWindowIdentifier, instanceId);
@@ -1854,10 +1954,11 @@ var height = sizeData.height;
                 <!-- #endregion -->
 
                 <!-- #region Lightmin JS API: Pieces.SetPieceSize() -->
-                <doc.topic topicid="8o">
+                <doc.topic topicid="8t">
                     <doc.topictitle>Lightmin JS API: Pieces.SetPieceSize()</doc.topictitle>
 
-                    With this method you can define the current width and height of a <doc.detach>Piece</doc.detach> instance box (and consequently affect the size of the entire <doc.detach>Piece</doc.detach> itself).
+                    With this method you can define the current <doc.detach>width</doc.detach> and <doc.detach>height</doc.detach> of a <doc.detach>Piece</doc.detach> instance box (and consequently affect the size of the entire
+                    <doc.detach>Piece</doc.detach> itself).
 
                     <doc.code language="javascript"><code>
 //- Pieces.SetPieceSize(targetWindowIdentifier, instanceId, newWidth, newHeight);
@@ -1871,64 +1972,176 @@ Pieces.SetPieceSize("ClientMainWindow", "pieceId", "auto", "100px");
                 </doc.topic>
                 <!-- #endregion -->
 
-                <!-- #region Lightmin JS API: Pieces.DestroyPiece() -->
-                <doc.topic topicid="8p">
-                    <doc.topictitle>Lightmin JS API: Pieces.DestroyPiece()</doc.topictitle>
+                <!-- #region Lightmin JS API: Pieces.GetComponentInPieceInstance() -->
+                <doc.topic topicid="8u">
+                    <doc.topictitle>Lightmin JS API: Pieces.GetComponentInPieceInstance()</doc.topictitle>
 
-                    This method completely removes an instantiated <doc.detach>Piece</doc.detach> from the <doc.detach>Page</doc.detach> it is on, and consequently from the entire Website DOM.
+                    This method is covered in full detail here in <a href="#5cf">this</a> topic. This method allows you to easily access any element INSIDE any instance of a <doc.detach>Piece</doc.detach>. It is necessary that in the
+                    <doc.detach>Piece</doc.detach> HTML code, you make the elements accessible for this method to work. Read this topic to understand how <a href="#5cf">this</a> is done.
 
                     <doc.code language="javascript"><code>
-//- Pieces.DestroyPiece(targetWindowIdentifier, instanceId);
+//- Pieces.GetComponentInPieceInstance(targetWindowIdentifier, instanceId, componentId);
 //  STRING targetWindowIdentifier  - The identifier of the Window in which the Page that the Piece instance is located is located.
 //  STRING instanceId              - The ID of the desired Piece instance.
-Pieces.DestroyPiece("ClientMainWindow", "pieceId");
+//  STRING componentId             - The ID of the Component present within the Piece instance, which you want to access.
+var someElement = Pieces.GetComponentInPieceInstance("ClientMainWindow", "pieceId", "nameTextField");
 </code></doc.code>
 
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Lightmin JS API: Pieces.TryToDetectPieceInstanceIdAndOwnerWindowUsingDomElementAsBasis() -->
+                <doc.topic topicid="8v">
+                    <doc.topictitle>Lightmin JS API: Pieces.TryToDetectPieceInstanceIdAndOwnerWindowUsingDomElementAsBasis()</doc.topictitle>
+
+                    Sometimes you may have a reference to a DOM Element that belongs to a <doc.detach>Piece</doc.detach> Instance, but you don't know which <doc.detach>Piece</doc.detach> Instance that DOM Element belongs to. This method can
+                    help you with that. When you pass a reference to the DOM Element you have to this method, it will check if that DOM Element belongs to a <doc.detach>Piece</doc.detach> Instance. If it does, it will return the
+                    <doc.detach>Piece</doc.detach> Instance ID and the <doc.detach>Window</doc.detach> Identifier that the <doc.detach>Piece</doc.detach> is in.
+
+                    <doc.code language="javascript"><code>
+//- Pieces.TryToDetectPieceInstanceIdAndOwnerWindowUsingDomElementAsBasis(domElement);
+//  ELEMENT domElement          - The DOM Element to be used as basis for Piece detection.
+var detectionData = Pieces.TryToDetectPieceInstanceIdAndOwnerWindowUsingDomElementAsBasis(document.getElementById("targetElement"));
+var isPieceDetected = detectionData.pieceDetected;
+var pieceOwnerWindowId = detectionData.ownerWindow;
+var pieceInstanceId = detectionData.instanceId;
+</code></doc.code>
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Lightmin JS API: Pieces Individual Data API -->
+                <doc.topic topicid="8w">
+                    <doc.topictitle>Lightmin JS API: Pieces Individual Data API</doc.topictitle>
+
+                    The <doc.detach>Individual Data</doc.detach> API provides a super easy and convenient way to store data in <doc.detach>Piece</doc.detach> Instances individually. That is, each <doc.detach>Piece</doc.detach> can have
+                    different data stored in it, with a simple Read and Write system.
+                    <br>
+                    <br>
+                    Since all instances of a <doc.detach>Piece</doc.detach> share the same <doc.detach>Piece</doc.detach> JavaScript code, you may want to store data for each <doc.detach>Piece</doc.detach> individually, but since
+                    <doc.detach>Piece</doc.detach> methods and variables need to be <doc.detach>static</doc.detach>, this is not possible. That's why this API can help.
+                    <br>
+                    <br>
+                    This API provides a simple way to store data individually in each <doc.detach>Piece</doc.detach>, in an easy way. The downside is that this API can only handle primitive data (<doc.detach>bool</doc.detach>,
+                    <doc.detach>float</doc.detach>, <doc.detach>int</doc.detach> and <doc.detach>string</doc.detach>) and there may be a performance hit if there are many, many Reads and Writes per second. In terms of management, there is
+                    no management required on your part to control this data. You only need to worry about Reading and/or Writing the data. If the <doc.detach>Piece</doc.detach> instance is destroyed (by API or by unloading its
+                    <doc.detach>Page</doc.detach>), the data saved in the <doc.detach>Piece</doc.detach> instance will also be destroyed.
+                    <br>
+                    <br>
+                    To save data into a <doc.detach>Piece</doc.detach> instance, you will only need to provide the <doc.detach>Piece</doc.detach> Instance ID, <doc.detach>Window</doc.detach> identifier, a <doc.detach>Key</doc.detach>
+                    (which serves as the name of a Value Slot) and the <doc.detach>Value</doc.detach> to be saved, as shown in the example below...
+                    <doc.code language="javascript"><code>
+Pieces.SetInIndividualDataOfPiece("ClientMainWindow", "instanceId", "CarBrand", "Honda");
+Pieces.SetInIndividualDataOfPiece("ClientMainWindow", "instanceId", "CarYear", 2021);
+</code></doc.code>
+                    If you provide a new <doc.detach>Value</doc.detach> for a <doc.detach>Key</doc.detach> that has already received a <doc.detach>Value</doc.detach> before, then that <doc.detach>Key</doc.detach> will be updated to
+                    contain only the new <doc.detach>Value</doc.detach> provided.
+                    <br>
+                    <br>
+                    To read the <doc.detach>Value</doc.detach> contained in a <doc.detach>Key</doc.detach>, you will only need to inform the Instance ID of a <doc.detach>Piece</doc.detach>, the identifier of the
+                    <doc.detach>Window</doc.detach> that contains it, and the <doc.detach>Key</doc.detach> that contains the <doc.detach>Value</doc.detach> to be read, as per the example below...
+                    <doc.code language="javascript"><code>
+var carBrand = Pieces.GetOfIndividualDataOfPiece("ClientMainWindow", "instanceId", "CarBrand");
+var carYear = Pieces.GetOfIndividualDataOfPiece("ClientMainWindow", "instanceId", "CarYear");
+</code></doc.code>
+                    That's all you need to know about the <doc.detach>Individual Data</doc.detach> API.
+
+                </doc.topic>
+                <!-- #endregion -->
+
+                <!-- #region Lightmin JS API: Pieces Individual Storage API -->
+                <doc.topic topicid="8x">
+                    <doc.topictitle>Lightmin JS API: Pieces Individual Storage API</doc.topictitle>
+
+                    The <doc.detach>Individual Storage</doc.detach> API provides a slightly more complex way to store data in <doc.detach>Piece</doc.detach> Instances individually, that is, each <doc.detach>Piece</doc.detach> instance can
+                    contain different data stored in it.
+                    <br>
+                    <br>
+                    Since all instances of a <doc.detach>Piece</doc.detach> share the same <doc.detach>Piece</doc.detach> JavaScript code, you may want to store data for each <doc.detach>Piece</doc.detach> individually, but since
+                    <doc.detach>Piece</doc.detach> methods and variables need to be <doc.detach>static</doc.detach>, this is not possible. That's why this API can help.
+                    <br>
+                    <br>
+                    This API provides a somewhat complex way to store data individually in <doc.detach>Piece</doc.detach> Instances. Although it is somewhat complex, this API can store any type of data (<doc.detach>float</doc.detach>,
+                    <doc.detach>int</doc.detach>, <doc.detach>string</doc.detach>, <doc.detach>bool</doc.detach>, <doc.detach>object</doc.detach>, <doc.detach>reference</doc.detach>, <doc.detach>array</doc.detach>, etc) while maintaining
+                    good performance. The downside is that this API is not "just use", it also requires some management on your part when developing your <doc.detach>Piece</doc.detach> that will use it.
+                    <br>
+                    <br>
+                    If your <doc.detach>Piece</doc.detach> will use this API, then your <doc.detach>Piece</doc.detach> needs to notify the Engine whenever a new Instance of your <doc.detach>Piece</doc.detach> is created. This way, the
+                    Engine can allocate data storage space for each instance of your <doc.detach>Piece</doc.detach>. You can notify the Engine about created instances, using the <doc.detach>OnInstantiate()</doc.detach> callback that can be
+                    inserted in the JS code of your <doc.detach>Piece</doc.detach>, in addition to the <doc.detach>Pieces.IndividualStorage.AllocateForPieceInstance()</doc.detach> method, as shown below...
+                    <doc.code language="javascript"><code>
+class Piece_Example {
+    static OnInstantiate(inWindowId, pieceInstanceId) {
+        Pieces.IndividualStorage.AllocateForPieceInstance(inWindowId, pieceInstanceId);
+    }
+}
+</code></doc.code>
                     <doc.warn>
-                        Although this method completely deletes an instantiated <doc.detach>Piece</doc.detach>, the instance ID used in the removed <doc.detach>Piece</doc.detach> is still registered in the <doc.detach>Window</doc.detach>
-                        that contains the <doc.detach>Page</doc.detach> that the <doc.detach>Piece</doc.detach> was on. Therefore, even after destroying a <doc.detach>Piece</doc.detach>, you will not be able to use the ID of the destroyed
-                        <doc.detach>Piece</doc.detach> to instantiate another <doc.detach>Piece</doc.detach>. The instanced IDs registry in <doc.detach>Windows</doc.detach> is reseted every time a <doc.detach>Page</doc.detach> is loaded.
+                        If no space is allocated for instances in your <doc.detach>Piece</doc.detach>, then you will not be able to access <doc.detach>Individual Storage</doc.detach> on your <doc.detach>Piece</doc.detach>.
                     </doc.warn>
-
-                </doc.topic>
-                <!-- #endregion -->
-
-                <!-- #region Lightmin JS API: Pieces.GetInstanceIdOfAllInstantiatedPiecesInWindow() -->
-                <doc.topic topicid="8q">
-                    <doc.topictitle>Lightmin JS API: Pieces.GetInstanceIdOfAllInstantiatedPiecesInWindow()</doc.topictitle>
-
-                    This method returns a list that contains the ID of all <doc.detach>Pieces</doc.detach> instantiated within a <doc.detach>Window</doc.detach>. It's a good way to query the registry of IDs
-                    instantiated from a <doc.detach>Window</doc.detach>.
-
+                    <br>
+                    In addition to informing whenever an instance of your <doc.detach>Piece</doc.detach> is created, your <doc.detach>Piece</doc.detach> also needs to inform the Engine whenever an instance of your
+                    <doc.detach>Piece</doc.detach> is destroyed, that is, when it is destroyed by the JS API or when the <doc.detach>Page</doc.detach> it is on is unloaded. This way, the Engine can deallocate the space that was previously
+                    reserved for your <doc.detach>Piece</doc.detach> instance. This notification can be done using the <doc.detach>OnDestroy()</doc.detach> callback that can be inserted into your <doc.detach>Piece</doc.detach> JS code, in
+                    addition to the <doc.detach>Pieces.IndividualStorage.DisposeOfPieceInstance()</doc.detach> method, as shown below...
                     <doc.code language="javascript"><code>
-//- Pieces.GetInstanceIdOfAllInstantiatedPiecesInWindow(targetWindowIdentifier);
-//  STRING targetWindowIdentifier  - The identifier of the Window to consult.
-var instancedIdsArray = Pieces.GetInstanceIdOfAllInstantiatedPiecesInWindow("ClientMainWindow");
+class Piece_Example {
+    static OnDestroy(inWindowId, pieceInstanceId) {
+        Pieces.IndividualStorage.DisposeOfPieceInstance(inWindowId, pieceInstanceId);
+    }
+}
 </code></doc.code>
-
-                </doc.topic>
-                <!-- #endregion -->
-
-                <!-- #region Lightmin JS API: Pieces.isPieceExistentInsideWindow() -->
-                <doc.topic topicid="8r">
-                    <doc.topictitle>Lightmin JS API: Pieces.isPieceExistentInsideWindow()</doc.topictitle>
-
-                    This method returns <doc.detach>true</doc.detach> if a given <doc.detach>Piece</doc.detach> is currently instantiated within a <doc.detach>Page</doc.detach> that is within any <doc.detach>Window</doc.detach>.
-
+                    <doc.warn>
+                        If you do not notify the Engine when instances of your <doc.detach>Piece</doc.detach> are destroyed, the Engine will not deallocate the previously reserved spaces. Eventually, everything will pile up and may cause
+                        performance issues and other errors.
+                    </doc.warn>
+                    <doc.info>
+                        When an instance of your <doc.detach>Piece</doc.detach> is destroyed, and your <doc.detach>Piece</doc.detach> notifies the Engine, the Engine will deallocate the storage space previously reserved for that instance of
+                        your <doc.detach>Piece</doc.detach>, meaning that the data that was stored there will also be discarded.
+                    </doc.info>
+                    <br>
+                    If you want to check if an instance of your <doc.detach>Piece</doc.detach> has space allocated for it in the Engine <doc.detach>Individual Storage</doc.detach>, you can use the
+                    <doc.detach>Pieces.IndividualStorage.isSpaceAllocatedForPieceInstance()</doc.detach> method, it will return <doc.detach>true</doc.detach> if there is a space allocated for the <doc.detach>Piece</doc.detach> instance, as
+                    shown in the example below...
                     <doc.code language="javascript"><code>
-//- Pieces.isPieceExistentInsideWindow(targetWindowIdentifier, instanceId);
-// STRING targetWindowIdentifier - The identifier of the Window in which the Page that the Piece instance is located is located.
-// STRING instanceId             - The ID of the desired Piece instance.
-var pieceExists = Pieces.isPieceExistentInsideWindow("ClientMainWindow", "pieceId");
+var isSpaceAllocated = Pieces.IndividualStorage.isSpaceAllocatedForPieceInstance("ClientMainWindow", "pieceInstanceId");
 </code></doc.code>
+                    <br>
+                    Now that you know the basics needed to use the <doc.detach>Individual Storage</doc.detach> API, let's move on to the interesting stuff. To save data into a <doc.detach>Piece</doc.detach> instance, you will only need to
+                    provide the <doc.detach>Piece</doc.detach> Instance ID, <doc.detach>Window</doc.detach> identifier, a <doc.detach>Key</doc.detach> (which serves as the name of a Value Slot) and the <doc.detach>Value</doc.detach> to be
+                    saved, as shown in the example below...
+                    <doc.code language="javascript"><code>
+Pieces.IndividualStorage.StoreInPieceInstance("ClientMainWindow", "instanceId", "CarBrand", "Ford");
+Pieces.IndividualStorage.StoreInPieceInstance("ClientMainWindow", "instanceId", "CarYear", 2015);
+Pieces.IndividualStorage.StoreInPieceInstance("ClientMainWindow", "instanceId", "CarColors", ["Black", "Blue", "Orange"]);
+</code></doc.code>
+                    If you provide a new <doc.detach>Value</doc.detach> for a <doc.detach>Key</doc.detach> that has already received a <doc.detach>Value</doc.detach> before, then that <doc.detach>Key</doc.detach> will be updated to contain
+                    only the new <doc.detach>Value</doc.detach> provided.
+                    <br>
+                    <br>
+                    To read the <doc.detach>Value</doc.detach> contained in a <doc.detach>Key</doc.detach>, you will only need to inform the Instance ID of a <doc.detach>Piece</doc.detach>, the identifier of the
+                    <doc.detach>Window</doc.detach> that contains it, and the <doc.detach>Key</doc.detach> that contains the <doc.detach>Value</doc.detach> to be read, as per the example below...
+                    <doc.code language="javascript"><code>
+var carBrand = Pieces.IndividualStorage.RetrieveOfPieceInstance("ClientMainWindow", "instanceId", "CarBrand");
+var carYear = Pieces.IndividualStorage.RetrieveOfPieceInstance("ClientMainWindow", "instanceId", "CarYear");
+var carColors = Pieces.IndividualStorage.RetrieveOfPieceInstance("ClientMainWindow", "instanceId", "CarColors");
+</code></doc.code>
+                    <br>
+                    If you want to view all the data currently stored in the <doc.detach>Individual Storage</doc.detach> of an instance of your <doc.detach>Piece</doc.detach>, you can use the
+                    <doc.detach>Pieces.IndividualStorage.DebugPieceInstance()</doc.detach> method, informing the instance ID of your <doc.detach>Piece</doc.detach> and the identifier of the <doc.detach>Window</doc.detach> in which it is,
+                    as below. This will display the data in the Browser Console.
+                    <doc.code language="javascript"><code>
+Pieces.IndividualStorage.DebugPieceInstance("ClientMainWindow", "instanceId");
+</code></doc.code>
+                    But if you want to view ALL data currently stored in <doc.detach>Individual Storage</doc.detach>, from ALL instances of ALL <doc.detach>Pieces</doc.detach> of your Website, you can use the
+                    <doc.detach>Pieces.IndividualStorage.DebugAllPiecesInstances()</doc.detach> method, which will also produce a result in your Browser Console.
+                    <doc.code language="javascript"><code>
+Pieces.IndividualStorage.DebugAllPiecesInstances();
+</code></doc.code>
+                    That's all you need to know about the <doc.detach>Individual Storage</doc.detach> API.
 
                 </doc.topic>
                 <!-- #endregion -->
-
-
-
-
-
 
                 <!-- #region Lightmin PHP API: About -->
                 <doc.topic topicid="9">
