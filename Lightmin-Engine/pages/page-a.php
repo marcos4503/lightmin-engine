@@ -68,6 +68,7 @@
         <!-- -->
         <br/>
         <br/>
+        <img src="medias/images/client/github.png" width="16px" />
         <hr id="testing2"/>
         <hr id="testing5"/>
     </body>
